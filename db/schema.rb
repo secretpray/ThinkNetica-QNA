@@ -10,16 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_23_192251) do
+ActiveRecord::Schema.define(version: 2020_12_24_181549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "questions", force: :cascade do |t|
-    t.string "title"
-    t.text "body"
+  create_table "answers", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "body", null: false
+    t.bigint "question_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["title"], name: "index_answers_on_title"
   end
 
+  create_table "questions", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "body", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["title"], name: "index_questions_on_title", unique: true
+  end
+
+  add_foreign_key "answers", "questions"
 end
