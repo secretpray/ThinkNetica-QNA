@@ -11,7 +11,7 @@ DATA = [
 DATA.first.each do |question, answers|
   db_question = Question.create!(title: question, body: question)
   answers.each do |answer|
-    Answer.create!(title: answer, body: answer, question_id: db_question.id)
+    Answer.create!(body: answer, question_id: db_question.id)
   end
 end
 
