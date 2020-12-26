@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   root 'questions#index'
 
   resources :questions do
-    resources :answers, only: %i(new create)
+    resources :answers, except: %i(index show)
   end
-
 end

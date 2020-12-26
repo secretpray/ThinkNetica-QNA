@@ -1,8 +1,4 @@
 class QuestionsController < ApplicationController
-    # before_action :load_question, only: %i(show edit update destroy)
-    # expose :questions, -> { Question.all }
-    # expose :questionб, -> { question_params }
-
   def index
     @questions = Question.order('created_at DESC')
   end
