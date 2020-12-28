@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  before_action :find_question, only: %i(show edit update destroy)
+
   def index
     @questions = Question.order(created_at: :desc)
   end
@@ -13,7 +15,7 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
 
     if @question.save
-      redirect_to question, notice: 'Question created successfully'
+      redirect_to @question, notice: 'Question created successfully'
     else
       render :new
     end
@@ -22,25 +24,23 @@ class QuestionsController < ApplicationController
   def edit; end
 
   def update
-    if question.update(question_params)
-      redirect_to question, notice: 'Question updated successfully'
+    if @question.update(question_params)
+      redirect_to @question, notice: 'Question updated successfully'
     else
       render :edit
     end
   end
 
   def destroy
-    question.destroy
+    @question.destroy
     redirect_to questions_path, notice: 'Question deleted successfully'
   end
 
   private
 
-  def question
-    @question ||= Question.find(params[:id])
+  def find_question
+    @question = Question.find(params[:id])
   end
-
-  helper_method :question
 
   def question_params
     params.require(:question).permit(:title, :body)

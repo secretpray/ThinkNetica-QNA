@@ -97,7 +97,7 @@ RSpec.describe AnswersController, type: :controller do
     let!(:question) { create(:question) }
     let!(:answer) { create(:answer, question: question) }
 
-    it 'deletes the answe' do
+    it 'deletes the answer' do
       expect { delete :destroy, params: { question_id: question, id: answer } }.to change(Answer, :count).by(-1)
     end
 
