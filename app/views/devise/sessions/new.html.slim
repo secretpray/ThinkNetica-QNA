@@ -1,0 +1,11 @@
+div.devise-form
+  h2 Log in
+  = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    .form-inputs
+      = f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email", placeholder: "example@mail.com", class: "form-control" }, label: 'Email address', label_html: { class: 'label' }
+      = f.input :password, required: true, input_html: { autocomplete: "current-password", class: "form-control" }, label_html: { class: 'label' }
+      = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+    .form-actions
+      = f.button :submit, "Log in"
+    br
+  = render "devise/shared/links"

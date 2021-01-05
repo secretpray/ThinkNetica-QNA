@@ -1,0 +1,13 @@
+= simple_form_for([:question, @question, @answer], local: true) do |f|
+  = render 'shared/errors', resource: @answer
+  div
+  br
+    = f.text_area :body, class: "text-area form-control"
+
+  .button-group
+    button#back-answer.edit-question
+      = link_to 'Back', question_path(@answer.question)
+    - if @answer.new_record?
+      p= f.submit 'Create', class: "add-answer", id: "add-answer"
+    - else
+      p= f.submit 'Update', class: "add-answer", id: "add-answer"

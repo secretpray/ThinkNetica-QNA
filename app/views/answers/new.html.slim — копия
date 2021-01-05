@@ -1,0 +1,11 @@
+= simple_form_for([@question, @answer], local: true) do |f|
+  = render 'shared/errors', resource:  @answer
+  p
+    = f.label :body
+    = f.text_area :body
+
+  - if @answer.new_record?
+    p= f.submit 'Create'
+  - else
+    p= f.submit 'Update'
+end

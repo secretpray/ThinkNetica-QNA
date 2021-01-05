@@ -1,8 +1,9 @@
 class QuestionsController < ApplicationController
+  before_action :authenticate_user!, except: %i(index show)
   before_action :find_question, only: %i(show edit update destroy)
 
   def index
-    @questions = Question.order(created_at: :desc)
+    @questions = Question.all
   end
 
   def show; end
@@ -13,6 +14,7 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
+    @question.user_id = current_user.id
 
     if @question.save
       redirect_to @question, notice: 'Question created successfully'
@@ -43,6 +45,6 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, :user_id)
   end
 end
