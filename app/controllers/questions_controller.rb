@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: %i(index show)
-  before_action :find_question, only: %i(show edit update destroy)
+  before_action :find_question, only: %i[show edit update destroy]
+  before_action :check_author, only: %i[update destroy]
 
   def index
     @questions = Question.all
@@ -42,6 +43,12 @@ class QuestionsController < ApplicationController
 
   def find_question
     @question = Question.find(params[:id])
+  end
+
+  def check_author
+    if !current_user&.author?(@question)
+      return redirect_to questions_path, alert: 'You are not authorized to perform this operation.'
+    end
   end
 
   def question_params

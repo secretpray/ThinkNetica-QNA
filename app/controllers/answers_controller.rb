@@ -1,8 +1,8 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, except: (:show)
-  before_action :find_question, only: %i(new create)
-  before_action :set_answer, only: %i(show edit update destroy)
-  respond_to :html, :json
+  before_action :authenticate_user!, except: :show
+  before_action :find_question, only: %i[new create]
+  before_action :find_answer, only: %i[show edit update destroy]
+  before_action :check_author, only: %i[edit update destroy]
 
   def new
     @answer = @question.answers.new
@@ -20,7 +20,6 @@ class AnswersController < ApplicationController
         format.html { redirect_to question_path(@question) }
         format.json { render json: @answer.errors, status: :unprocessable_entity }
         flash[:alert] = @answer.errors.full_messages.join(', ')
-        # binding.pry
       end
     end
   end
@@ -37,7 +36,6 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer.destroy
-
     redirect_to @answer.question, notice: 'Answer deleted successfully'
   end
 
@@ -47,8 +45,16 @@ class AnswersController < ApplicationController
     @question = Question.find(params[:question_id])
   end
 
-  def set_answer
-    @answer = Answer.find(params[:id])
+  def find_answer
+    @question = Question.find(params[:question_id])
+    @answer = @question.answers.find(params[:id])
+  end
+
+
+  def check_author
+    if !current_user&.author?(@answer)
+      return redirect_to @answer.question, alert: 'You are not authorized to perform this operation.'
+    end
   end
 
   def answer_params

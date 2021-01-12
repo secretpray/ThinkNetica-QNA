@@ -30,7 +30,7 @@ br
         | &nbspago by&nbsp
         strong= answer.user.email
 
-      - if user_signed_in? && current_user.id == answer.user_id
+      - if current_user&.author?(answer)
         #button-inline.button-group
           button.edit-question
             = link_to 'Edit', edit_question_answer_path(answer.question, answer)

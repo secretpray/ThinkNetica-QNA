@@ -21,11 +21,10 @@ feature 'User can delete his question', %q{
 
     before(:all) do
       Capybara.javascript_driver = :apparition # Add JS support without other driver!!!
-      # Capybara.current_driver = :selenium
-      # Capybara.current_driver = :webkit
     end
 
     scenario 'delete his question' do
+
       visit root_path
       expect(page).to have_content 'Delete'
       accept_confirm do

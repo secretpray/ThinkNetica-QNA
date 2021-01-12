@@ -1,4 +1,4 @@
-= simple_form_for([:question, @question, @answer], local: true) do |f|
+= simple_form_for([@question, @answer], local: true) do |f|
   = render 'shared/errors', resource: @answer
   div
   br

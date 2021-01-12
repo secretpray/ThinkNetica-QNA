@@ -22,7 +22,9 @@ USERS.each do |user|
 end
 
 DATA.first.each do |question, answers|
-  random_user_id = User.offset(rand(User.count)).first.id
+  # random_user_id = User.offset(rand(User.count)).first.id
+  # random_user_id = User.select(:id).order('RANDOM()').limit(1).join.to_i
+  random_user_id = User.find(User.pluck(:id).sample).id
   db_question = Question.create!(title: question, body: question, user_id: random_user_id)
   answers.each do |answer|
     random_id = User.offset(rand(User.count)).first.id

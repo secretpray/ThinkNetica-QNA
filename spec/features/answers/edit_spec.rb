@@ -23,6 +23,8 @@ feature 'User can edit his answer', %q{
     end
 
     scenario 'edits his answer' do
+      question.user_id = user.id
+
       visit question_path(question)
       click_on('Edit', match: :first)
 
@@ -36,10 +38,11 @@ feature 'User can edit his answer', %q{
     end
 
     scenario 'edits his answer with errors' do
+      question.user_id = user.id
+
       visit question_path(question)
       click_on('Edit', match: :first)
 
-      # binding.pry
       visit edit_question_answer_path(question, answer.id)
       fill_in 'answer_body', with: ''
       click_on 'Update'

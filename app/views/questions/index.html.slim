@@ -3,10 +3,9 @@ h1 List a question
   ul
   - @questions.each do |q|
     li= link_to q.title, q
-    - if user_signed_in? && current_user.id == q.user_id
+    - if current_user&.author?(q)
       button.edit-question
         = link_to 'Edit', edit_question_path(q)
-
       button.delete-question
         = link_to 'Delete', question_path(q), method: :delete, data: { confirm: 'Are you sure?'}
 

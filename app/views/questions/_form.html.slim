@@ -1,6 +1,5 @@
 = simple_form_for @question, local: true do |f|
   = render 'shared/errors', resource: @question
-  = render 'shared/errors', resource: @answer
   div
   br
     = f.text_field :title, class: "text-input", placeholder: 'Title'
