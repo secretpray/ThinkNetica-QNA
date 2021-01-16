@@ -1,2 +1,4 @@
-= form_with model: @answer do
-end
+h1
+  | Editing comment
+= render 'form', resource: [@answer.question, @answer]
+

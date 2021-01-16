@@ -1,0 +1,8 @@
+= simple_form_for([@question, @question.answers.build], local: true) do |f|
+
+  = render 'shared/errors', resource: @answer
+  div
+    /*= f.input :body, label: t('body'), input_html: { class: "text-area form-control" }, required: true, placeholder: 'Body'
+    = f.input :body, label: false, input_html: { class: "text-area form-control" }, required: true, placeholder: '*Body (required)'
+  br
+  p= f.submit 'Create', class: "add-answer", id: "add-answer"
