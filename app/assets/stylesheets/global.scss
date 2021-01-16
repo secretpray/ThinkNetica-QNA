@@ -45,6 +45,52 @@ html, body, html * {
     100% { opacity: 0; height: 0;}
 }
 
+#errors-answer {
+  overflow: hidden;
+}
+
+.hide {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+// Autohide class for Errors
+.fadeout {
+  overflow: hidden;
+  opacity: 1;
+  animation: fade 2s ease-in-out 5s;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+    transform: translateY(0%);
+    }
+  25% {
+    opacity: 0.75;
+    transform: translateY(-25%);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(-50%);
+  }
+  75% {
+    transform: translateY(-75%);
+    opacity: 0.25;
+  }
+  95% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
 // Jumbotron
 .content {
   margin: 3rem 0 0 0;

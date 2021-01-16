@@ -1,19 +1,36 @@
 document.addEventListener('turbolinks:load', function() {
    // Timeout autohide flash notice
   const notice = document.getElementById('flash-notice');
-  if (notice) fadeOut(notice, 5000)
+  if (notice) fadeOut(notice)
 
   // Timeout autohide flash alert
   const alert = document.getElementById('flash-alert');
-  if (alert) fadeOut(alert, 7000)
+  if (alert) fadeOut(alert)
 
   // Timeout autohide Devise error
   const deviseErrorExplanation = document.getElementById('error_explanation');
-  if (deviseErrorExplanation) fadeOut(deviseErrorExplanation, 7000)
+  if (deviseErrorExplanation) fadeOut(deviseErrorExplanation)
 
-  function fadeOut(object, time) {
-    window.setTimeout(function() {
-      object.classList.add('fade-out')
-    }, time);
+
+  function fadeOut(object) {
+    if (object) {
+      object.classList.add('fadeout');
+      window.setTimeout(function() {
+        object.innerText = '';
+        object.remove();
+      }, 7000);
+    }
+  }
+
+  // For inline errors only
+  const answerObserver = document.querySelector("#errors-answer");
+
+  const observer = new MutationObserver(function() {
+    const inlineError = document.getElementById('errors-content')
+    fadeOut(inlineError)
+  });
+
+  if (answerObserver) {
+    observer.observe(answerObserver, {childList: true, subtree: true });
   }
 })
