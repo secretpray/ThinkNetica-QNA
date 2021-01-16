@@ -31,13 +31,6 @@ feature 'User can delete his question', %q{
         page.click_link("Delete")
       end
       
-      ####### JS testig (other variant) ##############
-      # page.driver.browser.switch_to.alert.accept
-      # dialog.text.should = "Are you sure?"
-      # dialog.accept
-      # or
-      # dialog.dismiss
-
       expect(page).to_not have_content question.title
     end
 

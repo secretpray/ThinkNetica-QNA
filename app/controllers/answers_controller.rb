@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, except: :show
-  before_action :find_question, only: %i[new create]
+  before_action :find_question, only: [:new, :create]
   before_action :find_answer, only: %i[show edit update destroy]
   before_action :check_author, only: %i[edit update destroy]
 
@@ -15,10 +15,8 @@ class AnswersController < ApplicationController
     respond_to do |format|
       if @answer.save
         format.html { redirect_to question_path(@question), notice: 'Answer created successfully' }
-        format.json { render :show, status: :created, location: @answer }
       else
         format.html { redirect_to question_path(@question) }
-        format.json { render json: @answer.errors, status: :unprocessable_entity }
         flash[:alert] = @answer.errors.full_messages.join(', ')
       end
     end

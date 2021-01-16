@@ -36,4 +36,10 @@ feature 'User can register', %q{
     expect(page).to have_content "doesn't match Password"
     expect(page).to have_current_path("/users")
   end
+
+  def registration_content(wrong = false)
+    find(:css, "input[id$='password']").fill_in with: '12345678'
+    fill_in 'Password confirmation', with: "12345678#{0 if wrong}"
+    click_on 'Sign up'
+  end
 end

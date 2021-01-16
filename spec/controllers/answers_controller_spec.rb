@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
   let(:user) { create(:user) }
+  let(:roque) { create(:user) }
   let(:question) { create(:question, user: user) }
   let(:answer) { create(:answer, question: question, user: user) }
+  let(:other_author_answer) { create(:answer, question: question, user: roque) }
 
   describe '#GET new' do
     before { login(user) }
@@ -104,21 +106,47 @@ RSpec.describe AnswersController, type: :controller do
         expect(response).to render_template :edit
       end
     end
+
+    context 'Authenticated user ' do
+      before { patch :update, params: { question_id: question, id: other_author_answer, answer: { body: 'new body' } } }
+
+      it "can`t update someone else's answer" do
+        answer.reload
+
+        expect(answer.body).to_not eq 'new body'
+        expect(flash[:alert]).to match 'You are not authorized to perform this operation.'
+      end
+    end
   end
 
   describe 'DELETE #destroy' do
     before { login(user) }
     let!(:user) { create(:user) }
+    let!(:roque) { create(:user) }
     let!(:question) { create(:question) }
     let!(:answer) { create(:answer, question: question, user: user) }
+    let!(:other_author_answer) { create(:answer, question: question, user: roque) }
 
-    it 'deletes the answer' do
-      expect { delete :destroy, params: { question_id: question, id: answer } }.to change(Answer, :count).by(-1)
+    context 'Authenticated user ' do
+      it 'deletes the answer' do
+        expect { delete :destroy, params: { question_id: question, id: answer } }.to change(Answer, :count).by(-1)
+        expect{answer.reload}.to raise_error(ActiveRecord::RecordNotFound)
+        expect(flash[:notice]).to match "Answer deleted successfully"
+        expect(flash[:alert]).to_not match 'You are not authorized to perform this operation.'
+      end
+
+      it 'redirects to index' do
+        delete :destroy, params: { question_id: question, id: answer }
+        expect(response).to redirect_to question_path(question)
+      end
     end
 
-    it 'redirects to index' do
-      delete :destroy, params: { question_id: question, id: answer }
-      expect(response).to redirect_to question_path(question)
+    context 'Authenticated user ' do
+      it "can`t delete someone else's answer" do
+        expect { delete :destroy, params: { question_id: question, id: other_author_answer } }.to_not change(Answer, :count)
+        expect(flash[:notice]).to_not match "Answer deleted successfully"
+        expect(flash[:alert]).to match 'You are not authorized to perform this operation.'
+      end
     end
   end
 end

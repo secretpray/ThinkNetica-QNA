@@ -18,4 +18,10 @@ feature 'The user can view the list of questions.', %q{
   scenario 'Unauthenticated user also can view the list of questions' do
     title_check
   end
+
+  def title_check
+    visit root_path
+    expect(page).to have_content 'List a question'
+    expect(page).to have_content question.title
+  end
 end

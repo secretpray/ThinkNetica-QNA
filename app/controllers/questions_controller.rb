@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: %i(index show)
   before_action :find_question, only: %i[show edit update destroy]
-  before_action :check_author, only: %i[update destroy]
+  before_action :check_author, only: [:update, :destroy]
 
   def index
     @questions = Question.all

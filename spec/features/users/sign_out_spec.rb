@@ -24,4 +24,11 @@ feature 'User can log out', %q{
     expect(page).to_not have_content('Logout')
     logout_content
   end
+
+  def logout_content
+    expect(page).to have_content("You need to Sign in or Register to ask question!")
+    expect(page).to have_content('Login')
+    expect(page).to have_content('Logon')
+    expect(page).to_not have_content 'Signed in successfully.'
+  end
 end
