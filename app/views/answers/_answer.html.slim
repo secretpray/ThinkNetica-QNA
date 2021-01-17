@@ -1,21 +1,26 @@
-li.grey.p10= answer.body
-.fz14.level-between
-  div
-    | Submitted 
-    strong= time_ago_in_words(answer.created_at)
-    | &nbspago by&nbsp
-    strong= answer.user.email
+div id="answer_#{answer.id}"
+  li.grey.p10= answer.body
+  .fz14.level-between
+    div
+      | Submitted 
+      strong= time_ago_in_words(answer.created_at)
+      | &nbspago by&nbsp
+      strong= answer.user.email
 
-  - if current_user&.author?(answer)
-    #button-inline.button-group
-      button.edit-question
-        = link_to 'Edit', edit_question_answer_path(answer.question, answer)
-      button.delete-question
-        = link_to 'Delete', question_answer_path(answer.question, answer), method: :delete, data: { confirm: 'Are you sure?'}
-br
-- if user_signed_in?
-  .add_a_comment
-    = link_to "add a comment", root_path
+    - if current_user&.author?(answer)
+      = simple_form_for([answer.question, answer], remote: true, html: { class: 'hide' }) do |f|
+        = f.text_area :body
+        = f.submit 'Save'
+
+      #button-inline.button-group
+        button.edit-question
+          = link_to 'Edit', '#', remote: true
+        button.delete-question
+          = link_to 'Delete', question_answer_path(answer.question, answer), method: :delete, data: { confirm: 'Are you sure?', remote: true} if answer.persisted?
+
   br
-  hr
-  br
+  - if user_signed_in?
+    .add_a_comment
+      = link_to "add a comment", root_path
+    br
+    hr

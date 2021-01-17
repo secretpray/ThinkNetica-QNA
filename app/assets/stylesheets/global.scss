@@ -7,7 +7,7 @@ html, body, html * {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 15px;
   width: 100%;
-  height: 100vh;
+  /*height: 100vh;*/
   display: flex;
   /*justify-content: center;*/
   align-items: center;
@@ -24,7 +24,6 @@ html, body, html * {
   background: crimson;
   padding: 10px;
   text-align: center;
-  width: 70%;
   -webkit-transition: 1s opacity;
   transition: 1s opacity;
   opacity: 1;
@@ -92,11 +91,10 @@ html, body, html * {
 }
 
 // Jumbotron
-.content {
-  margin: 3rem 0 0 0;
-  width: 70%;
+.container {
+  width: 100%;
   hr {
-    border-top: 1px solid #e4e6e8;
+    border-top: 2px solid #e4e6e8;
     margin: 10px 0 5px 0;
   }
   .fz14 {
@@ -329,58 +327,51 @@ html, body, html * {
   margin: 0 0 0 55%;
 }
 
-// Navigation
-nav {
-  display: flex;
-  margin: 0;
-  background: #f9f9f9;
-  padding: 16px;
-  .menuItems {
-    list-style: none;
-    display: flex;
-    margin: 0 auto;
-    li {
-      margin: 20px;
-      a {
-        text-decoration: none;
-        color: #8f8f8f;
-        font-size: 24px;
-        font-weight: 400;
+#answer_list {
+  width: inherit;
+}
+
+#question_content {
+ width: inherit;
+}
+
+.navbar {
+  justify-content: space-between;
+  height: 60px;
+  padding: 10px 70px;
+  a {
+    text-decoration: none;
+    color: #8f8f8f;
+    font-size: 24px;
+    font-weight: 400;
+    transition: all 0.5s ease-in-out;
+    position: relative;
+    padding: 4px 0 0 0;
+    text-transform: uppercase;
+    &::before {
+      content: attr(data-item);
+      transition: 0.5s;
+      color: #4A4A4A;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 0;
+      overflow: hidden;
+    }
+
+    &:hover {
+      &::before {
+        width: 100%;
         transition: all 0.5s ease-in-out;
-        position: relative;
-        text-transform: uppercase;
-
-        &::before {
-          content: attr(data-item);
-          transition: 0.5s;
-          color: #4A4A4A;
-          /*color: #8254ff;*/
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          width: 0;
-          overflow: hidden;
-        }
-
-        &:hover {
-          &::before {
-            width: 100%;
-            transition: all 0.5s ease-in-out;
-          }
-        }
       }
     }
   }
-  .flex-left {
-    display: flex;
-    justify-content: flex-start;
-  }
-  .flex-right {
-    display: flex;
-    justify-content: flex-end;
-  }
+}
+
+.logon {
+  margin-left: 1rem;
 }
 
 // For development (debug params)
@@ -394,11 +385,7 @@ nav {
 }
 
 .devise-form {
-  width: 100%;
-  max-width: 800px;
-  height: 400px;
   padding: 1.5rem;
-  margin: 16px auto;
   border-color: rgb(222, 226, 230);
   border-style: solid;
   border-width: 1px;
@@ -466,6 +453,7 @@ nav {
     }
   }
 }
-#reg-devise-form {
-  height: 470px;
+
+#user_remember_me {
+  margin-right: 5px;
 }
