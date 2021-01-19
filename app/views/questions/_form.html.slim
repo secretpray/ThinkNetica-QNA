@@ -3,10 +3,12 @@
     = render 'shared/errors', resource: @question
     div
     br
-      = f.text_field :title, class: "form-control", placeholder: 'Title'
-    br
-      = f.text_area :body, class: "form-control", placeholder: 'Body'
-    - if @question.new_record?
-      p= f.submit 'Create', class: "add-answer", id: "add-answer"
-    - else
-      p= f.submit 'Update', class: "add-answer", id: "add-answer"
+      .form-group
+        = f.text_field :title, class: "form-control", placeholder: 'Title'
+      br
+      .form-group
+        = f.text_area :body, class: "form-control", placeholder: 'Body'
+      - if @question.new_record?
+        p= f.submit 'Create', class: "add-answer", id: "add-answer"
+      - else
+        p= f.submit 'Update', class: "add-answer", id: "add-answer"

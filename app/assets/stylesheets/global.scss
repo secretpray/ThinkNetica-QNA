@@ -16,6 +16,10 @@ html, body, html * {
   color: rgb(74, 74, 74);
 }
 
+.best {
+  border: 2px solid blanchedalmond
+}
+
 // Flash styled
 #flash-alert,
 #flash-notice {
@@ -134,7 +138,7 @@ html, body, html * {
     list-style-type: none;
   }
   .grey {
-    background: #f6f6f6;
+    background: #F9FBFB;
 
   }
   .p10 {
@@ -153,6 +157,7 @@ html, body, html * {
   .delete-question,
   .edit-answer,
   .delete-answer,
+  .best-answer,
   .edit-question,
   .ask-question {
     border-radius: 4px;
@@ -229,6 +234,21 @@ html, body, html * {
       font-size: 16px;
       &:hover {
         background: #f16d83;
+      }
+    }
+  }
+  .best-answer {
+    background: #FFDD57;
+    color: #554918;
+    margin-left: 5px;
+    &:hover {
+      background: #FFD83D;
+      }
+    a {
+      color: rgb(255, 255, 255);
+      font-size: 16px;
+      &:hover {
+        background: #FFD83D;
       }
     }
   }
