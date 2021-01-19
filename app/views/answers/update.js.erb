@@ -1,9 +1,36 @@
+var errors = document.querySelector('.answer-error-<%= @answer.id %>')
+
 <% if @answer.errors.present? %>
-  document.getElementById('errors-answer').innerText = ''
-  document.getElementById('errors-answer').insertAdjacentHTML('beforeend', '<%= errors_for(@answer) %>');
+  errors.innerText = '';
+  errors.insertAdjacentHTML('beforeend', '<%= errors_for(@answer) %>');
+  var restoreValue = document.querySelector('#form-answer-<%= @answer.id %> #answer_body').textContent
+  if (restoreValue) {document.querySelector('#form-answer-<%= @answer.id %> #answer_body').value += restoreValue }
+
+  fadeOut(errors)
 <% else %>
-  <% return unless @answer.errors.present? %>
-  document.getElementById('errors-answer').innerText = ''
-  document.getElementById('answer_list').insertAdjacentHTML('beforeend', '<%= j render @question.answers(@answer) %>');
-  document.getElementById('new_comment').reset();
+  hide()
+  if (errors) { document.querySelector('.answer-error-<%= @answer.id %>').innerText = '' }
+  document.getElementById('answer_<%= @answer.id %>').innerHTML = '';
+  document.getElementById('answer_<%= @answer.id %>').innerHTML += ('beforeend', '<%= j render @answer %>');
+  <% if @changed %>
+    document.getElementById('answer_<%= @answer.id %>').classList.add('edited')
+  <% end %>
 <% end %>
+
+
+function hide() {
+  document.getElementById('form-answer-<%= @answer.id %>').classList.add('hide')
+  document.querySelector('#answer_<%= @answer.id %> .grey').classList.remove('hide')
+  document.querySelector('#answer-info_<%= @answer.id %>').classList.remove('hide')
+  document.querySelector('#button-edit-answer-<%= @answer.id %>').classList.remove('hide')
+  document.querySelector('#button-delete-answer-<%= @answer.id %>').classList.remove('hide')
+}
+
+function fadeOut(object) {
+  if (object) {
+    object.classList.add('fadeout');
+    window.setTimeout(function() {
+      object.innerText = '';
+    }, 7000);
+  }
+}

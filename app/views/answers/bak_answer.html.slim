@@ -1,24 +1,30 @@
 div id="answer_#{answer.id}"
+
   li.grey.p10= answer.body
   .fz14.level-between
-    div id="answer-info_#{answer.id}"
+    div
       | Submitted 
       strong= time_ago_in_words(answer.created_at)
-      | &nbspago, by&nbsp
+      | &nbspago by&nbsp
       strong= answer.user.email
-      | ;&nbspLast updated: 
-      strong= time_ago_in_words(answer.updated_at)
 
-  = simple_form_for([answer.question, answer], remote: true, html: { class: 'form-inline hide', id: "form-answer-#{answer.id}" }) do |f|
-    div id="errors-inline-answer" class="answer-error-#{answer.id}"
-    = f.text_area :body, class: 'form-control'
-    = f.submit 'Update', class: "btn btn-primary my-3"
+  /*= simple_form_for([answer], remote: true, html: { class: 'form-inline hide', id: "form-answer-#{answer.id}" }) do |f|
+  /*div class="answer-error-#{answer.id}"
+  /*= f.text_area :body, class: 'form-control'
+  /*= f.submit 'Update', class: "btn btn-primary my-3"
+
+  = form_with model: answer, html: {class: 'form-inline hide', id: "form-answer-#{answer.id} do |f|
+    /*div id="answer-error-#{answer.id}"
+
+    = f.label :body
+    = f.text_area :body
+    = f.submit
 
   - if current_user&.author?(answer)
     #button-inline.button-group
       button.edit-answer id="button-edit-answer-#{answer.id}"
         = link_to 'Edit', edit_question_answer_path(answer.question, answer), class: 'edit-answer-link', data: { answer_id: answer.id, remote: true }
-      button.delete-answer id="button-delete-answer-#{answer.id}"
+      button.delete-question
         = link_to 'Delete', question_answer_path(answer.question, answer), method: :delete, data: { confirm: 'Are you sure?', remote: true} if answer.persisted?
 
   br

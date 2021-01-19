@@ -27,23 +27,13 @@ class AnswersController < ApplicationController
 
   def update
     @question = @answer.question
-    respond_to do |format|
-      if @answer.update(answer_params)
-        format.html { redirect_to question_path(@answer.question), notice: 'Answer updated successfully' }
-        format.js
-      else
-        format.html { render :edit }
-        format.js
-      end
-    end
+    @answer.assign_attributes(answer_params)
+    @changed = @answer.changed?
+    @answer.save
   end
 
   def destroy
     @answer.destroy
-    respond_to do |format|
-      format.html { redirect_to @answer.question, notice: 'Answer deleted successfully' }
-      format.js
-    end
   end
 
   private

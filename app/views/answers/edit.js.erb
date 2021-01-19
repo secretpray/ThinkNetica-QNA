@@ -1,0 +1,19 @@
+prepend_form()
+<% if @answer.errors.present? %>
+  document.querySelector('.answer-error-<%= @answer.id %>').innerText = ''
+  document.querySelector('.answer-error-<%= @answer.id %>').insertAdjacentHTML('beforeend', '<%= errors_for(@answer) %>');
+<% else %>
+  <% return unless @answer.persisted? %>
+<% end %>
+
+
+function prepend_form() {
+  if (document.getElementById('answer_<%= @answer.id %>').classList.contains("edited")) {
+    document.getElementById('answer_<%= @answer.id %>').classList.remove("edited")
+  }
+  document.getElementById('form-answer-<%= @answer.id %>').classList.remove('hide')
+  document.querySelector('#answer_<%= @answer.id %> .grey').classList.add('hide')
+  document.querySelector('#answer-info_<%= @answer.id %>').classList.add('hide')
+  document.querySelector('#button-edit-answer-<%= @answer.id %>').classList.add('hide')
+  document.querySelector('#button-delete-answer-<%= @answer.id %>').classList.add('hide')
+}

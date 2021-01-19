@@ -60,34 +60,41 @@ html, body, html * {
 .fadeout {
   overflow: hidden;
   opacity: 1;
-  animation: fade 2s ease-in-out 5s;
+  animation: fade 2s ease-in 5s;
 }
 
 @keyframes fade {
   0% {
     opacity: 1;
     transform: translateY(0%);
-    }
-  25% {
-    opacity: 0.75;
-    transform: translateY(-25%);
   }
   50% {
     opacity: 0.5;
     transform: translateY(-50%);
   }
-  75% {
-    transform: translateY(-75%);
-    opacity: 0.25;
-  }
-  95% {
-    opacity: 0;
-    transform: translateY(-100%);
-  }
   100% {
     opacity: 0;
     transform: translateY(-100%);
   }
+}
+
+// FadeIt for inline update
+.edited {
+  background-image: none !important;
+  -o-animation: fadeIt 2s ease-in-out;
+  animation: fadeIt 2s ease-in-out;
+}
+
+@keyframes fadeIt {
+  0%    { background-color: #F4F4F4; }
+  50%   { background-color: #3CB371; }
+  100%  { background-color: #F4F4F4; }
+}
+
+@-o-keyframes fadeIt {
+  0%    { background-color: #F4F4F4; }
+  50%   { background-color: #3CB371; }
+  100%  { background-color: #F4F4F4; }
 }
 
 // Jumbotron
@@ -144,6 +151,8 @@ html, body, html * {
   }
   .add-answer,
   .delete-question,
+  .edit-answer,
+  .delete-answer,
   .edit-question,
   .ask-question {
     border-radius: 4px;
@@ -191,6 +200,7 @@ html, body, html * {
       }
     }
   }
+  .edit-answer,
   .edit-question {
     background-color: #03b89c;
     color: rgb(255, 255, 255);
@@ -206,7 +216,8 @@ html, body, html * {
       }
     }
   }
-  .delete-question{
+  .delete-answer,
+  .delete-question {
     background-color: #f14668;
     color: #2160c4;
     margin-left: 5px;
@@ -324,7 +335,6 @@ html, body, html * {
   margin: 30px 0 !important;
 }
 #button-inline {
-  margin: 0 0 0 55%;
 }
 
 #answer_list {
@@ -338,7 +348,8 @@ html, body, html * {
 .navbar {
   justify-content: space-between;
   height: 60px;
-  padding: 10px 70px;
+  padding: 10px;
+  width: 100%;
   a {
     text-decoration: none;
     color: #8f8f8f;
@@ -346,7 +357,6 @@ html, body, html * {
     font-weight: 400;
     transition: all 0.5s ease-in-out;
     position: relative;
-    padding: 4px 0 0 0;
     text-transform: uppercase;
     &::before {
       content: attr(data-item);
@@ -368,6 +378,10 @@ html, body, html * {
       }
     }
   }
+}
+
+.nav-menu-align {
+  justify-content: space-between;
 }
 
 .logon {
