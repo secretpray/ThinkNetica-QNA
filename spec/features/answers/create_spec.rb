@@ -9,7 +9,7 @@ feature 'User can give an answer', %q{
   given(:user) { create(:user) }
   given!(:question) { create(:question) }
 
-  scenario 'Authenticated user create answer' do
+  scenario 'Authenticated user create answer', js: true do
     sign_in(user)
     visit question_path(question)
     fill_in 'answer_body', with: 'Own answer'
@@ -19,12 +19,11 @@ feature 'User can give an answer', %q{
     expect(page).to have_content 'Own answer'
   end
 
-  scenario 'Authenticated user creates answer with errors' do
+  scenario 'Authenticated user creates answer with errors', js: true do
     sign_in(user)
     visit question_path(question)
 
     click_on 'Create'
-
     expect(page).to have_content "Body can't be blank"
   end
 end

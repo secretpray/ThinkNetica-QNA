@@ -2,11 +2,10 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!, except: :show
   before_action :find_question, only: [:new, :create]
   before_action :find_answer, only: [:edit, :update, :destroy]
-  # before_action :check_author, only: [:edit, :update, :destroy]
 
   def new
-    authorize @answer
     @answer = @question.answers.new
+    authorize @answer
   end
 
   def create
@@ -44,7 +43,6 @@ class AnswersController < ApplicationController
     @answer = Answer.find(params[:id])
     @question = @answer.question
     authorize @answer
-    # return unless current_user&.author?(@answer.question)
 
     respond_to do |format|
       if @answer.set_best
@@ -65,13 +63,6 @@ class AnswersController < ApplicationController
     @question = Question.find(params[:question_id])
     @answer = @question.answers.find(params[:id])
   end
-
-
-  # def check_author
-  #   if !current_user&.author?(@answer)
-  #     return redirect_to @answer.question, alert: 'You are not authorized to perform this operation.'
-  #   end
-  # end
 
   def answer_params
     params.require(:answer).permit(:body, :user_id)
