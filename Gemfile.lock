@@ -163,6 +163,8 @@ GEM
       nio4r (~> 2.0)
     puma (5.1.1-java)
       nio4r (~> 2.0)
+    pundit (2.1.0)
+      activesupport (>= 3.0.0)
     rack (2.2.3)
     rack-mini-profiler (2.2.1)
       rack (>= 1.2.0)
@@ -320,6 +322,7 @@ DEPENDENCIES
   pg (~> 1.1)
   pry (~> 0.13.1)
   puma (~> 5.0)
+  pundit
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.0)
   rails-controller-testing

@@ -2,15 +2,17 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!, except: :show
   before_action :find_question, only: [:new, :create]
   before_action :find_answer, only: [:edit, :update, :destroy]
-  before_action :check_author, only: [:edit, :update, :destroy]
+  # before_action :check_author, only: [:edit, :update, :destroy]
 
   def new
+    authorize @answer
     @answer = @question.answers.new
   end
 
   def create
     @answer = @question.answers.build(answer_params)
     @answer.user_id = current_user.id
+    authorize @answer
 
     respond_to do |format|
       if @answer.save
@@ -29,17 +31,20 @@ class AnswersController < ApplicationController
     @question = @answer.question
     @answer.assign_attributes(answer_params)
     @changed = @answer.changed?
+    authorize @answer
     @answer.save
   end
 
   def destroy
+    authorize @answer
     @answer.destroy
   end
 
   def best
     @answer = Answer.find(params[:id])
     @question = @answer.question
-    return unless current_user&.author?(@answer.question)
+    authorize @answer
+    # return unless current_user&.author?(@answer.question)
 
     respond_to do |format|
       if @answer.set_best
@@ -62,11 +67,11 @@ class AnswersController < ApplicationController
   end
 
 
-  def check_author
-    if !current_user&.author?(@answer)
-      return redirect_to @answer.question, alert: 'You are not authorized to perform this operation.'
-    end
-  end
+  # def check_author
+  #   if !current_user&.author?(@answer)
+  #     return redirect_to @answer.question, alert: 'You are not authorized to perform this operation.'
+  #   end
+  # end
 
   def answer_params
     params.require(:answer).permit(:body, :user_id)

@@ -15,6 +15,7 @@ gem 'slim-rails'
 gem 'decent_exposure', '3.0.0'
 gem 'simple_form'
 gem 'devise'
+gem 'pundit'
 gem 'bootstrap', '~> 5.0.0.beta1'
 
 group :development, :test do

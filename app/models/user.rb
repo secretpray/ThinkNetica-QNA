@@ -10,4 +10,8 @@ class User < ApplicationRecord
   def author?(resource)
     self.id == resource.user_id
   end
+
+  def admin?
+    self.role == 'admin'
+  end
 end

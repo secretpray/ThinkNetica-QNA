@@ -16,14 +16,13 @@ div id="answer_#{answer.id}"
         = f.text_area :body, class: 'form-control'
         = f.submit 'Update', class: "btn btn-primary my-3"
 
-  - if user_signed_in?
     - if policy(answer).update?
       #button-inline.button-group
+      - if current_user&.author?(answer) || current_user&.admin?
         button.edit-answer id="button-edit-answer-#{answer.id}"
           = link_to 'Edit', edit_question_answer_path(answer.question, answer), class: 'edit-answer-link', data: { answer_id: answer.id, remote: true }
         button.delete-answer id="button-delete-answer-#{answer.id}"
           = link_to 'Delete', question_answer_path(answer.question, answer), method: :delete, data: { confirm: 'Are you sure?', remote: true} if answer.persisted?
-        /*-if (current_user&.author?(answer.question) || current_user&.admin?) && !answer.best?
-        - if policy(answer).best? && !answer.best?
-          button.best-answer
-            = link_to '✓ Best', best_question_answer_path(answer.question, answer), remote: true, method: :patch
+      -if (current_user&.author?(answer.question) || current_user&.admin?) && !answer.best?
+        button.best-answer
+          = link_to '✓ Best', best_question_answer_path(answer.question, answer), remote: true, method: :patch

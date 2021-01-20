@@ -1,5 +1,5 @@
 #question_content.my-4
-  h1= @question.title
+  h1.page-header= @question.title
   h7
     | Asked&nbsp
     strong= time_ago_in_words(@question.created_at)
@@ -33,7 +33,9 @@
   .your-answer.mt-3
     | Your Answer
   - if user_signed_in?
-    = render 'form_inline', resource: @question
+    - if policy(@question).create?
+      = render 'form_inline', resource: @question
   - else
-    | You need to #{link_to 'Sign in', new_user_session_path} or #{link_to "Register", new_user_registration_path} to answer or leave a comment!
+    .card.bg-light.p-3
+      p.mb-0 You need to #{link_to 'Sign in', new_user_session_path} or #{link_to "Register", new_user_registration_path} to answer or leave a comment!
 
