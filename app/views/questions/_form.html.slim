@@ -7,7 +7,7 @@
         = f.text_field :title, class: "form-control", placeholder: 'Title'
       br
       .form-group
-        = f.text_area :body, class: "form-control", placeholder: 'Body'
+        = f.text_area :body, class: "form-control", placeholder: 'Ask your question...', :rows=>8, :cols=>40
       - if @question.new_record?
         p= f.submit 'Create', class: "add-answer", id: "add-answer"
       - else

@@ -1,4 +1,5 @@
 var errors = document.querySelector('.answer-error-<%= @answer.id %>')
+var bestButton = document.querySelector('#button-best-answer-<%= @answer.id %>')
 
 <% if @answer.errors.present? %>
   errors.innerText = '';
@@ -24,6 +25,9 @@ function hide() {
   document.querySelector('#answer-info_<%= @answer.id %>').classList.remove('hide')
   document.querySelector('#button-edit-answer-<%= @answer.id %>').classList.remove('hide')
   document.querySelector('#button-delete-answer-<%= @answer.id %>').classList.remove('hide')
+  if (bestButton) {
+    document.querySelector('#button-best-answer-<%= @answer.id %>').classList.remove('hide')
+  }
 }
 
 function fadeOut(object) {

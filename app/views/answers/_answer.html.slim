@@ -11,10 +11,12 @@ div id="answer_#{answer.id}"
 
   - if user_signed_in?
     - if policy(answer).update?
-      = simple_form_for([answer.question, answer], remote: true, html: { class: 'form-inline hide', id: "form-answer-#{answer.id}" }) do |f|
+      = simple_form_for([answer.question, answer], remote: true, html: { class: 'form-inline mt-3 hide', id: "form-answer-#{answer.id}" }) do |f|
         div id="errors-inline-answer" class="answer-error-#{answer.id}"
-        = f.text_area :body, class: 'form-control'
-        = f.submit 'Update', class: "btn btn-primary my-3"
+        = f.text_area :body, class: 'form-control mt-2'
+        = f.submit 'Update', class: "btn btn-primary my-3 mx-2"
+        button.btn.btn-warning.my-3 id="cancel-edit-#{answer.id}"
+          = link_to 'Cancel', '#', remote: true
 
   - if user_signed_in?
     - if policy(answer).update?
@@ -25,5 +27,5 @@ div id="answer_#{answer.id}"
           = link_to 'Delete', question_answer_path(answer.question, answer), method: :delete, data: { confirm: 'Are you sure?', remote: true} if answer.persisted?
         /*-if (current_user&.author?(answer.question) || current_user&.admin?) && !answer.best?
         - if policy(answer).best? && !answer.best?
-          button.best-answer
+          button.best-answer id="button-best-answer-#{answer.id}"
             = link_to '✓ Best', best_question_answer_path(answer.question, answer), remote: true, method: :patch

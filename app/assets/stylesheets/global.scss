@@ -19,6 +19,16 @@ html, body, html * {
   border: 2px solid blanchedalmond
 }
 
+.admin {
+  color: chocolate !important;
+}
+
+#account {
+  font-size: .9rem;
+  margin: .5rem .8rem;
+  font-style: italic;
+}
+
 // Flash styled
 #flash-alert,
 #flash-notice {
@@ -59,6 +69,10 @@ html, body, html * {
   display: block;
 }
 
+.current {
+  font-weight: 500 !important;
+}
+
 // Autohide class for Errors
 .fadeout {
   overflow: hidden;
@@ -90,13 +104,13 @@ html, body, html * {
 
 @keyframes fadeIt {
   0%    { background-color: #F4F4F4; }
-  50%   { background-color: #3CB371; }
+  50%   { background-color: #FFF9BE; }
   100%  { background-color: #F4F4F4; }
 }
 
 @-o-keyframes fadeIt {
   0%    { background-color: #F4F4F4; }
-  50%   { background-color: #3CB371; }
+  50%   { background-color: #FFF9BE; }
   100%  { background-color: #F4F4F4; }
 }
 
