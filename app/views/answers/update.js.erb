@@ -1,5 +1,5 @@
-var errors = document.querySelector('.answer-error-<%= @answer.id %>')
-var bestButton = document.querySelector('#button-best-answer-<%= @answer.id %>')
+var errors = {}
+errors = document.querySelector('.answer-error-<%= @answer.id %>')
 
 <% if @answer.errors.present? %>
   errors.innerText = '';
@@ -20,14 +20,8 @@ var bestButton = document.querySelector('#button-best-answer-<%= @answer.id %>')
 
 
 function hide() {
-  document.getElementById('form-answer-<%= @answer.id %>').classList.add('hide')
-  document.querySelector('#answer_<%= @answer.id %> .grey').classList.remove('hide')
-  document.querySelector('#answer-info_<%= @answer.id %>').classList.remove('hide')
-  document.querySelector('#button-edit-answer-<%= @answer.id %>').classList.remove('hide')
-  document.querySelector('#button-delete-answer-<%= @answer.id %>').classList.remove('hide')
-  if (bestButton) {
-    document.querySelector('#button-best-answer-<%= @answer.id %>').classList.remove('hide')
-  }
+  document.querySelector('#jumbotron-form-inline-<%= @answer.id %>').classList.add('hide')
+  document.querySelector('#jumbotron-<%= @answer.id %>').classList.remove('hide')
 }
 
 function fadeOut(object) {
