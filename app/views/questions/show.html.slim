@@ -1,57 +1,41 @@
-h1= @question.title
-h7
-  | Asked&nbsp
-  strong= time_ago_in_words(@question.created_at)
-  |  ago&nbsp
-  |  Active:&nbsp
-  strong= time_ago_in_words(@question.updated_at)
-  |  ago by&nbsp
-  strong= @question.user.email
-br
-hr
-br
-.grey.p10
-  = @question.body
-br
-hr
-br
-- if @question.answers.any?
-  div
-    strong
-      |  #{@question.answers.count}&nbsp
-      = @question.answers.count > 1 ? 'Answers' : 'Answer'
-  ul.list-answers
-  - @question.answers.each do |answer|
-    li.grey.p10= answer.body
-    .fz14.level-between
-      div
-        | Submitted 
-        strong= time_ago_in_words(answer.created_at)
-        | &nbspago by&nbsp
-        strong= answer.user.email
-
-      - if current_user&.author?(answer)
-        #button-inline.button-group
-          button.edit-question
-            = link_to 'Edit', edit_question_answer_path(answer.question, answer)
-          button.delete-question
-            = link_to 'Delete', question_answer_path(answer.question, answer), method: :delete, data: { confirm: 'Are you sure?'}
-    br
-    - if user_signed_in?
-      .add_a_comment
-        = link_to "add a comment", root_path
-      br
-      hr
-      br
-  ul
--else
-  div No answers!
+#question_content.my-4
+  h1.page-header= @question.title
+  h7
+    | Asked&nbsp
+    strong= time_ago_in_words(@question.created_at)
+    |  ago&nbsp
+    |  Active:&nbsp
+    strong= time_ago_in_words(@question.updated_at)
+    |  ago by&nbsp
+    strong= @question.user.email
+  br
+  hr
+  br
+  .grey.p10.fs-5
+    = @question.body
+  br
+  hr
   br
 
-.your-answer
-  | Your Answer
-- if user_signed_in?
-  = render 'form_inline', resource: @question
-- else
-  | You need to #{link_to 'Sign in', new_user_session_path} or #{link_to "Register", new_user_registration_path} to answer or leave a comment!
+  #answer_list
+    - if @question.answers.any?
+      div
+        strong
+          |  #{@question.answers.count}&nbsp
+          = @question.answers.count > 1 ? 'Answers' : 'Answer'
+      ul.list-answers
+      = render @question.answers
+    - else
+      div No answers!
+      br
+  #errors-answer
+
+  .your-answer.mt-3
+    | Your Answer
+  - if user_signed_in?
+    - if policy(@question).create?
+      = render 'form_inline', resource: @question
+  - else
+    .card.bg-light.p-3
+      p.mb-0 You need to #{link_to 'Sign in', new_user_session_path} or #{link_to "Register", new_user_registration_path} to answer or leave a comment!
 

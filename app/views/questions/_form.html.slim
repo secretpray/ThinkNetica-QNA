@@ -1,11 +1,14 @@
-= simple_form_for @question, local: true do |f|
-  = render 'shared/errors', resource: @question
-  div
-  br
-    = f.text_field :title, class: "text-input", placeholder: 'Title'
-  br
-    = f.text_area :body, class: "text-area", placeholder: 'Body'
-  - if @question.new_record?
-    p= f.submit 'Create', class: "add-answer", id: "add-answer"
-  - else
-    p= f.submit 'Update', class: "add-answer", id: "add-answer"
+.col-md-6
+  = simple_form_for @question do |f|
+    = render 'shared/errors', resource: @question
+    div
+    br
+      .form-group
+        = f.text_field :title, class: "form-control", placeholder: 'Title'
+      br
+      .form-group
+        = f.text_area :body, class: "form-control", placeholder: 'Ask your question...', :rows=>8, :cols=>40
+      - if @question.new_record?
+        p= f.submit 'Create', class: "add-answer", id: "add-answer"
+      - else
+        p= f.submit 'Update', class: "add-answer", id: "add-answer"

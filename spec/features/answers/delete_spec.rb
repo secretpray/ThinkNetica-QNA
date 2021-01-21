@@ -25,7 +25,9 @@ feature 'User can delete his question', %q{
       visit question_path(question)
       expect(page).to have_content 'Delete'
       accept_confirm { page.click_link("Delete") }
-      expect(page).to_not have_content answer.body
+      within '#answer_list' do
+        expect(page).to_not have_content answer.body
+      end
     end
 
     after(:all) do

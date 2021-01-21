@@ -15,9 +15,11 @@ gem 'slim-rails'
 gem 'decent_exposure', '3.0.0'
 gem 'simple_form'
 gem 'devise'
-gem 'pry', '~> 0.13.1'
+gem 'pundit'
+gem 'bootstrap', '~> 5.0.0.beta1'
 
 group :development, :test do
+  gem 'pry', '~> 0.13.1'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 4.0.1'
   gem 'factory_bot_rails'
@@ -36,11 +38,8 @@ group :test do
   gem 'webdrivers'
   gem 'shoulda-matchers', '~> 4.0'
   gem 'rails-controller-testing'
-  # Simply open page in testing process
-  # gem 'launchy'
   # It allows you to run your Capybara tests in the Chrome browser via CDP (no selenium or chromedriver needed)
   gem 'apparition'
-  # gem 'capybara-webkit'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

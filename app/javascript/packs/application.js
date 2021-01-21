@@ -12,5 +12,7 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
+require('coffee')
 require("utilities/auto_hide_flash")
+
 

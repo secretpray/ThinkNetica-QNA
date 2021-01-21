@@ -1,4 +1,4 @@
-div#reg-devise-form.devise-form
+div#reg-devise-form.devise-form.col-md-6.col-offset-3.mt-5
   h2 Sign up
   = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
     = f.error_notification
@@ -10,5 +10,4 @@ div#reg-devise-form.devise-form
 
     .form-actions
       = f.button :submit, "Sign up"
-    br
-  = render "devise/shared/links"
+    = render "devise/shared/links"

@@ -1,0 +1,31 @@
+div id="answer_#{answer.id}"
+  li class="p10 fs-5 grey #{ 'best' if answer.best? }" = answer.body
+  .fz14.level-between
+    div id="answer-info_#{answer.id}"
+      | Submitted 
+      strong= time_ago_in_words(answer.created_at)
+      | &nbspago, by&nbsp
+      strong= answer.user.email
+      | ;&nbspLast updated: 
+      strong= time_ago_in_words(answer.updated_at)
+
+  - if user_signed_in?
+    - if policy(answer).update?
+      = simple_form_for([answer.question, answer], remote: true, html: { class: 'form-inline mt-3 hide', id: "form-answer-#{answer.id}" }) do |f|
+        div id="errors-inline-answer" class="answer-error-#{answer.id}"
+        = f.text_area :body, class: 'form-control mt-2'
+        = f.submit 'Update', class: "btn btn-primary my-3 mx-2"
+        button.btn.btn-warning.my-3 id="cancel-edit-#{answer.id}"
+          = link_to 'Cancel', '#', remote: true
+
+  - if user_signed_in?
+    - if policy(answer).update?
+      #button-inline.button-group
+        button.edit-answer id="button-edit-answer-#{answer.id}"
+          = link_to 'Edit', edit_question_answer_path(answer.question, answer), class: 'edit-answer-link', data: { answer_id: answer.id, remote: true }
+        button.delete-answer id="button-delete-answer-#{answer.id}"
+          = link_to 'Delete', question_answer_path(answer.question, answer), method: :delete, data: { confirm: 'Are you sure?', remote: true} if answer.persisted?
+        /*-if (current_user&.author?(answer.question) || current_user&.admin?) && !answer.best?
+        - if policy(answer).best? && !answer.best?
+          button.best-answer id="button-best-answer-#{answer.id}"
+            = link_to '✓ Best', best_question_answer_path(answer.question, answer), remote: true, method: :patch
