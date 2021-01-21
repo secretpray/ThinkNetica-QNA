@@ -1,12 +1,6 @@
-// Fixed Safari error with let/const
-// const bestButton = document.querySelector('#button-best-answer-<%= @answer.id %>')
-// const cancelButton = document.querySelector('#cancel-edit-<%= @answer.id %>')
-var bestButton = {}
-bestButton = document.querySelector('#button-best-answer-<%= @answer.id %>');
 var cancelButton = {}
 cancelButton = document.querySelector('#cancel-edit-<%= @answer.id %>')
-// Open form edit
-prepend_form()
+prependInlineForm()
 
 <% if @answer.errors.present? %>
   document.querySelector('.answer-error-<%= @answer.id %>').innerText = ''
@@ -19,35 +13,24 @@ prepend_form()
 if (cancelButton) {
   cancelButton.addEventListener("click", function(event) {
     event.preventDefault()
-    // cancel form open
-    revert_form()
+    revertJumbotronForm()
   });
 }
 
-function prepend_form() {
+function prependInlineForm() {
   if (document.getElementById('answer_<%= @answer.id %>').classList.contains("edited")) {
     document.getElementById('answer_<%= @answer.id %>').classList.remove("edited")
   }
-  document.getElementById('form-answer-<%= @answer.id %>').classList.remove('hide')
-  document.querySelector('#answer_<%= @answer.id %> .grey').classList.add('hide')
-  document.querySelector('#answer-info_<%= @answer.id %>').classList.add('hide')
-  document.querySelector('#button-edit-answer-<%= @answer.id %>').classList.add('hide')
-  document.querySelector('#button-delete-answer-<%= @answer.id %>').classList.add('hide')
-  if (bestButton) {
-    document.querySelector('#button-best-answer-<%= @answer.id %>').classList.add('hide')
-  }
+  document.querySelector('#jumbotron-form-inline-<%= @answer.id %>').classList.remove('hide')
+  document.querySelector('#jumbotron-<%= @answer.id %>').classList.add('hide')
 }
 
-function revert_form() {
+
+function revertJumbotronForm() {
   if (document.getElementById('answer_<%= @answer.id %>').classList.contains("edited")) {
     document.getElementById('answer_<%= @answer.id %>').classList.remove("edited")
   }
-  document.getElementById('form-answer-<%= @answer.id %>').classList.add('hide')
-  document.querySelector('#answer_<%= @answer.id %> .grey').classList.remove('hide')
-  document.querySelector('#answer-info_<%= @answer.id %>').classList.remove('hide')
-  document.querySelector('#button-edit-answer-<%= @answer.id %>').classList.remove('hide')
-  document.querySelector('#button-delete-answer-<%= @answer.id %>').classList.remove('hide')
-  if (bestButton) {
-    document.querySelector('#button-best-answer-<%= @answer.id %>').classList.remove('hide')
-  }
+  document.querySelector('#jumbotron-form-inline-<%= @answer.id %>').classList.add('hide')
+  document.querySelector('#jumbotron-<%= @answer.id %>').classList.remove('hide')
 }
+
