@@ -7,7 +7,7 @@ RSpec.describe AnswerPolicy, type: :policy do
 
   permissions :update?, :edit?, :destroy? do
     it "Deny access edit/update/destroy answer not to the author of the answer" do
-      expect(subject).not_to permit(create(:user, role: 'user'), create(:answer, user_id: User.last.id + 1))
+      expect(subject).not_to permit(create(:user), create(:answer))
     end
 
     it "grants access if user is an admin" do

@@ -14,15 +14,15 @@ class QuestionPolicy < ApplicationPolicy
   end
 
   def edit
-    user && user == record.user || user.admin?
+    user && user.id == record.user_id || user.admin?
   end
 
   def update?
-    user && user == record.user || user.admin?
+    user && user.id == record.user_id || user.admin?
   end
 
   def destroy?
-    user && user == record.user || user.admin?
+    user && user.id == record.user_id || user.admin?
   end
 
 end
