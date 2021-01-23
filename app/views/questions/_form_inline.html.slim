@@ -3,5 +3,6 @@
   = render 'shared/errors', resource: @answer
   div
     = f.input :body, label: false, input_html: { class: "text-area form-control" }, required: true, placeholder: '*Body (required)'
+    = f.file_field :files, multiple: true, class: "form-control", placeholder: 'Add files...'
   br
   p= f.submit 'Create', class: "add-answer", id: "add-answer"

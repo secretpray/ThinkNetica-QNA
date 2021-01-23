@@ -19,9 +19,7 @@ feature 'User can delete his question', %q{
   describe 'Authenticated user', js: true do
     background { sign_in(user) }
 
-    before(:all) { Capybara.javascript_driver = :apparition }
-
-    scenario 'delete his question' do
+    scenario 'delete his answer' do
       visit question_path(question)
       expect(page).to have_content 'Delete'
       accept_confirm { page.click_link("Delete") }
@@ -30,12 +28,25 @@ feature 'User can delete his question', %q{
       end
     end
 
-    after(:all) do
-      Capybara.use_default_driver
+    scenario 'delete his attachment', js: true do
+      visit question_path(question)
+      fill_in 'answer_body', with: 'Own answer'
+      attach_file 'answer_files', ["#{Rails.root}/spec/rails_helper.rb"]
+
+      click_on('Create')
+
+      within '#answer_list' do
+        expect(page).to have_link 'rails_helper.rb'
+        expect(page).to have_content 'Remove'
+      end
+      accept_confirm { page.click_link("Remove") }
+
+      expect(page).to_not have_link 'rails_helper.rb'
+      expect(page).to_not have_content 'Remove'
     end
 
-    scenario "tries to delete other user's question" do
-      # binding.pry
+    scenario "tries to delete other user's answer" do
+
       answer.user_id += 1
       visit question_path(question)
       expect(page).to_not have_content 'nDelete'

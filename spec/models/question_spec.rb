@@ -8,6 +8,12 @@ RSpec.describe Question, type: :model do
   end
 
   describe "Associations" do
-    it { should have_many(:answers).without_validating_presence }
+    it 'can have answers without validating presence' do
+      should have_many(:answers).without_validating_presence 
+    end
+
+    it 'can have many attached files' do
+      expect(Question.new.files).to be_an_instance_of(ActiveStorage::Attached::Many)
+    end
   end
 end

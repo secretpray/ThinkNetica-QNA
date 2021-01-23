@@ -9,21 +9,48 @@ feature 'User can give an answer', %q{
   given(:user) { create(:user) }
   given!(:question) { create(:question) }
 
-  scenario 'Authenticated user create answer', js: true do
-    sign_in(user)
-    visit question_path(question)
-    fill_in 'answer_body', with: 'Own answer'
-    click_on 'Create'
+  describe 'Authenticated user' do
+    scenario 'can create answer', js: true do
+      sign_in(user)
+      visit question_path(question)
+      fill_in 'answer_body', with: 'Own answer'
+      attach_file 'answer_files', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+      click_on 'Create'
 
-    expect(current_path).to eq question_path(question)
-    expect(page).to have_content 'Own answer'
+      expect(current_path).to eq question_path(question)
+      expect(page).to have_content 'Own answer'
+      expect(page).to have_link "rails_helper.rb"
+      expect(page).to have_link "spec_helper.rb"
+    end
+
+    scenario 'Authenticated user creates answer with errors', js: true do
+      sign_in(user)
+      visit question_path(question)
+
+      click_on 'Create'
+      expect(page).to have_content "Body can't be blank"
+    end
+
+    scenario "tries to create answer with attached files" do
+      sign_in(user)
+      visit question_path(question)
+      fill_in "answer_body", with: "New Answer"
+      attach_file "answer_files", %W[#{Rails.root}/spec/rails_helper.rb #{Rails.root}/spec/spec_helper.rb]
+      click_on "Create"
+
+      within "#answer_list" do
+        expect(page).to have_link "rails_helper.rb"
+        expect(page).to have_link "spec_helper.rb"
+      end
+    end
   end
 
-  scenario 'Authenticated user creates answer with errors', js: true do
-    sign_in(user)
-    visit question_path(question)
+  describe 'Unauthenticated user' do
+    scenario "can`t create answer" do
+      visit question_path(question)
 
-    click_on 'Create'
-    expect(page).to have_content "Body can't be blank"
+      expect(page).to_not have_content "Create"
+      expect(page).to have_content 'You need to Sign in or Register to answer or leave a comment!'
+    end
   end
 end

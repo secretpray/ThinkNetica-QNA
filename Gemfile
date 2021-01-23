@@ -17,6 +17,9 @@ gem 'simple_form'
 gem 'devise'
 gem 'pundit'
 gem 'bootstrap', '~> 5.0.0.beta1'
+gem 'mini_magick'
+gem 'image_processing', '~> 1.2'
+gem "google-cloud-storage", "~> 1.8", require: false
 
 group :development, :test do
   gem 'pry', '~> 0.13.1'
@@ -38,6 +41,7 @@ group :test do
   gem 'webdrivers'
   gem 'shoulda-matchers', '~> 4.0'
   gem 'rails-controller-testing'
+  gem 'launchy', '~> 2.4', '>= 2.4.3'
   # It allows you to run your Capybara tests in the Chrome browser via CDP (no selenium or chromedriver needed)
   gem 'apparition'
 end
