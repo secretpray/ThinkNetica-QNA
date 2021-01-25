@@ -2,6 +2,8 @@ class Answer < ApplicationRecord
   belongs_to :question
   belongs_to :user
 
+  has_many_attached :files
+
   validates :body, presence: true
 
   scope :by_add, -> { order(created_at: :desc) }
@@ -9,8 +11,6 @@ class Answer < ApplicationRecord
   scope :by_best, -> { order(best: :desc, created_at: :asc) }
 
   default_scope { by_best }
-  # default_scope :by_best, -> { order(best: :desc) }
-  # default_scope { order(best: :desc) }
 
   def set_best
     Answer.transaction do

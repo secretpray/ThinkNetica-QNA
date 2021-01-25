@@ -34,6 +34,23 @@ feature 'User can delete his question', %q{
       expect(page).to_not have_content question.title
     end
 
+    scenario 'delete the attached file from their question' do
+      visit root_path
+      click_link 'Edit'
+      attach_file 'question_files', ["#{Rails.root}/spec/rails_helper.rb"]
+      click_on 'Update'
+
+      expect(page).to have_link 'rails_helper.rb'
+      expect(page).to have_content 'No answers!'
+
+      accept_confirm do
+        page.click_link("Remove")
+      end
+
+      expect(page).to_not have_link 'rails_helper.rb'
+      expect(page).to have_content 'No answers!'
+    end
+
     after(:all) do
       Capybara.use_default_driver
     end

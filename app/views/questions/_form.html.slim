@@ -1,14 +1,20 @@
-.col-md-6
+.col-md-9
   = simple_form_for @question do |f|
     = render 'shared/errors', resource: @question
     div
     br
+
       .form-group
         = f.text_field :title, class: "form-control", placeholder: 'Title'
       br
       .form-group
         = f.text_area :body, class: "form-control", placeholder: 'Ask your question...', :rows=>8, :cols=>40
+        = f.file_field :files, multiple: true, class: "form-control", placeholder: 'Add files...'
       - if @question.new_record?
         p= f.submit 'Create', class: "add-answer", id: "add-answer"
       - else
         p= f.submit 'Update', class: "add-answer", id: "add-answer"
+
+  - if @question.files.attached?
+    .mh-25
+      = render partial: 'shared/image', locals: {resource: @question}

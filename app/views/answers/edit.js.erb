@@ -1,5 +1,12 @@
+// Fixed Safari error with let/const
+ // const bestButton = document.querySelector('#button-best-answer-<%= @answer.id %>')
+ // const cancelButton = document.querySelector('#cancel-edit-<%= @answer.id %>')
+ var bestButton = {}
+ bestButton = document.querySelector('#button-best-answer-<%= @answer.id %>');
+
 var cancelButton = {}
 cancelButton = document.querySelector('#cancel-edit-<%= @answer.id %>')
+
 prependInlineForm()
 
 <% if @answer.errors.present? %>
@@ -23,6 +30,11 @@ function prependInlineForm() {
   }
   document.querySelector('#jumbotron-form-inline-<%= @answer.id %>').classList.remove('hide')
   document.querySelector('#jumbotron-<%= @answer.id %>').classList.add('hide')
+  document.querySelector('#button-edit-answer-<%= @answer.id %>').classList.add('hide')
+  document.querySelector('#button-delete-answer-<%= @answer.id %>').classList.add('hide')
+  if (bestButton) {
+    document.querySelector('#button-best-answer-<%= @answer.id %>').classList.add('hide')
+  }
 }
 
 
@@ -32,5 +44,11 @@ function revertJumbotronForm() {
   }
   document.querySelector('#jumbotron-form-inline-<%= @answer.id %>').classList.add('hide')
   document.querySelector('#jumbotron-<%= @answer.id %>').classList.remove('hide')
+  document.querySelector('#button-edit-answer-<%= @answer.id %>').classList.remove('hide')
+  document.querySelector('#button-delete-answer-<%= @answer.id %>').classList.remove('hide')
+  if (bestButton) {
+    document.querySelector('#button-best-answer-<%= @answer.id %>').classList.remove('hide')
+  }
 }
+
 

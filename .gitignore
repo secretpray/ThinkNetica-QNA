@@ -34,8 +34,8 @@ yarn-debug.log*
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-
+/config/secrets/*
 /config/database.yml
-
+gcs.keyfile
 .DS_Store
 .idea

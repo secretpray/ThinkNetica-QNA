@@ -1,0 +1,20 @@
+.attache_files.row.align-items-center.d-flex.overflow-auto
+  - resource.files.each do |file|
+    .block-attaches.col-md-2.bg-light.m-2 id="attachment_#{file.id}"
+      .text-truncate style=("height: 15%;")
+        = link_to file.filename.to_s, url_for(file), class: 'text-secondary nav-link'
+      .text-center.m-2 style=("height: 55%;")
+        - if file.variable?
+          = link_to image_tag(file.variant(resize: "150x150")), file
+        - elsif file.previewable?
+          = link_to image_tag(file.preview(resize: "150x150")), rails_blob_path(file, disposition: :attachment)
+        - elsif file.image?
+          = link_to image_tag(file, width: 150), file
+        - else
+          = link_to file.filename, rails_blob_path(file, disposition: :attachment)
+
+      - if user_signed_in?
+        - if policy(file.record).destroy?
+          .d-flex.my-1.justify-content-center style=("height: 17%;")
+            button.btn.btn-sm.btn-warning type="button"
+              = link_to 'Remove', attachment_path(file), method: :delete, data: { confirm: 'Are you sure?', remote: true }
