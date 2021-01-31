@@ -13,14 +13,14 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
-    @question.links.build
     authorize Question
+    @question.links.build   # (has_many or has_many :through)
+    @question.build_reward  # (has_one or belongs_to)
   end
 
   def create
     @question = current_user.questions.build(question_params)
     authorize @question
-    # @question.user_id = current_user.id
 
     if @question.save
       redirect_to @question, notice: 'Question created successfully'
@@ -55,8 +55,9 @@ class QuestionsController < ApplicationController
     @question = Question.with_attached_files.find(params[:id])
   end
 
-
   def question_params
-    params.require(:question).permit(:title, :body, :user_id, files: [], links_attributes: [:id, :name, :url, :_destroy])
+    params.require(:question).permit(:title, :body, :user_id, 
+                                     files: [], links_attributes: [:id, :name, :url, :_destroy],
+                                     reward_attributes: [:id, :name, :badge_image, :_destroy])
   end
 end

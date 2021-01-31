@@ -16,8 +16,9 @@ class Answer < ApplicationRecord
 
   def set_best
     Answer.transaction do
-      self.question.answers.update_all(best: false)
-      self.update(best: true)
+      question.answers&.update_all(best: false)
+      update(best: true)
+      question.reward&.update(user: user)
     end
   end
 end

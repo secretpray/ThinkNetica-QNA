@@ -28,7 +28,7 @@
   br
 
   #answer_list
-    - if @question.answers.any?
+    - if @question.answers.exists?
       div
         strong
           |  #{@question.answers.count}&nbsp
@@ -47,5 +47,6 @@
       = render 'form_inline', resource: @question
   - else
     .card.bg-light.p-3
+      /*= link_to 'Add a answer','', class: 'd-inline btn btn-primary disabled', :disabled => true
       p.mb-0 You need to #{link_to 'Sign in', new_user_session_path} or #{link_to "Register", new_user_registration_path} to answer or leave a comment!
 

@@ -45,6 +45,7 @@ class AnswersController < ApplicationController
     respond_to do |format|
       if @answer.set_best
         format.js
+        flash[:notice] = 'You have marked the best answer to your question'
       else
         format.js
       end

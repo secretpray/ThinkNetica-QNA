@@ -7,6 +7,7 @@ li id="link_#{link.id}"
         #gist_link.hide data-gistlink-id="#{link.id}" data-src-id="#{parse_gist_id(link.url)}"
           #gistFrame 
             = render html: link.url.html_safe
+            /*= javascript_include_tag("#{link.url}.js", 'data-turbolinks-track': 'reload')
       .link-delete
         - if user_signed_in? && link.persisted?
           = link_to "Delete Link", link_path(link), method: :delete, remote: true
