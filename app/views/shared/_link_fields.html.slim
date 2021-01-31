@@ -1,0 +1,9 @@
+/*- binding.pry
+.nested-fields id="link-form-#{f.object.id if f.object.present?}"
+  = f.hidden_field :_destroy
+  Name  
+    = f.input :name, label: false, input_html: { class: "form-control" }, placeholder: 'Name'
+  URL
+    = f.input :url, label: false, input_html: { class: "form-control mt-2" }, placeholder: 'URL'
+  
+  = link_to "Remove", '#', class: "remove_fields"

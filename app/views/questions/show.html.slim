@@ -14,6 +14,12 @@
   .grey.p10.fs-5
     = @question.body
   br
+  - if @question.links.any?
+    h3 Links:
+    ul
+      = render @question.links
+      /*= render partial: 'links/link', locals: {links: @question.links}
+  br
 
   - if @question.files.attached?
     .mh-25

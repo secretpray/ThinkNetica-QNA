@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  root 'questions#index'
+  
   devise_for :users
 
   resources :questions do
@@ -11,7 +13,6 @@ Rails.application.routes.draw do
   end
 
   resources :attachments, only: [:destroy]
-  
-  root 'questions#index'
+  resources :links, only: [:destroy]
 
 end

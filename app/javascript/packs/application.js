@@ -14,5 +14,7 @@ ActiveStorage.start()
 
 require('coffee')
 require("utilities/auto_hide_flash")
-
+require('utilities/addFields')
+require('utilities/removeFields')
+require('utilities/links_visible')
 

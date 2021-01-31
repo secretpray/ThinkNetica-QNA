@@ -11,17 +11,18 @@ errors = document.querySelector('.answer-error-<%= @answer.id %>')
 <% else %>
   hide()
   if (errors) { document.querySelector('.answer-error-<%= @answer.id %>').innerText = '' }
-  document.getElementById('answer_<%= @answer.id %>').innerHTML = '';
-  document.getElementById('answer_<%= @answer.id %>').innerHTML += ('beforeend', '<%= j render @answer %>');
-  <% if @changed %>
+    document.getElementById('answer_<%= @answer.id %>').innerHTML = '';
+    document.getElementById('answer_<%= @answer.id %>').innerHTML += ('beforeend', '<%= j render @answer %>');
     document.getElementById('answer_<%= @answer.id %>').classList.add('edited')
-  <% end %>
 <% end %>
-
 
 function hide() {
   document.querySelector('#jumbotron-form-inline-<%= @answer.id %>').classList.add('hide')
-  document.querySelector('#jumbotron-<%= @answer.id %>').classList.remove('hide')
+  document.querySelector('#jumbotron-<%= @answer.id %> li').classList.remove('hide')
+  document.querySelector('#answer-info_<%= @answer.id %>').classList.remove('hide')
+  if (document.querySelector('#answer-link_<%= @answer.id %>')) {
+    document.querySelector('#answer-link_<%= @answer.id %>').classList.remove('hide')
+  }
 }
 
 function fadeOut(object) {

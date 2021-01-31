@@ -6,17 +6,21 @@ class QuestionsController < ApplicationController
     @questions = policy_scope(Question.all)
   end
 
-  def show; end
+  def show
+    @answer = @question.answers.build
+    # @answer.links.build
+  end
 
   def new
     @question = Question.new
+    @question.links.build
     authorize Question
   end
 
   def create
-    @question = Question.new(question_params)
+    @question = current_user.questions.build(question_params)
     authorize @question
-    @question.user_id = current_user.id
+    # @question.user_id = current_user.id
 
     if @question.save
       redirect_to @question, notice: 'Question created successfully'
@@ -31,6 +35,7 @@ class QuestionsController < ApplicationController
 
   def update
     authorize @question
+    # binding.pry
     if @question.update(question_params)
       redirect_to @question, notice: 'Question updated successfully'
     else
@@ -52,6 +57,6 @@ class QuestionsController < ApplicationController
 
 
   def question_params
-    params.require(:question).permit(:title, :body, :user_id, files: [])
+    params.require(:question).permit(:title, :body, :user_id, files: [], links_attributes: [:id, :name, :url, :_destroy])
   end
 end

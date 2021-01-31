@@ -1,4 +1,14 @@
 document.addEventListener('turbolinks:load', function() {
+ 
+  // Dismiss alert flash (button close)
+  const flashList = document.querySelector('.alert')
+
+  if (flashList) {
+    flashList.addEventListener("click", (event) => {
+      flashList.remove()
+    });
+  }
+
    // Timeout autohide flash notice
   const notice = document.getElementById('flash-notice');
   if (notice) fadeOut(notice)
@@ -10,7 +20,6 @@ document.addEventListener('turbolinks:load', function() {
   // Timeout autohide Devise error
   const deviseErrorExplanation = document.getElementById('error_explanation');
   if (deviseErrorExplanation) fadeOut(deviseErrorExplanation)
-
 
   function fadeOut(object) {
     if (object) {

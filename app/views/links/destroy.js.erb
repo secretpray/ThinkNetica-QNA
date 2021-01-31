@@ -1,0 +1,4 @@
+<% if @link.id %>
+    let link_<%= @link.id %> = document.querySelector('#link_<%= @link.id %>')
+    link_<%= @link.id %>.remove();
+<% end %>
