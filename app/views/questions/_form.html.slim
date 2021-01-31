@@ -11,6 +11,10 @@
     = f.simple_fields_for :links do |link_form|
       = render 'shared/link_fields', f: link_form
     = link_to_add_fields "Add Links...", f, :links 
+    
+    legend.mt-3.fs-5 Reward
+    = f.simple_fields_for :reward do |reward|
+      = render 'shared/reward_fields', f: reward
 
     legend.mt-3.fs-5 Attachments
     = f.input :files, label: false, input_html: { class: "form-control", multiple: true }
