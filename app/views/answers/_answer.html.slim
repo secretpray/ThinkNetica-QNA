@@ -1,16 +1,22 @@
 div id="answer_#{answer.id}"
   div id="jumbotron-#{answer.id}"
     - if answer.persisted?
-      li class="p10 fs-5 grey #{ 'best' if answer.best? }" = answer.body
-
-      .fz14.level-between
-        div id="answer-info_#{answer.id}"
+      li class="p10 fs-5 grey" = answer.body
+      .fz14 id="answer-info_#{answer.id}" 
+        .info-section.d-flex.justify-content-start
           | Submitted 
           strong= time_ago_in_words(answer.created_at)
           | &nbspago, by&nbsp
           strong= answer.user.email
           | ;&nbspLast updated: 
           strong= time_ago_in_words(answer.updated_at)
+        - if answer.best?
+          .best-section.d-flex.justify-content-end 
+            - if answer.question.reward.present?
+              = image_tag url_for(answer.question.reward.badge_image), size: "32x32", alt: "Reward", class: 'reward-image'
+            span
+              i.text-warning The best answer
+              span
 
       - if answer.links.any?
         h6 Links:
