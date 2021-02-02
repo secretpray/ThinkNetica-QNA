@@ -29,5 +29,12 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 
+
 en:
-  hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        reward:
+          attributes:
+            badge_image:
+              content_type: 'must be in .GIF, .JPG or .PNG format.'

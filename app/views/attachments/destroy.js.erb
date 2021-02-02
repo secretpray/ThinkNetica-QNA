@@ -1,9 +1,2 @@
 let attachment_<%= @attachment.id %> = document.querySelector('#attachment_<%= @attachment.id %>');
 attachment_<%= @attachment.id %>.remove();
-// Safari Bug (turbolinks:before-cache)!
-// document.addEventListener("turbolinks:before-cache", function () {
-//   if (attachment_<%= @attachment.id %> = document.querySelector('#attachment_<%= @attachment.id %>')) {
-//     attachment_<%= @attachment.id %>.remove()
-//     console.log("removed")
-//   }
-// })

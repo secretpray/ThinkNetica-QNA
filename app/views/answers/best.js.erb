@@ -1,2 +1,1 @@
-// document.getElementById('answer_list').prepend = '<%= j render @answer %>'
 document.getElementById('answer_list').innerHTML = '<%= j render @answer.question.answers.order(best: :asc) %>';

@@ -1,6 +1,6 @@
-class AnswerPolicy < ApplicationPolicy
+class RewardPolicy < ApplicationPolicy
 
-  attr_reader :user, :answer
+  attr_reader :user, :reward
 
   def new?
     user
@@ -14,16 +14,13 @@ class AnswerPolicy < ApplicationPolicy
     user && user.id == record.user_id || user.admin?
   end
 
-  def best?
-    user && user.id == record.question.user_id || user.admin?
-  end
-
   def update?
     user && user.id == record.user_id || user.admin?
   end
 
   def destroy?
-    user && user.id == record.user_id || user.admin?
+    user && user.id == record.question.user_id || user.admin?
+    # user && user.id == record.user_id || user.admin?
   end
 
 end

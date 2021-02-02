@@ -8,7 +8,6 @@ class QuestionsController < ApplicationController
 
   def show
     @answer = @question.answers.build
-    # @answer.links.build
   end
 
   def new
@@ -31,11 +30,12 @@ class QuestionsController < ApplicationController
 
   def edit
     authorize @question
+    @question.build_reward unless @question.reward.present?
   end
 
   def update
     authorize @question
-    # binding.pry
+ 
     if @question.update(question_params)
       redirect_to @question, notice: 'Question updated successfully'
     else
