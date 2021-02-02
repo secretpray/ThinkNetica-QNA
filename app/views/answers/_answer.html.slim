@@ -12,9 +12,9 @@ div id="answer_#{answer.id}"
           strong= time_ago_in_words(answer.updated_at)
         - if answer.best?
           .best-section.d-flex.justify-content-end 
-            = binding.pry
             - if answer.question.reward.present? && answer.question.reward.badge_image.attached?
               = image_tag url_for(answer.question.reward.badge_image), size: "32x32", alt: "Reward", class: 'reward-image'
+            /* Add default badge
             /*- unless answer.question.reward.present?
             /*  = image_tag url_for("https://gravatar.com/avatar/#{Digest::MD5::hexdigest(answer.user.email).downcase}.png"), size: "32x32", alt: "Reward", class: 'reward-image'
             span

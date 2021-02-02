@@ -10,7 +10,6 @@ class Link < ApplicationRecord
             format: URI::DEFAULT_PARSER.make_regexp(['http', 'https', '<script src="https://gist.github'])
             # format: { with: URL_FORMAT }
 
-  # contain gist link?
   def gist?
     # return unless url.present?
     # url =~ GIST_LINK

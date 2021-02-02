@@ -20,7 +20,6 @@ class RewardPolicy < ApplicationPolicy
 
   def destroy?
     user && user.id == record.question.user_id || user.admin?
-    # user && user.id == record.user_id || user.admin?
   end
 
 end

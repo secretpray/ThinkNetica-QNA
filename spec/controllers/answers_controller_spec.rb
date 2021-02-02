@@ -148,7 +148,7 @@ RSpec.describe AnswersController, type: :controller do
 
   describe 'PATCH #best' do
     let!(:another_question) { create(:question, user: roque) }
-    let(:another_answer) { create(:answer, question: another_question, user: roque) }
+    let!(:another_answer) { create(:answer, question: another_question, user: roque) }
 
     before { login(user) }
 
@@ -164,6 +164,15 @@ RSpec.describe AnswersController, type: :controller do
 
         expect(answer).to be_best
       end
+
+      it "it assigns reward to user" do
+        reward = create(:reward, question: question)
+        patch :best, params: { question_id: question, id: answer }, format: :js
+        answer.reload
+
+        expect { reward.reload }.to change(reward, :user).from(nil).to(answer.user)
+      end
+
     end
 
     context 'Not author of the question' do

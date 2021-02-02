@@ -26,7 +26,6 @@ class QuestionPolicy < ApplicationPolicy
   end
 
   def destroy?
-    binding.pry
     user && user.id == record.user_id || user.admin?
   end
 
