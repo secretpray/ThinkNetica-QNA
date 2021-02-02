@@ -43,6 +43,25 @@ feature 'User can edit question', %q{
       expect(page).to have_link 'spec_helper.rb'
       expect(page).to have_content 'No answers!'
     end
+
+    scenario 'edit the badge image from their question' do
+      visit root_path
+      click_link('Ask a question', match: :first)
+
+      fill_in 'Title', with: 'Test question with reward'
+      fill_in 'question[body]', with: 'Body for reward'
+      fill_in "Reward`s name", with: 'For the best answer'
+      attach_file 'question[reward_attributes][badge_image]', "#{Rails.root}/spec/support/files/reward.png"
+      click_on 'Create'
+
+      visit root_path
+      click_link 'Edit'
+      attach_file 'question[reward_attributes][badge_image]', "#{Rails.root}/spec/support/files/reward_gold.png"
+      click_on 'Update'
+
+      expect(page).to have_content 'Reward:' 
+      expect(page.find('.reward-image')['src']).to have_content 'reward_gold.png'
+    end
   end
 
   describe 'Authenticated user' do

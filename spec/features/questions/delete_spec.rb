@@ -54,7 +54,7 @@ feature 'User can delete his question', %q{
     after(:all) do
       Capybara.use_default_driver
     end
-
+    
     scenario "tries to delete other user's question" do
       question.user_id += 1
       click_on('Home')

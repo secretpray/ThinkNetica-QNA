@@ -10,9 +10,13 @@ feature 'User can give an answer', %q{
   given!(:question) { create(:question) }
 
   describe 'Authenticated user' do
-    scenario 'can create answer', js: true do
-      sign_in(user)
+    
+    before do
+      sign_in user
       visit question_path(question)
+    end
+
+    scenario 'can create answer', js: true do
       fill_in 'answer_body', with: 'Own answer'
       attach_file 'answer_files', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
       click_on 'Create'
@@ -24,16 +28,12 @@ feature 'User can give an answer', %q{
     end
 
     scenario 'Authenticated user creates answer with errors', js: true do
-      sign_in(user)
-      visit question_path(question)
 
       click_on 'Create'
       expect(page).to have_content "Body can't be blank"
     end
 
     scenario "tries to create answer with attached files" do
-      sign_in(user)
-      visit question_path(question)
       fill_in "answer_body", with: "New Answer"
       attach_file "answer_files", %W[#{Rails.root}/spec/rails_helper.rb #{Rails.root}/spec/spec_helper.rb]
       click_on "Create"

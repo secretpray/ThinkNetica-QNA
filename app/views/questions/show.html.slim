@@ -1,13 +1,19 @@
 #question_content.my-4
   h1.page-header= @question.title
-  h7
-    | Asked&nbsp
-    strong= time_ago_in_words(@question.created_at)
-    |  ago&nbsp
-    |  Active:&nbsp
-    strong= time_ago_in_words(@question.updated_at)
-    |  ago by&nbsp
-    strong= @question.user.email
+  .d-flex.justify-content-between
+    h7.question-info
+      | Asked&nbsp
+      strong= time_ago_in_words(@question.created_at)
+      |  ago&nbsp
+      |  Active:&nbsp
+      strong= time_ago_in_words(@question.updated_at)
+      |  ago by&nbsp
+      strong= @question.user.email
+    .question-prize
+      - if @question.reward.present? && @question.reward.badge_image.attached?
+        | [ Reward: #{image_tag url_for(@question.reward.badge_image), size: "32x32", alt: "Reward", class: 'reward-image'} ]
+      - else
+        | [ No reward ]
   br
   hr
   br

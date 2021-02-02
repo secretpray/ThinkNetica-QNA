@@ -1,9 +1,15 @@
 FactoryBot.define do
+  sequence :name do |n|
+    "Best answer reward ##{n}"
+  end
+
   factory :reward do
-    name { "Reward" }
+    name
+    question
+    user { nil }
 
     trait :with_image do
-      badge_image { fixture_file_upload(Rails.root.join('spec/support/files', 'reward.png'), 'text/rb') }
+      badge_image { Rack::Test::UploadedFile.new('spec/support/files/reward.png') }
     end
   end
 end

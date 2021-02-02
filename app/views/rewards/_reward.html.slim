@@ -1,4 +1,10 @@
 tr
-  td class="text-center" = image_tag url_for(reward.badge_image), size: "32x32", alt: "Reward", class: 'reward-image'
-  td class="text-center" = reward.name
-  td class="text-center" = link_to reward.question.title, question_path(reward.question)
+  td.text-center
+    - if reward.present? && reward.badge_image.attached?
+      = image_tag url_for(reward.badge_image), size: "32x32", alt: "Reward", class: 'reward-image'  
+  td.text-center
+    - if reward.present? 
+      = reward.name 
+  td.text-center 
+    - if reward.present?
+      = link_to reward.question.title, question_path(reward.question) 

@@ -48,12 +48,14 @@ feature "Author of the question choose best answer", %q{
       click_on('✓ Best', match: :first)
 
       expect(page).to have_css ".best"
+      expect(page).to have_content "The best answer"
     end
 
     within "#answer_list" do
       click_on('✓ Best', match: :first)
 
       expect(page).to have_css ".best"
+      expect(page).to have_content "The best answer"
       expect(page).to have_selector('.best', count: 1)
     end
   end
@@ -64,6 +66,7 @@ feature "Author of the question choose best answer", %q{
 
     within "#answer_list" do
       expect(page).to have_no_link "✓ Best"
+      expect(page).to_not have_content "The best answer"
     end
   end
 
@@ -71,5 +74,6 @@ feature "Author of the question choose best answer", %q{
     visit question_path(question)
 
     expect(page).to have_no_link "✓ Best"
+    expect(page).to_not have_content "The best answer"
   end
 end
