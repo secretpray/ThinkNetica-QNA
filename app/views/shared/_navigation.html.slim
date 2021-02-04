@@ -5,6 +5,9 @@
     .navbar-nav.mr-auto.px-3
       - if user_signed_in?
         = link_to current_user.email, edit_user_registration_path, id: 'account', class: "#{ 'admin' if current_user.admin? }", data: {item: current_user.email}
+        - if current_user.rewards.present?
+          = link_to rewards_path, class: "nav-item nav-link rewards-icon" do
+            i.fas.fa-award
         = link_to "Logout", destroy_user_session_path, method: :delete, data: {item: 'Logout'}
       - else
         = link_to 'Login', new_user_session_path, data: {item: 'Login'}

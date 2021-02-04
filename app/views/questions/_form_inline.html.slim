@@ -1,8 +1,15 @@
-= simple_form_for([@question, @question.answers.build ], remote: true) do |f|
+= simple_form_for([@question, @question.answers.build], remote: true) do |f|
 
   = render 'shared/errors', resource: @answer
   div
     = f.input :body, label: false, input_html: { class: "text-area form-control" }, required: true, placeholder: '*Body (required)'
     = f.file_field :files, multiple: true, class: "form-control", placeholder: 'Add files...'
   br
+
+    legend.mt-3.fs-5 Links
+    = f.simple_fields_for :links do |link_form|
+      = render 'shared/link_fields', f: link_form
+    
+    = link_to_add_fields "Add Links...", f, :links 
+
   p= f.submit 'Create', class: "add-answer", id: "add-answer"

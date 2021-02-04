@@ -9,6 +9,9 @@ feature 'User can edit his answer', %q{
   given!(:user) { create(:user) }
   given!(:question) { create(:question) }
   given!(:answer) { create(:answer, question: question, user_id: user.id) }
+  given(:link_url) { "http://www.google.com" }
+  given(:gist_link_url) { '<script src="https://gist.github.com/secretpray/2bac142504cbc05988fe19521c7c086a.js"></script>' }
+
 
   describe 'Unauthenticated user' do
     scenario 'can`t edit answer & delete attachment' do
@@ -33,6 +36,9 @@ feature 'User can edit his answer', %q{
       within '#answer_list' do
         fill_in 'answer_body', with: 'edited answer'
         attach_file "answer_files", %W[#{Rails.root}/spec/rails_helper.rb #{Rails.root}/spec/spec_helper.rb]
+        click_on "Add Links"
+        fill_in "Name", with: "New link"
+        fill_in "URL", with: link_url
       end
       click_on 'Update'
 
@@ -40,6 +46,8 @@ feature 'User can edit his answer', %q{
         expect(page).to have_content 'edited answer'
         expect(page).to have_link "rails_helper.rb"
         expect(page).to have_link "spec_helper.rb"
+        expect(page).to have_link "New link", href: link_url
+        expect(page).to_not have_content "Show gist"
       end
     end
 
@@ -67,6 +75,7 @@ feature 'User can edit his answer', %q{
       expect(page).to have_content answer.body
       expect(page).to_not have_content 'edited answer'
       expect(page).to_not have_content 'Remove'
+      expect(page).to_not have_link 'Delete Link'
     end
   end
 end

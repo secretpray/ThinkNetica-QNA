@@ -11,12 +11,10 @@ class AnswerPolicy < ApplicationPolicy
   end
 
   def edit
-    # user && user == record.user || user.admin?
     user && user.id == record.user_id || user.admin?
   end
 
   def best?
-    # user && user == record.question.user || user.admin?
     user && user.id == record.question.user_id || user.admin?
   end
 

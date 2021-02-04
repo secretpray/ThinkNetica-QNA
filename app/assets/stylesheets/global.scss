@@ -78,6 +78,12 @@ body, html * {
 .current {
   font-weight: 500 !important;
 }
+.btn-close {
+  font-size: 11px;
+  position: absolute;
+  right: 1%;
+  top: 30%;
+}
 
 // Autohide class for Errors
 .fadeout {
@@ -521,4 +527,27 @@ img {
   display: flex;
   align-self: stretch;
   flex-direction: column;
+}
+
+form label {
+  font-size: 1rem;
+}
+
+iframe {
+  margin: 2em 1em;
+  width: calc(100vw * 0.60);
+  min-width: 100%;
+  max-height: 400px;
+  height: 40vh;
+}
+
+.rewards-icon {
+  padding: 0 14px 0 8px !important;;
+  color: darkgoldenrod !important;
+}
+
+.reward-image {
+  width: 32px;
+  height: 32px;
+  margin: -4px 6px;
 }

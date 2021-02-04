@@ -6,17 +6,20 @@ class QuestionsController < ApplicationController
     @questions = policy_scope(Question.all)
   end
 
-  def show; end
+  def show
+    @answer = @question.answers.build
+  end
 
   def new
     @question = Question.new
     authorize Question
+    @question.links.build   # (has_many or has_many :through)
+    @question.build_reward  # (has_one or belongs_to)
   end
 
   def create
-    @question = Question.new(question_params)
+    @question = current_user.questions.build(question_params)
     authorize @question
-    @question.user_id = current_user.id
 
     if @question.save
       redirect_to @question, notice: 'Question created successfully'
@@ -27,10 +30,12 @@ class QuestionsController < ApplicationController
 
   def edit
     authorize @question
+    @question.build_reward unless @question.reward.present?
   end
 
   def update
     authorize @question
+ 
     if @question.update(question_params)
       redirect_to @question, notice: 'Question updated successfully'
     else
@@ -50,8 +55,9 @@ class QuestionsController < ApplicationController
     @question = Question.with_attached_files.find(params[:id])
   end
 
-
   def question_params
-    params.require(:question).permit(:title, :body, :user_id, files: [])
+    params.require(:question).permit(:title, :body, :user_id, 
+                                     files: [], links_attributes: [:id, :name, :url, :_destroy],
+                                     reward_attributes: [:id, :name, :badge_image, :user_id, :_destroy])
   end
 end

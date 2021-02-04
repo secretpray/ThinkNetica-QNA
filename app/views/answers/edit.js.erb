@@ -1,11 +1,9 @@
-// Fixed Safari error with let/const
- // const bestButton = document.querySelector('#button-best-answer-<%= @answer.id %>')
- // const cancelButton = document.querySelector('#cancel-edit-<%= @answer.id %>')
- var bestButton = {}
- bestButton = document.querySelector('#button-best-answer-<%= @answer.id %>');
-
+var bestButton = {}
+bestButton = document.querySelector('#button-best-answer-<%= @answer.id %>');
 var cancelButton = {}
 cancelButton = document.querySelector('#cancel-edit-<%= @answer.id %>')
+var linkSection = {}
+linkSection = document.querySelector('#answer-link_<%= @answer.id %>')
 
 prependInlineForm()
 
@@ -29,7 +27,11 @@ function prependInlineForm() {
     document.getElementById('answer_<%= @answer.id %>').classList.remove("edited")
   }
   document.querySelector('#jumbotron-form-inline-<%= @answer.id %>').classList.remove('hide')
-  document.querySelector('#jumbotron-<%= @answer.id %>').classList.add('hide')
+  document.querySelector('#jumbotron-<%= @answer.id %> li').classList.add('hide')
+  document.querySelector('#answer-info_<%= @answer.id %>').classList.add('hide')
+  if (linkSection) {
+    document.querySelector('#answer-link_<%= @answer.id %>').classList.add('hide')
+  }
   document.querySelector('#button-edit-answer-<%= @answer.id %>').classList.add('hide')
   document.querySelector('#button-delete-answer-<%= @answer.id %>').classList.add('hide')
   if (bestButton) {
@@ -43,12 +45,14 @@ function revertJumbotronForm() {
     document.getElementById('answer_<%= @answer.id %>').classList.remove("edited")
   }
   document.querySelector('#jumbotron-form-inline-<%= @answer.id %>').classList.add('hide')
-  document.querySelector('#jumbotron-<%= @answer.id %>').classList.remove('hide')
+  document.querySelector('#jumbotron-<%= @answer.id %> li').classList.remove('hide')
+  document.querySelector('#answer-info_<%= @answer.id %>').classList.remove('hide')
+  if (linkSection) {
+    document.querySelector('#answer-link_<%= @answer.id %>').classList.remove('hide')
+  }
   document.querySelector('#button-edit-answer-<%= @answer.id %>').classList.remove('hide')
   document.querySelector('#button-delete-answer-<%= @answer.id %>').classList.remove('hide')
   if (bestButton) {
     document.querySelector('#button-best-answer-<%= @answer.id %>').classList.remove('hide')
   }
 }
-
-

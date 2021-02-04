@@ -28,10 +28,8 @@ class AnswersController < ApplicationController
 
   def update
     @question = @answer.question
-    @answer.assign_attributes(answer_params)
-    @changed = @answer.changed?
     authorize @answer
-    @answer.save
+    @answer.update(answer_params)
   end
 
   def destroy
@@ -47,6 +45,7 @@ class AnswersController < ApplicationController
     respond_to do |format|
       if @answer.set_best
         format.js
+        flash[:notice] = 'You have marked the best answer to your question'
       else
         format.js
       end
@@ -65,6 +64,6 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body, :user_id, files: [])
+    params.require(:answer).permit(:body, :user_id, files: [], links_attributes: [:id, :name, :url, :_destroy])
   end
 end

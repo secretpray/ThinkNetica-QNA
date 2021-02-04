@@ -10,6 +10,8 @@ feature 'User can delete his question', %q{
   given!(:user) { create(:user) }
   given!(:question) { create(:question, user: user) }
   given!(:answer) { create(:answer, question: question, user: user) }
+  given!(:answer_with_link) { create :answer, :with_link, question: question, user: user }
+
 
   scenario 'Unauthenticated can not edit answer' do
     visit question_path(question)
@@ -22,9 +24,20 @@ feature 'User can delete his question', %q{
     scenario 'delete his answer' do
       visit question_path(question)
       expect(page).to have_content 'Delete'
+      accept_confirm do
+        click_on('Delete', match: :first)
+      end
       accept_confirm { page.click_link("Delete") }
       within '#answer_list' do
-        expect(page).to_not have_content answer.body
+      expect(page).to_not have_content 'MyText'
+      end
+    end
+    
+    scenario "delete his link", js: true do
+      visit question_path(question)
+      within '#answer_list' do
+        click_on "Delete Link"
+        expect(page).to_not have_content "Google"
       end
     end
 
@@ -49,8 +62,10 @@ feature 'User can delete his question', %q{
 
       answer.user_id += 1
       visit question_path(question)
+
       expect(page).to_not have_content 'nDelete'
       expect(page).to have_content answer.body
+      expect(page).to have_content 'Google'
     end
   end
 end

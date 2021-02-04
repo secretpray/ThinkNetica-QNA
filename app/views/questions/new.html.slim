@@ -1,3 +1,4 @@
 h1.mt-5.mb-2
   | New question
+- if policy(@question).new?
   = render 'form', resource: @question

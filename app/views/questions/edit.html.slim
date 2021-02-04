@@ -1,3 +1,4 @@
 h1.mt-5.mb-2
   | Editing question
-= render 'form', resource: @question
+- if policy(@question).update?
+  = render 'form', resource: @question

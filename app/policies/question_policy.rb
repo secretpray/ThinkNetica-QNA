@@ -17,6 +17,10 @@ class QuestionPolicy < ApplicationPolicy
     user && user.id == record.user_id || user.admin?
   end
 
+  def best?
+    user && user.id == record.user_id || user.admin?
+  end
+
   def update?
     user && user.id == record.user_id || user.admin?
   end

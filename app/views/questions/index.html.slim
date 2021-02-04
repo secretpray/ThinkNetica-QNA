@@ -5,7 +5,6 @@
     - @questions.each do |q|
       .question.content.d-flex
         li.col-md-10.m-4.fs-5= link_to q.title, q
-        /*- if current_user&.author?(q)
         - if user_signed_in?
           - if policy(q).edit?
             button.edit-question

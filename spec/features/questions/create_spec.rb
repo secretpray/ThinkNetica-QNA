@@ -28,7 +28,6 @@ feature 'User can create question', %q{
     scenario 'asks a question with attached files' do
       fill_in 'Title', with: 'Test question with image'
       fill_in 'question[body]', with: 'text for attachment'
-      # attach_file 'Files', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
       attach_file 'question_files', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
       click_on 'Create'
 
@@ -42,6 +41,17 @@ feature 'User can create question', %q{
       click_on 'Create'
 
       expect(page).to have_content "Title can't be blank"
+    end
+
+    scenario 'asks a question with reward' do
+      fill_in 'Title', with: 'Test question with reward'
+      fill_in 'question[body]', with: 'Body for reward'
+      fill_in "Reward`s name", with: 'For the best answer'
+      attach_file 'question[reward_attributes][badge_image]', "#{Rails.root}/spec/support/files/reward.png"
+      click_on 'Create'
+
+      expect(page).to have_content 'Reward:' 
+      expect(page.find('.reward-image')['src']).to have_content 'reward.png'
     end
   end
 
