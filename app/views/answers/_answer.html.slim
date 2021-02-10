@@ -1,7 +1,9 @@
 div id="answer_#{answer.id}"
+  hr
   div id="jumbotron-#{answer.id}"
     - if answer.persisted?
       li class="p10 fs-5 grey #{ 'best' if answer.best? }" = answer.body
+      = render '/shared/vote', resource: answer
       .fz14 id="answer-info_#{answer.id}" 
         .info-section.d-flex.justify-content-start
           | Submitted 

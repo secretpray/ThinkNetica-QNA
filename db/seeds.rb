@@ -1,3 +1,4 @@
+Vote.delete_all
 Reward.delete_all
 Answer.delete_all
 Question.delete_all
@@ -43,10 +44,40 @@ question.reward.badge_image.attach(io: File.open(rails_path/'no_image_available.
 question.save
 answer.update(best: true)
 
+Vote.create!(score: 1, user_id: User.first.id, votable_type: 'Question', votable_id: 1)
+Vote.create!(score: 1, user_id: User.second.id, votable_type: 'Question', votable_id: 1)
+Vote.create!(score: 1, user_id: User.find(3).id, votable_type: 'Question', votable_id: 1)
+Vote.create!(score: 1, user_id: User.find(4).id, votable_type: 'Question', votable_id: 1)
+Vote.create!(score: 1, user_id: User.find(5).id, votable_type: 'Question', votable_id: 1)
+Vote.create!(score: -1, user_id: User.last.id, votable_type: 'Question', votable_id: 1)
+
+Vote.create!(score: -1, user_id: User.first.id, votable_type: 'Question', votable_id: 2)
+Vote.create!(score: -1, user_id: User.second.id, votable_type: 'Question', votable_id: 2)
+Vote.create!(score: -1, user_id: User.find(3).id, votable_type: 'Question', votable_id: 2)
+Vote.create!(score: 1, user_id: User.find(4).id, votable_type: 'Question', votable_id: 2)
+Vote.create!(score: 1, user_id: User.find(5).id, votable_type: 'Question', votable_id: 2)
+Vote.create!(score: -1, user_id: User.last.id, votable_type: 'Question', votable_id: 2)
+
+Vote.create(score: 1, user_id: User.first.id,votable_type: 'Answer', votable_id: 1)
+Vote.create(score: 1, user_id: User.second.id, votable_type: 'Answer', votable_id: 1)
+Vote.create!(score: -1, user_id: User.find(3).id, votable_type: 'Answer', votable_id: 1)
+Vote.create!(score: 1, user_id: User.find(4).id, votable_type: 'Answer', votable_id: 1)
+Vote.create!(score: -1, user_id: User.find(5).id, votable_type: 'Answer', votable_id: 1)
+Vote.create!(score: -1, user_id: User.last.id, votable_type: 'Answer', votable_id: 1)
+
+Vote.create(score: 1, user_id: User.first.id,votable_type: 'Answer', votable_id: 2)
+Vote.create(score: 1, user_id: User.second.id, votable_type: 'Answer', votable_id: 2)
+Vote.create!(score: -1, user_id: User.find(3).id, votable_type: 'Answer', votable_id: 2)
+Vote.create!(score: -1, user_id: User.find(4).id, votable_type: 'Answer', votable_id: 2)
+Vote.create!(score: -1, user_id: User.find(5).id, votable_type: 'Answer', votable_id: 2)
+Vote.create!(score: -1, user_id: User.last.id, votable_type: 'Answer', votable_id: 2)
+
+
 User.first.update(role: 'admin')
 p "Created #{Question.count} questions."
 p "Created #{Answer.count} answers."
 p "Created #{User.count} users."
+p "Created #{Vote.count} votes."
 p '- * -' * 14
 p "Created admin user: #{User.find_by_role('admin').email}"
 p "Create best answer id: #{Answer.find_by_best(true).id}, body: #{Answer.find_by_best(true).body}"
