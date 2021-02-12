@@ -21,6 +21,12 @@ body, html * {
   opacity: 40%;
 }
 
+.not-allowed {
+  cursor: not-allowed !important;
+  pointer-events: none;
+  opacity: 40%;
+}
+
 .fa-thumbs-up,
 .fa-thumbs-down {
   margin: 0 10px;

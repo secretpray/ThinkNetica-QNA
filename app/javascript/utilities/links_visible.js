@@ -45,11 +45,6 @@ document.addEventListener('turbolinks:load', function() {
     gistFrameDoc.writeln(gistFrameHTML);
     gistFrameDoc.close();		
     
-    //console.log("iframe added");
     }
   });
-  // function resizeIframe(obj){
-  //     obj.style.height = 0;
-  //     obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
-  //  }
 })

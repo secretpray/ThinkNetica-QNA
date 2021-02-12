@@ -47,4 +47,8 @@ module ApplicationHelper
         resource_path = resource
       end
     end
+
+    def ident(resource)
+      resource.class.to_s.downcase
+    end
 end

@@ -20,6 +20,7 @@ gem 'bootstrap', '~> 5.0.0.beta1'
 gem 'mini_magick'
 gem 'image_processing', '~> 1.2'
 gem "google-cloud-storage", "~> 1.8", require: false
+gem 'htmlrender'
 
 group :development, :test do
   gem 'pry', '~> 0.13.1'
