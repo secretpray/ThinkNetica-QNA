@@ -7,7 +7,6 @@ RSpec.describe QuestionPolicy, type: :policy do
 
   permissions :update?, :edit?, :destroy? do
     it "Deny access edit/update/destroy question not to the author of the question" do
-      # expect(subject).not_to permit(create(:user), Question.new())
       expect(subject).not_to permit(create(:user), create(:question))
     end
 
@@ -19,4 +18,19 @@ RSpec.describe QuestionPolicy, type: :policy do
       expect(subject).to permit(create(:user), create(:question, user_id: User.last.id))
     end
   end
+
+  permissions :upvote?, :downvote?, :resetvote? do
+    it "Deny access upvote question to the author of the question" do
+      expect(subject).not_to permit(create(:user), create(:question, user_id: User.last.id))
+      expect(subject).not_to permit(create(:user), create(:question, user_id: User.last.id), create(:vote, :for_question, user_id: User.last.id) )
+    end
+  end
+
+  permissions :make_vote? do
+    it "Deny access create upvote question to the author of the question" do
+      expect(subject).not_to permit(create(:user), create(:question, user_id: User.last.id))
+    end
+  end
+
+  # TODO check score.sum
 end

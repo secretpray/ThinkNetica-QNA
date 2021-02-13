@@ -1,7 +1,7 @@
 div class="vote_content-#{ident(resource)}_#{resource.id}"
   div class="vote-#{ident(resource)}_#{resource.id} d-flex justify-content-between"
     .vote-info.d-flex.justify-content-end.mt-3.mb-2
-      span class="votes-#{ident(resource)}_#{resource.id}-total" 
+      span class="votes-#{ident(resource)}_#{resource.id}-total votes-total" 
         = "Rating: #{resource.rating}"
     - if policy(resource).make_vote?
       .vote-action.d-flex.justify-content-start.mt-3.mb-2
