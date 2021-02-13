@@ -1,4 +1,4 @@
-.vote_content
+div class="vote_content-#{ident(resource)}_#{resource.id}"
   div class="vote-#{ident(resource)}_#{resource.id} d-flex justify-content-between"
     .vote-info.d-flex.justify-content-end.mt-3.mb-2
       span class="votes-#{ident(resource)}_#{resource.id}-total" 
@@ -37,5 +37,5 @@
             span.text-danger.fs-5.fa.fa-thumbs-down
         - else
           span.text-muted.op-40.fs-5.fa.fa-thumbs-down
-  .vote-errors.justify-content-center.text-danger.py-1.d-none
+  div class="vote-errors-#{ident(resource)}_#{resource.id} justify-content-center text-danger py-1 d-none"
 
