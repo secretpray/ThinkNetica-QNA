@@ -26,4 +26,8 @@ class AnswerPolicy < ApplicationPolicy
   def destroy?
     user && user.id == record.user_id || user.admin?
   end
+
+  def voted?
+    user && user.id != record.user_id || user.admin?
+  end
 end

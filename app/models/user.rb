@@ -13,6 +13,11 @@ class User < ApplicationRecord
     self.id == resource.user_id
   end
 
+  def score(votable)
+    votes = votable.votes.where(user_id: id)
+    votes.sum(:score)
+  end
+
   def admin?
     self.role == 'admin'
   end
