@@ -20,9 +20,11 @@ gem 'bootstrap', '~> 5.0.0.beta1'
 gem 'mini_magick'
 gem 'image_processing', '~> 1.2'
 gem "google-cloud-storage", "~> 1.8", require: false
+gem 'htmlrender'
 
 group :development, :test do
   gem 'pry', '~> 0.13.1'
+  gem 'pry-byebug'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 4.0.1'
   gem 'factory_bot_rails'

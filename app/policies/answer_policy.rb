@@ -1,4 +1,5 @@
 class AnswerPolicy < ApplicationPolicy
+  include VotePolicy
 
   attr_reader :user, :answer
 
@@ -26,4 +27,7 @@ class AnswerPolicy < ApplicationPolicy
     user && user.id == record.user_id || user.admin?
   end
 
+  def voted?
+    user && user.id != record.user_id || user.admin?
+  end
 end

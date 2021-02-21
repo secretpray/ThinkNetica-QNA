@@ -18,4 +18,17 @@ RSpec.describe AnswerPolicy, type: :policy do
       expect(subject).to permit(create(:user), create(:answer, user_id: User.last.id))
     end
   end
+
+  permissions :upvote?, :downvote?, :resetvote? do
+    it "Deny access upvote answer to the author of the answer" do
+      expect(subject).not_to permit(create(:user), create(:answer, user_id: User.last.id))
+      expect(subject).not_to permit(create(:user), create(:answer, user_id: User.last.id), create(:vote, :for_answer, user_id: User.last.id) )
+    end
+  end
+
+  permissions :make_vote? do
+    it "Deny access create upvote answer to the author of the answer" do
+      expect(subject).not_to permit(create(:user), create(:answer, user_id: User.last.id))
+    end
+  end
 end

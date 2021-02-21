@@ -37,9 +37,18 @@ module ApplicationHelper
         else
           link_url
         end
-        # binding.pry
-        # check empty gist link (e.g. 'https://gist.github.com/USER')
-        # URI(gist_id).path.split('/').length > 2 ? File.basename(gist_id) : nil
         File.basename(gist_id)
+    end
+
+    def set_path(resource)
+      if resource.is_a?(Answer)
+        resource_path = resource.question, resource
+      else
+        resource_path = resource
+      end
+    end
+
+    def ident(resource)
+      resource.class.to_s.downcase
     end
 end

@@ -1,0 +1,41 @@
+div class="vote_content-#{ident(resource)}_#{resource.id}"
+  div class="vote-#{ident(resource)}_#{resource.id} d-flex justify-content-between"
+    .vote-info.d-flex.justify-content-end.mt-3.mb-2
+      span class="votes-#{ident(resource)}_#{resource.id}-total votes-total" 
+        = "Rating: #{resource.rating}"
+    - if policy(resource).make_vote?
+      .vote-action.d-flex.justify-content-start.mt-3.mb-2
+        - if policy(resource).upvote?
+          = link_to polymorphic_path(set_path(resource), action: :upvote), 
+                    class: "upvote upvote-#{ident(resource)}_#{resource.id}", 
+                    method: :post,
+                    data: { type: :json, setobject: "#{resource}" },
+                    remote: true, 
+                    title: 'Vote ▲' do
+            span.text-success.fs-5.fa.fa-thumbs-up
+        - else
+          span.text-muted.op-40.fs-5.fa.fa-thumbs-up
+
+        - if policy(resource).resetvote?
+          = link_to polymorphic_path(set_path(resource), action: :resetvote),
+                  class: "reset reset-#{ident(resource)}_#{resource.id}",
+                  method: :delete,
+                  data: { type: :json },
+                  remote: true,
+                  title: 'Vote reset' do
+            span.text-secondary.fs-5.fa.fa-times
+        - else
+          span.text-muted.op-40.fs-5.fa.fa-times
+
+        - if policy(resource).downvote?
+          = link_to polymorphic_path(set_path(resource), action: :downvote),
+                    class: "downvote downvote-#{ident(resource)}_#{resource.id}",
+                    method: :post,
+                    data: { type: :json },
+                    remote: true,
+                    title: 'Vote ▼' do
+            span.text-danger.fs-5.fa.fa-thumbs-down
+        - else
+          span.text-muted.op-40.fs-5.fa.fa-thumbs-down
+  div class="vote-errors-#{ident(resource)}_#{resource.id} justify-content-center text-danger py-1 d-none"
+

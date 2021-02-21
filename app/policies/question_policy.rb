@@ -1,4 +1,6 @@
 class QuestionPolicy < ApplicationPolicy
+  include VotePolicy
+  
   class Scope < Scope
     def resolve
       scope.all
@@ -29,4 +31,7 @@ class QuestionPolicy < ApplicationPolicy
     user && user.id == record.user_id || user.admin?
   end
 
+  # def voted?
+  #   user && user.id != record.user_id || user.admin?
+  # end
 end

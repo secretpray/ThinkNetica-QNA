@@ -157,6 +157,7 @@ GEM
       multi_json (~> 1.11)
       os (>= 0.9, < 2.0)
       signet (~> 0.14)
+    htmlrender (0.0.1)
     httpclient (2.8.3)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
@@ -213,6 +214,9 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
       spoon (~> 0.0)
+    pry-byebug (3.9.0)
+      byebug (~> 11.0)
+      pry (~> 0.13.0)
     public_suffix (4.0.6)
     puma (5.1.1)
       nio4r (~> 2.0)
@@ -388,6 +392,7 @@ DEPENDENCIES
   devise
   factory_bot_rails
   google-cloud-storage (~> 1.8)
+  htmlrender
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
   launchy (~> 2.4, >= 2.4.3)
@@ -395,6 +400,7 @@ DEPENDENCIES
   mini_magick
   pg (~> 1.1)
   pry (~> 0.13.1)
+  pry-byebug
   puma (~> 5.0)
   pundit
   rack-mini-profiler (~> 2.0)

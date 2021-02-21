@@ -5,11 +5,17 @@ class User < ApplicationRecord
   has_many :questions, dependent: :destroy
   has_many :answers, dependent: :destroy
   has_many :rewards, dependent: :destroy
+  has_many :votes, dependent: :destroy
 
   validates :email, presence: true
 
   def author?(resource)
     self.id == resource.user_id
+  end
+
+  def score(votable)
+    votes = votable.votes.where(user_id: id)
+    votes.sum(:score)
   end
 
   def admin?

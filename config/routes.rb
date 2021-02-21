@@ -4,10 +4,18 @@ Rails.application.routes.draw do
   
   devise_for :users
 
-  resources :questions do
-    resources :answers, except: %i(index, show) do
+  concern :votable do
+    member do
+      post :upvote
+      post :downvote
+      delete :resetvote
+    end
+  end
+
+  resources :questions, concerns: :votable do
+    resources :answers, concerns: :votable, except: %i(index, show) do
       member do
-        patch :best # patch :best, on: :member
+        patch :best
       end
     end
   end
@@ -15,5 +23,4 @@ Rails.application.routes.draw do
   resources :attachments, only: :destroy
   resources :links, only: :destroy
   resources :rewards, only: :index
-
 end

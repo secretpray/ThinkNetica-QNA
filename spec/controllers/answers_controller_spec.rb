@@ -7,6 +7,10 @@ RSpec.describe AnswersController, type: :controller do
   let(:answer) { create(:answer, question: question, user: user) }
   let(:other_author_answer) { create(:answer, question: question, user: roque) }
 
+  it_behaves_like 'voted' do
+    let(:model) { create :answer, user: user }
+  end
+
   describe '#GET new' do
     before { login(user) }
     before { get :new, params: { question_id: question, user_id: user }, format: :js }
@@ -147,6 +151,7 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'PATCH #best' do
+
     let!(:another_question) { create(:question, user: roque) }
     let!(:another_answer) { create(:answer, question: another_question, user: roque) }
 
