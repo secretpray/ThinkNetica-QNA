@@ -1,5 +1,6 @@
 class AnswerPolicy < ApplicationPolicy
   include VotePolicy
+  include CommentablePolicy
 
   attr_reader :user, :answer
 

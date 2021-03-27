@@ -1,9 +1,10 @@
 class Question < ApplicationRecord
   include Votable
-  
-  has_many :answers, dependent: :destroy
-  has_one :reward, dependent: :destroy
+  include Commentable
+
   belongs_to :user
+  has_one :reward, dependent: :destroy
+  has_many :answers, dependent: :destroy
   has_many :links, dependent: :destroy, as: :linkable
   has_many_attached :files
 
@@ -12,6 +13,7 @@ class Question < ApplicationRecord
 
   validates :title, :body, presence: true
 
+  scope :recent, -> { order(created_at: :desc) }
   scope :by_answers_count, -> { joins(:answers).group("questions.id").order("count(questions.id) DESC") }
 
 end

@@ -21,6 +21,10 @@ gem 'mini_magick'
 gem 'image_processing', '~> 1.2'
 gem "google-cloud-storage", "~> 1.8", require: false
 gem 'htmlrender'
+gem 'gon'
+gem 'redis'
+gem 'redis-namespace'
+gem 'redis-rails'
 
 group :development, :test do
   gem 'pry', '~> 0.13.1'

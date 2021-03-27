@@ -1,0 +1,35 @@
+<div id="answer_<%= @answer.id %>">
+  <hr />
+  <div id="jumbotron-<%= @answer.id %>">
+    <li class="p10 fs-5 grey "><%= @answer.body %></li>
+    <div class="vote_content-answer_<%= @answer.id %>">
+      <div class="vote-answer_<%= @answer.id %> d-flex justify-content-between">
+        <div class="vote-info d-flex justify-content-end mt-3 mb-2"><span class="votes-answer_39-total votes-total">Rating: <%= @answer.rating %></span></div>
+      </div>
+      <div class="vote-errors-answer_<%= @answer.id %> justify-content-center text-danger py-1 d-none"></div>
+    </div>
+    <div class="fz14" id="answer-info_<%= @answer.id %>">
+      <div class="info-section d-flex justify-content-start">
+        Submitted <strong><%= @answer.created_at %></strong>&nbspago, by&nbsp<strong><%= @answer.user.email %></strong>;&nbspLast updated: <strong><%= @answer.updated_at %></strong>
+      </div>
+    </div>
+    <h6>Links:</h6>
+    <ul id="answer-link_<%= @answer.link.id %>">
+      <li id="link_<%= @answer.link.id %>">
+        <div class="pb-2 pt-3 pr-1 d-flex justify-content-between"><a href="<%= @answer.link.url %>"><%= @answer.link.name %></a></div>
+      </li>
+    </ul>
+    <div class="image-box">
+      <div class="attache_files row align-items-center d-flex overflow-auto">
+        <div class="block-attaches col-md-2 bg-light m-2" id="attachment_<%= @answer.attachments.attachment.id %>">
+          <div class="text-truncate" style="height: 15%;"><a class="text-secondary nav-link" href="<%= @answer.attachment.url %>"><%= @answer.attachment.name %></a></div>
+          <div class="text-center m-2" style="height: 55%;"><a href="<%= @answer.attachment.url %>"><img src="<%= @answer.attachment.url %>" /></a></div>
+        </div>
+        <div class="block-attaches col-md-2 bg-light m-2" id="attachment_<%= @answer.attachments.attachment.id %>">
+          <div class="text-truncate" style="height: 15%;"><a class="text-secondary nav-link" href="<%= @answer.attachment.url %>"><%= @answer.attachment.name %></a></div>
+          <div class="text-center m-2" style="height: 55%;"><a href="<%= @answer.attachment.url %>"><img src="<%= @answer.attachment.url %>" /></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

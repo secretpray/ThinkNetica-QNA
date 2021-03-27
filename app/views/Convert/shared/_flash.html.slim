@@ -1,0 +1,6 @@
+.row.col-md-12
+  - flash.each do |type, message|
+    .alert id="flash-#{type}" role="alert"
+      span.flash-inner-text
+        = message
+        button.btn-close aria-label="Close" data-bs-dismiss="alert" type="button"

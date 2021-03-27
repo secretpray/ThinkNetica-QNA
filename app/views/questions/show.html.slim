@@ -1,4 +1,4 @@
-#question_content.my-4
+#question_content.mt-4.mb-2 data-channel-room="#{ params[:id] }"
   h1.page-header= @question.title
   = render '/shared/vote', resource: @question
   .d-flex.justify-content-between
@@ -9,7 +9,7 @@
       |  Active:&nbsp
       strong= time_ago_in_words(@question.updated_at)
       |  ago by&nbsp
-      strong= @question.user.email
+      span class=("activity-status user-#{@question.user.id}-status") data-user-id="#{@question.user.id}" = @question.user.email
     .question-prize
       - if @question.reward.present? && @question.reward.badge_image.attached?
         | [ Reward: #{image_tag url_for(@question.reward.badge_image), size: "32x32", alt: "Reward", class: 'reward-image'} ]
@@ -27,20 +27,24 @@
       = render @question.links
   br
 
-  - if @question.files.attached?
+  /*- binding.pry
+  - if @question.persisted? && @question.files.attached?
     .mh-25
       = render partial: 'shared/image', locals: {resource: @question}
   hr
   br
+  .question-comments.mt-2.mb-4
+    = render 'comments/comments', resource: @question
 
+  #users-count.d-flex.justify-content-end
+  br
   #answer_list
     - if @question.answers.exists?
-      div
+      .answers_count
         strong
           |  #{@question.answers.count}&nbsp
           = @question.answers.count > 1 ? 'Answers' : 'Answer'
-      ul.list-answers
-      = render @question.answers
+      .list-answers= render @question.answers
     - else
       div No answers!
       br
@@ -53,6 +57,5 @@
       = render 'form_inline', resource: @question
   - else
     .card.bg-light.p-3
-      /*= link_to 'Add a answer','', class: 'd-inline btn btn-primary disabled', :disabled => true
       p.mb-0 You need to #{link_to 'Sign in', new_user_session_path} or #{link_to "Register", new_user_registration_path} to answer or leave a comment!
 

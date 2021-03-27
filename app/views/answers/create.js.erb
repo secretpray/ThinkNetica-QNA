@@ -6,4 +6,5 @@
   document.getElementById('errors-answer').innerText = ''
   document.getElementById('answer_list').insertAdjacentHTML('beforeend', '<%= j render @answer %>');
   document.getElementById('new_answer').reset();
+  document.querySelector('.answers_count').innerHTML = "<strong> <%= @question.answers.count %>&nbsp;Answers</strong>"
 <% end %>

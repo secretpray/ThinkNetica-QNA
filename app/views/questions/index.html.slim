@@ -1,19 +1,10 @@
-#question_content.my-4
+#question_content.my-4.user-id data-user-id="#{current_user&.id}"
   h1.text-center.mt-4 List a question
   - if @questions.any?
-    ul
-    - @questions.each do |q|
-      .question.content.d-flex
-        li.col-md-10.m-4.fs-5= link_to q.title, q
-        - if user_signed_in?
-          - if policy(q).edit?
-            button.edit-question
-              = link_to 'Edit', edit_question_path(q)
-            button.delete-question
-              = link_to 'Delete', question_path(q), method: :delete, data: { confirm: 'Are you sure?'}
-
-      hr
-      br
+    ul.question_list
+      = render @questions
+    hr
+    br
     ul
   -else
     div No question!

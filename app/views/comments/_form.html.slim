@@ -1,0 +1,7 @@
+= simple_form_for(resource.comments.build, url: send("create_comment_#{resource.class.name.downcase}_path", resource),
+html: { id: "comments-#{dom_id(resource)}" }, remote: true ) do |f|
+  div id="errors-inline-comments" class="comments-error-#{dom_id(resource)}"
+  .form-group.pt-2 id="comments-form-#{dom_id(resource)}"
+    = f.input :body, class: 'form-control', placeholder: 'Add your comment...'
+  .form-group.pb-3
+    = f.button :submit, 'Create', class: 'btn btn-secondary mt-2 mb-3'

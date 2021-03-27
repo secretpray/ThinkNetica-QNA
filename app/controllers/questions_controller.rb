@@ -1,15 +1,24 @@
 class QuestionsController < ApplicationController
   include Voted
+  include Commented
   
-  before_action :authenticate_user!, except: %i(index show)
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :find_question, only: %i[show edit update destroy]
+  after_action :publish_question, only: :create
+  after_action :broadcast_destroy_question, only: :destroy
+
 
   def index
-    @questions = policy_scope(Question.all)
+    @questions = Question.recent
   end
 
   def show
-    @answer = @question.answers.build
+    if @question.nil? # quick fix error nil object
+      @questions = Question.recent
+      render 'index'
+    else
+      @answer = @question.answers.build
+    end
   end
 
   def new
@@ -47,19 +56,44 @@ class QuestionsController < ApplicationController
 
   def destroy
     authorize @question
-    @question.destroy
-    redirect_to questions_path, notice: 'Question deleted successfully'
+    if @question.destroy
+      respond_to do |format|
+        format.js
+      end
+    end
   end
 
   private
 
   def find_question
-    @question = Question.with_attached_files.find(params[:id])
+    @question = Question.with_attached_files.find_by_id(params[:id])
+    # @question = Question.with_attached_files.find(params[:id])
   end
 
   def question_params
-    params.require(:question).permit(:title, :body, :user_id, 
-                                     files: [], links_attributes: [:id, :name, :url, :_destroy],
-                                     reward_attributes: [:id, :name, :badge_image, :user_id, :_destroy])
+    params.require(:question).permit(:title, :body, :user_id, files: [], 
+                              links_attributes: [:id, :name, :url, :_destroy],
+                              reward_attributes: [:id, :name, :badge_image, :user_id, :_destroy])
+  end
+
+  def publish_question
+    # return unless @question.valid?
+    return if @question.errors.any?
+
+    SendQuestionJob.perform_later(@question)
+  end
+
+  def broadcast_destroy_question
+    # destroy from qestions list (index)
+    ActionCable.server.broadcast 'questions_channel',
+                                  question: @question,
+                                  question_id: @question.id,
+                                  action: :destroy
+    
+    # if open question show redirect to root
+    ActionCable.server.broadcast  "questions/#{@question.id}/answers", 
+                                  id: @question.id,
+                                  author_id: current_user.id,
+                                  action: :delete_question
   end
 end

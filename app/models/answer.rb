@@ -1,5 +1,6 @@
 class Answer < ApplicationRecord
   include Votable
+  include Commentable
   
   belongs_to :question
   belongs_to :user
@@ -8,7 +9,6 @@ class Answer < ApplicationRecord
 
   accepts_nested_attributes_for :links, allow_destroy: true, reject_if: :all_blank
 
-  # validates :best, uniqueness: { scope: :question_id }, if: :best?, presence: true
   validates :body, presence: true
 
   scope :by_add, -> { order(created_at: :desc) }

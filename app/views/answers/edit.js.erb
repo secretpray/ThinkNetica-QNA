@@ -23,8 +23,8 @@ if (cancelButton) {
 }
 
 function prependInlineForm() {
-  if (document.getElementById('answer_<%= @answer.id %>').classList.contains("edited")) {
-    document.getElementById('answer_<%= @answer.id %>').classList.remove("edited")
+  if (document.querySelector('.answer_<%= @answer.id %>').classList.contains("edited")) {
+    document.querySelector('.answer_<%= @answer.id %>').classList.remove("edited")
   }
   document.querySelector('#jumbotron-form-inline-<%= @answer.id %>').classList.remove('hide')
   document.querySelector('#jumbotron-<%= @answer.id %> li').classList.add('hide')
@@ -41,8 +41,8 @@ function prependInlineForm() {
 
 
 function revertJumbotronForm() {
-  if (document.getElementById('answer_<%= @answer.id %>').classList.contains("edited")) {
-    document.getElementById('answer_<%= @answer.id %>').classList.remove("edited")
+  if (document.querySelector('.answer_<%= @answer.id %>').classList.contains("edited")) {
+    document.querySelector('.answer_<%= @answer.id %>').classList.remove("edited")
   }
   document.querySelector('#jumbotron-form-inline-<%= @answer.id %>').classList.add('hide')
   document.querySelector('#jumbotron-<%= @answer.id %> li').classList.remove('hide')

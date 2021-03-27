@@ -17,8 +17,45 @@ body, html * {
   color: rgb(74, 74, 74);
 }
 
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  .container {
+    align-items: flex-end;
+    color: darkslategrey;
+  }
+}
 .op-40 {
   opacity: 40%;
+}
+
+.activity-status {
+  color: darkgrey;
+  &.online {
+    color: teal;
+    font-weight: 600;
+  }
+}
+
+.badge.rounded-pill {
+  height: fit-content;
+  display: flex;
+  align-self: center;
+  margin: 0 10px;
+}
+
+.card.sortList {
+  background: aliceblue;
+}
+
+.best {
+  background: antiquewhite !important;
+//   border: 2px solid blanchedalmond
+}
+
+.comment.offset-1 {
+  background: lightsteelblue;
 }
 
 .not-allowed {
@@ -32,9 +69,6 @@ body, html * {
   margin: 0 10px;
 }
 
-.best {
-  border: 2px solid blanchedalmond
-}
 
 .admin {
   color: chocolate !important;
