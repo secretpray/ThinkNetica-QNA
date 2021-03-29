@@ -1,8 +1,0 @@
-.award-fields
-  Name
-    = f.input :name, label: false, required: false, input_html: { class: "form-control" }, placeholder: 'Reward`s name'
-  Badge
-    = f.input :badge_image, label: false, required: false, input_html: { class: "form-control mt-2" }, placeholder: 'Reward`s image'
-  .reward-delete
-    - if policy(@question.reward).destroy? && @question.reward.persisted?
-      = f.input :_destroy, as: :boolean, label: 'Delete reward?'

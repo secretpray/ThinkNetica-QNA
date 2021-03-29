@@ -6,7 +6,7 @@ function commentGroup(question_id, id, answerDiv) {
   commentsList.className = "answer-comments m-4"
   commentsList.innerHTML = `<h6>Answer comment(s):</h6>
                             <div class="comments_list pt-2" id="answer-comments-${id}"></div>
-                            <a class="add-comment-link btn btn-link" style="background: ghostwhite;" \
+                            <a class="add-comment-link btn btn-link mt-3" style="background: ghostwhite;" \
                             href="http://${document.location.host}/questions/${question_id}#">Add comment</a>`
   const divForm  = document.createElement('div')
   divForm.className = "comment-form mt-3 d-none"
@@ -30,4 +30,5 @@ function commentGroup(question_id, id, answerDiv) {
   divForm.append(commentForm)
   commentsList.append(divForm)
   answerDiv.append(commentsList)
+  return answerDiv
 }

@@ -23,11 +23,11 @@ class AnswersController < ApplicationController
 
     respond_to do |format|
       if @answer.save
-        # format.html { redirect_to question_path(@question), notice: 'Answer created successfully' }
+        format.html { redirect_to question_path(@question), notice: 'Answer created successfully' }
         flash[:notice] = 'Answer created successfully'
         format.js
       else
-        # format.html { redirect_to question_path(@question) }
+        format.html { redirect_to question_path(@question) }
         format.js
       end
     end
@@ -67,35 +67,8 @@ class AnswersController < ApplicationController
 
   def broadcast_answer_create
     return if @answer.errors.any?
- 
-    ActionCable.server.broadcast  "questions/#{@answer.question_id}/answers", 
-                                  answer_body: @answer.body,
-                                  id: @answer.id,
-                                  question_id: @answer.question_id,
-                                  answers_count: @question.answers.count,
-                                  author_id: current_user&.id,
-                                  created_at: @answer.created_at,
-                                  updated_at: @answer.updated_at,
-                                  author_email: @answer.user.email,
-                                  links: @answer.links,
-                                  files: files_for_broadcast || [],
-                                  # question_user_id: @question.user.id,
-                                  # best: @answer.best?,
-                                  # reward_present: @answer.question.reward&.present? || [], 
-                                  # badge_image_attached: @answer.question.reward&.badge_image&.attached? || [],
-                                  # reward_badge_image: @answer.question.reward&.badge_image || [],
-                                  # rating: @answer.rating,
-                                  action: :create
-
-    ActionCable.server.broadcast  'questions_channel', 
-                                  id: @answer.question_id,
-                                  answers_count: @answer.question.answers.count,
-                                  action: :update_badge
-  end
-
-  def files_for_broadcast
-    @answer.files.map { |file| { id: file.id, filename: file.filename.to_s, url: url_for(file) } }
-    # @answer.file&.map { |file| { id: file.id, filename: file.blob.filename, url: rails_blob_path(file) }
+    
+    SendAnswerJob.perform_later(@answer, current_user)
   end
 
   def broadcast_answer_delete
@@ -107,12 +80,20 @@ class AnswersController < ApplicationController
   end
 
   def broadcast_answer_set_best
+    reward_link = 
+    if @answer.question.reward && @answer.question.reward&.badge_image&.attached?
+      Rails.application.routes.url_helpers.rails_blob_url(@answer.question.reward.badge_image, only_path: true) 
+      # @answer.question.reward&.badge_image.url
+    else
+      []
+    end
+    
     ActionCable.server.broadcast  "questions/#{@answer.question_id}/answers", 
                                   id: @answer.id, 
-                                  author_id: current_user&.id,
-                                  # author_id: @answer.question.user.id,
+                                  author_id: current_user&.id, # <-> author_id: @answer.question.user.id,
                                   is_best: @answer.best?,
+                                  reward_badge_image_link: reward_link,
+                                  badge_is_attached: @answer.question.reward&.badge_image&.attached?,
                                   action: :set_best
   end
-  
 end

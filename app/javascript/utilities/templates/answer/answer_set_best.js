@@ -1,19 +1,48 @@
 // set best answer module
 export { setBest }
 
-function setBest(id) { 
+function setBest(data) { 
   var bestAnswer = {}
-  bestAnswer = document.querySelector('.answer_' + id)
-  console.log('bestAnswer', bestAnswer)
+  bestAnswer = document.querySelector('.answer_' + data.id)
+  
+  var bestRewards = {}
+  bestRewards = document.querySelectorAll('.best-section')
+  // Remove all Best badge
+  if (bestRewards.length) {
+    bestRewards.forEach(function(element) { 
+      element.remove()
+    })
+  }
+
   var bestList = {}
   bestList = document.querySelectorAll('.sortList')
-  
+  // Remove all Best class
   if (bestList.length) {
     bestList.forEach(function(element) { 
       element.classList.remove('best')
     })
   }
+
+  // SetUp best class
   bestAnswer.classList.add('best')
+  
+  // Add badge
+  if (data.is_best && data.badge_is_attached ) {
+    const parentBadge = document.querySelector(`#answer-info_${data.id}`)
+    const badgeDiv = document.createElement('div')
+    badgeDiv.className = "best-section d-flex justify-content-end"
+    const badgeImage = document.createElement('img')
+    badgeImage.setAttribute('alt', 'Reward')
+    badgeImage.className = "reward-image"
+    badgeImage.setAttribute('src', `${data.reward_badge_image_link}`)
+    badgeImage.setAttribute('width', "32")
+    badgeImage.setAttribute('height', "32")
+    const badgeSpan = document.createElement('span')
+    badgeSpan.innerHTML = '<i class="text-warning">The best answer</i><span></span></span>'
+    badgeDiv.append(badgeImage)
+    badgeDiv.append(badgeSpan)
+    parentBadge.append(badgeDiv)
+  }
   
   // ReSort element by id
   function sortDivs(div) {

@@ -20,4 +20,5 @@ function buttonGroup(id, answerJumbo) {
   if (gon.is_admin) { buttonGroup.append(buttonDelete) }
   buttonGroup.append(buttonBest)
   answerJumbo.append(buttonGroup)
+  return answerJumbo
 }

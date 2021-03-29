@@ -2,7 +2,7 @@
 export { inlineEditSection }
 
 function inlineEditSection(data, answerDiv) {
-  var generateNumber = 1220223231
+  var generateNumber = new Date().getTime()
   const divFormInline = document.createElement('div')
   divFormInline.className = 'hide'
   divFormInline.id = `jumbotron-form-inline-${data.id}`
@@ -38,4 +38,5 @@ function inlineEditSection(data, answerDiv) {
                           </form>`
   divFormInline.append(formInline)
   answerDiv.append(divFormInline)
+  return answerDiv
 }

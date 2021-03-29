@@ -29,5 +29,6 @@ function questionCreate(data) {
       questionDiv.append(buttonDelete);
     }      
     questionList.prepend(questionDiv);
+    return questionList
   }
 }

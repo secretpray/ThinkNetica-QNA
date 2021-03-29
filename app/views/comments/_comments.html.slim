@@ -3,6 +3,6 @@ h6="#{resource.class.name} comment(s):"
   = render resource.comments.includes(:user)
 /*- binding.pry
 - if policy(resource).comment?
-  = link_to 'Add comment', '#', class: 'add-comment-link btn btn-link', style: 'background: ghostwhite;'
+  = link_to 'Add comment', '#', class: 'add-comment-link btn btn-link mt-3', style: 'background: ghostwhite;'
   .comment-form.d-none.mt-3
     = render 'comments/form', resource: resource

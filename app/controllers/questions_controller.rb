@@ -24,6 +24,7 @@ class QuestionsController < ApplicationController
   def new
     @question = Question.new
     authorize Question
+
     @question.links.build   # (has_many or has_many :through)
     @question.build_reward  # (has_one or belongs_to)
   end
@@ -67,7 +68,6 @@ class QuestionsController < ApplicationController
 
   def find_question
     @question = Question.with_attached_files.find_by_id(params[:id])
-    # @question = Question.with_attached_files.find(params[:id])
   end
 
   def question_params
@@ -77,7 +77,6 @@ class QuestionsController < ApplicationController
   end
 
   def publish_question
-    # return unless @question.valid?
     return if @question.errors.any?
 
     SendQuestionJob.perform_later(@question)
@@ -90,7 +89,7 @@ class QuestionsController < ApplicationController
                                   question_id: @question.id,
                                   action: :destroy
     
-    # if open question show redirect to root
+    # if deleted question opened in show, redirect page location to root
     ActionCable.server.broadcast  "questions/#{@question.id}/answers", 
                                   id: @question.id,
                                   author_id: current_user.id,
