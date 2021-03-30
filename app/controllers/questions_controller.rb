@@ -57,8 +57,11 @@ class QuestionsController < ApplicationController
 
   def destroy
     authorize @question
-    if @question.destroy
-      respond_to do |format|
+    # @question.destroy
+  
+    respond_to do |format|
+      if @question.destroy
+        format.html { redirect_to root_path }
         format.js
       end
     end
@@ -86,8 +89,8 @@ class QuestionsController < ApplicationController
     # destroy from qestions list (index)
     ActionCable.server.broadcast 'questions_channel',
                                   question: @question,
-                                  question_id: @question.id,
-                                  action: :destroy
+                                  id: @question.id,
+                                  action: :delete
     
     # if deleted question opened in show, redirect page location to root
     ActionCable.server.broadcast  "questions/#{@question.id}/answers", 

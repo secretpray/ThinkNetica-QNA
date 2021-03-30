@@ -11,7 +11,7 @@ document.addEventListener('turbolinks:load', () => {
       connected() {
       }, 
       received(data) {
-        if (data.action === 'destroy' && gon.user_id != data.author_id) {
+        if (data.action === 'delete' && gon.user_id != data.author_id) {
           var questionForDeleted = {}
           questionForDeleted = document.getElementById(`question_${data.id}`);
           if (questionForDeleted) { 

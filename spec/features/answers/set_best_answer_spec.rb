@@ -25,18 +25,17 @@ feature "Author of the question choose best answer", %q{
   scenario 'Author question change best answer', js: true do
     sign_in(user)
     visit question_path(question)
-
+    
     within "#answer_list" do
-      # click_link('✓ Best', match: :first)
       click_on('✓ Best', match: :first)
     end
-
-    within "#answer_#{other_answer.id}" do
+    
+    within ".answer_#{other_answer.id}" do
       click_on('✓ Best', match: :first)
     end
-
-    within "#answer_#{other_answer.id}" do
-      expect(page).to have_css ".best"
+    
+    within "#answer_list" do 
+      page.find("#answerBlock_#{other_answer.id}")[:class].include?("best")
     end
   end
 
