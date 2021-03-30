@@ -2,9 +2,6 @@
 function voteSuccess(event) {
   const [{ id, type, rating, row_html }] = event.detail;
   const errorSection = document.querySelector(`.vote-errors-${type}_${id}`)
-  // if (errorSection.classList.contains('d-flex')) {
-  //   errorSection.classList.replace('d-flex', 'd-none')
-  // }
   errorSection.innerText = ''
   const sectionVote = document.querySelector(`.vote_content-${type}_${id}`)
   sectionVote.innerHTML = '';

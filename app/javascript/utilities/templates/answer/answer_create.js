@@ -53,7 +53,11 @@ function createAnswer(data, dateAgoCreated, dateAgoUpdated, userId) {
     }
     var hackLinkPreview = data.files_html.replaceAll('/example.org/', replacedHostName)
     var newBlock = '<div class="image-box">' + hackLinkPreview + '</div>'
-    answerJumbo.insertAdjacentHTML('beforeend', newBlock) 
+    // TimeOut for correct preview downloaded image from Google cloud [delay ~ 1s] 
+    window.setTimeout(function() {
+      answerJumbo.insertAdjacentHTML('beforeend', newBlock) 
+    }, 1000);
+    // answerJumbo.insertAdjacentHTML('beforeend', newBlock) 
   }
 
   // Add links

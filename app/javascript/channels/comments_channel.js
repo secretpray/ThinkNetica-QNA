@@ -18,8 +18,10 @@ document.addEventListener('turbolinks:load', () => {
         if (comment) { comment.remove(); }
       } else if (data.action === 'create' && gon.user_id != data.author_id) {
         const dateAgo = parseDate(data.created_at)
+        
         // Create comment
         commentCreate(data, dateAgo)
+        
         // Update online status for created comment. 
         this.perform('update_online_status')
         }

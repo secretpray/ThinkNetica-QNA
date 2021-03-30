@@ -33,7 +33,6 @@ document.addEventListener('turbolinks:load', function() {
 
   // For inline errors only
   const answerObserver = document.querySelector("#errors-answer");
-  // const commentObserver = document.querySelector('#errors-inline-comments')
 
   const observer = new MutationObserver(function() {
     const inlineError = document.getElementById('errors-content')
@@ -43,8 +42,4 @@ document.addEventListener('turbolinks:load', function() {
   if (answerObserver) {
     observer.observe(answerObserver, {childList: true, subtree: true });
   }
-  
-  // if (commentObserver) {
-  //   observer.observe(commentObserver, {childList: true, subtree: true });
-  // }
 })

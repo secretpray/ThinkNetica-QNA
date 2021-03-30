@@ -2,11 +2,6 @@ import consumer from "./consumer"
 import { parseDate } from '../utilities/parse_data'
 import { setBest } from '../utilities/templates/answer/answer_set_best'
 import { createAnswer } from '../utilities/templates/answer/answer_create'
-// import { parseUrl } from '../utilities/parse_gist_url'
-// import { buttonGroup } from '../utilities/templates/answer/button_group'
-// import { inlineEditSection } from '../utilities/templates/answer/answer_form_inline'
-// import { commentGroup } from '../utilities/templates/answer/answer_comments'
-
 
 document.addEventListener('turbolinks:load', () => {
   const elementController = document.querySelector('body')
@@ -39,6 +34,7 @@ document.addEventListener('turbolinks:load', () => {
         } else if (data.action === 'set_best' && gon.user_id != data.author_id) {
           //} else if (data.action === 'set_best' && gon.user_id === data.author_id || data.action === 'set_best' && gon.is_admin ) {
           setBest(data)
+          
           this.perform("update_online_status")
         } else if (data.action === 'create' && gon.user_id != data.author_id) {
           const dateAgoCreated = parseDate(data.created_at)

@@ -1,9 +1,7 @@
 class SendAnswerJob < ApplicationJob
   queue_as :default
 
-  def perform(answer, user)
-    sleep 0.9 # for download image on Google cloud?
-    
+  def perform(answer, user)    
     ActionCable.server.broadcast  "questions/#{answer.question_id}/answers", 
                                     answer_body: answer.body,
                                     id: answer.id,
@@ -29,8 +27,4 @@ class SendAnswerJob < ApplicationJob
 
     ApplicationController.render( partial: 'shared/image_for_bc', locals: { files: files } )
   end
-  
-  # def files_for_broadcast
-  #   @answer.files.map { |file| { id: file.id, filename: file.filename.to_s, url: url_for(file) } } # url: rails_blob_path(file)
-  # end
 end
