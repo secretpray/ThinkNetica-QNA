@@ -11,7 +11,7 @@ html
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
 
-  body data-controller-name="#{controller_name}" data-action-name="#{action_name}" data-user-id="#{current_user&.id}" 
+  body data-controller-name="#{controller_name}" data-action-name="#{action_name}" data-user-id="#{current_user&.id}"
 
     = render 'shared/navigation'
     .container
@@ -20,8 +20,8 @@ html
       = yield
 
   /*footer
-    hr
-    .container.op-40
-      p &copy; A.Ruban (2021)
-    /*.debug-footer
-      = debug(params) if Rails.env.development?
+  /*  hr
+  /*  .container.op-40
+  /*    p &copy; A.Ruban (2021)
+  /*    .debug-footer
+  /*      = debug(params) if Rails.env.development?

@@ -10,7 +10,9 @@ module Commented
   end
 
   def create_comment
+    # binding.pry
     @comment = @commentable.comments.build(comment_params)
+    # logger.debug "Comment attributes hash: #{@comment.attributes.inspect}"
     @comment.save
     respond_to do |format|
       format.js { render 'shared/create_comment' }
@@ -41,7 +43,7 @@ module Commented
 
   def publish_create_comment
     return unless @commentable.valid?
-    
+
     question_id = @commentable[:question_id] || @commentable[:id]
     ActionCable.server.broadcast("questions/#{question_id}/comments", {
                                   comment_id: @comment.id,
@@ -54,7 +56,7 @@ module Commented
                                   action: :create })
   end
 
-  def publish_delete_comment 
+  def publish_delete_comment
     question_id = @comment.commentable[:question_id] || @comment.commentable[:id]
     ActionCable.server.broadcast("questions/#{question_id}/comments", {
                                   id: @comment.id,

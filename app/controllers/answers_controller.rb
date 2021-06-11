@@ -82,8 +82,7 @@ class AnswersController < ApplicationController
   def broadcast_answer_set_best
     reward_link = 
     if @answer.question.reward && @answer.question.reward&.badge_image&.attached?
-      Rails.application.routes.url_helpers.rails_blob_url(@answer.question.reward.badge_image, only_path: true) 
-      # @answer.question.reward&.badge_image.url
+      Rails.application.routes.url_helpers.rails_blob_url(@answer.question.reward.badge_image, only_path: true)  # @answer.question.reward&.badge_image.url
     else
       []
     end
