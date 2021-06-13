@@ -32,6 +32,7 @@ feature 'User can vote for answer', "
       end
 
       it 'votes for the answer' do
+        sleep 1
         within '#answer_list' do
           find('.fa-thumbs-up').click
         end
@@ -41,14 +42,16 @@ feature 'User can vote for answer', "
 
       it 'votes against the answer' do
         within '#answer_list' do
+          sleep 1
           find('.fa-thumbs-down').click
         end
 
         expect(page).to have_css('.votes-total', text: '-1')
       end
-      
+
       it 'reset vote' do
         within '#answer_list' do
+          sleep 1
           find('.fa-thumbs-up').click
           find('.fa-times').click
         end
@@ -58,6 +61,7 @@ feature 'User can vote for answer', "
 
       it "can't vote more than two times" do
         within '#answer_list' do
+          sleep 1
           find('.fa-thumbs-up').click
           find('.fa-thumbs-up').click
         end

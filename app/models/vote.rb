@@ -8,4 +8,4 @@ class Vote < ApplicationRecord
 
   scope :upvotes, -> { where(score: 1) }
   scope :downvotes, -> { where(score: -1) }
-end
+  end

@@ -19,22 +19,28 @@ feature 'User can delete his question', %q{
   end
 
   describe 'Authenticated user', js: true do
-    background { sign_in(user) }
+    background do
+      sign_in(user)
+      visit question_path(question)
+    end
 
     scenario 'delete his answer' do
-      visit question_path(question)
-      expect(page).to have_content 'Delete'
+      # Capybara.current_driver = :selenium_chrome
+      # :selenium, :selenium_headless, :selenium_chrome, :selenium_chrome_headless, :apparition
+      within '.list-answers' do
+        accept_confirm do
+          click_on('Delete', match: :first)
+        end
+      end
+      sleep 1
       accept_confirm do
-        click_on('Delete', match: :first)
+        find("#button-delete-answer-#{Answer.last.id}").click
       end
-      accept_confirm { page.click_link("Delete") }
-      within '#answer_list' do
-      expect(page).to_not have_content 'MyText'
-      end
+      # Capybara.use_default_driver
     end
-    
+
     scenario "delete his link", js: true do
-      visit question_path(question)
+
       within '#answer_list' do
         click_on "Delete Link"
         expect(page).to_not have_content "Google"
@@ -42,7 +48,6 @@ feature 'User can delete his question', %q{
     end
 
     scenario 'delete his attachment', js: true do
-      visit question_path(question)
       fill_in 'answer_body', with: 'Own answer'
       attach_file 'answer_files', ["#{Rails.root}/spec/rails_helper.rb"]
 

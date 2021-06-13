@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :rewards, dependent: :destroy
   has_many :votes, dependent: :destroy
-  
+
   validates :email, presence: true
 
   def author?(resource)

@@ -1,3 +1,4 @@
+require 'capybara/email/rspec'
 RSpec.configure do |config|
   # Capybara.default_driver = :selenium
   # Capybara.default_driver = :selenium_chrome_headless
