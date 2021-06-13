@@ -27,6 +27,8 @@ USERS.each do |user|
   User.create!(user)
 end
 
+User.update_all confirmed_at: DateTime.now
+
 DATA.first.each do |question, answers|
   random_user_id = User.find(User.pluck(:id).sample).id
   db_question = Question.create!(title: question, body: question, user_id: random_user_id)
@@ -39,8 +41,8 @@ end
 answer = Answer.all.sample
 question = answer.question
 question.build_reward(name: "Gold best", question_id: question.id, user_id: answer.user_id)
-question.reward.badge_image.attach(io: File.open(rails_path/'no_image_available.png'), 
-                                                 filename: 'no_image_available.png', 
+question.reward.badge_image.attach(io: File.open(rails_path/'no_image_available.png'),
+                                                 filename: 'no_image_available.png',
                                                  content_type: 'image/png')
 question.save
 answer.update(best: true)

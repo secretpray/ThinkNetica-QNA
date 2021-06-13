@@ -1,20 +1,20 @@
 class ActivityChannel < ApplicationCable::Channel
   periodically every: 30.seconds do
     # add User fields online (date format), touch after signing, clear after logout
-    # get_status
+    get_status_user
   end
 
   def subscribed
     # Init online status (redis)
-    unless Rails.env == 'test'
-      ActionCable.server.pubsub.redis_connection_for_subscriptions.sadd "online", current_user.id
+    # unless Rails.env == 'test'
+    ActionCable.server.pubsub.redis_connection_for_subscriptions.sadd "online", current_user.id
       # ActionCable.server.pubsub.redis_connection_for_subscriptions.pubsub('channels', "SomeChannel_#{type}_#{id}_*").each do |channel|
       #   ActionCable.server.broadcast(channel, data)
       # end
-      @list_user = ActionCable.server.pubsub.redis_connection_for_subscriptions.smembers "online"
-    end
+    @list_user = ActionCable.server.pubsub.redis_connection_for_subscriptions.smembers "online"
+    # end
     stream_from "activity_channel-#{params[:question_id]}"
-    current_user = User.first if Rails.env == 'test'
+    # current_user = User.first if Rails.env == 'test'
     ActionCable.server.broadcast "activity_channel-#{params[:question_id]}",
                                 id: current_user.id,
                                 status: "online",
@@ -34,10 +34,10 @@ class ActivityChannel < ApplicationCable::Channel
 
   def appear
     # Get online status (redis)
-    get_status
+    get_status_user
   end
 
-  def get_status
+  def get_status_user
     @list_user = ActionCable.server.pubsub.redis_connection_for_subscriptions.smembers "online"
 
     ActionCable.server.broadcast "activity_channel-#{params[:question_id]}",

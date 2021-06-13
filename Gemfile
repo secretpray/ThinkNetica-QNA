@@ -25,6 +25,12 @@ gem 'gon'
 gem 'redis'
 gem 'redis-namespace'
 gem 'redis-rails'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-github'
+gem 'omniauth-google-oauth2'
+gem 'activerecord-session_store'
+gem 'omniauth-rails_csrf_protection'
 
 group :development, :test do
   gem 'pry', '~> 0.13.1'
@@ -32,7 +38,8 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 4.0.1'
   gem 'factory_bot_rails'
-  gem "fakeredis"
+  gem 'letter_opener'
+  gem 'capybara-email'
 end
 
 group :development do

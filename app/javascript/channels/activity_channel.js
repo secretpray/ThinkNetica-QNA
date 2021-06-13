@@ -12,12 +12,11 @@ document.addEventListener('turbolinks:load', () => {
         // console.log('Connected to Activity channel')
         this.perform("appear")
       },
-      disconnected() {        
+      disconnected() {
       },
       received(data) {
         let elements = document.querySelectorAll('.activity-status');
         var onlineUserArray = data.list_online_users
-        
         if (onlineUserArray) {
           console.log(`Online User id: ${onlineUserArray}, count: ${onlineUserArray.length}`)
 

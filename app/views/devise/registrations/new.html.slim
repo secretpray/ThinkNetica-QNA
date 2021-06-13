@@ -8,6 +8,6 @@ div#reg-devise-form.devise-form.col-md-6.col-offset-3.mt-5
       = f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { autocomplete: "new-password", class: "form-control" }, label_html: { class: 'label' }
       = f.input :password_confirmation, required: true, input_html: { autocomplete: "new-password", class: "form-control" }, label_html: { class: 'label' }
 
-    .form-actions
+    .form-actions.mt-3.mb-2
       = f.button :submit, "Sign up"
     = render "devise/shared/links"
