@@ -6,17 +6,22 @@ html
     meta[name="viewport" content="width=device-width,initial-scale=1"]
     = csrf_meta_tags
     = csp_meta_tag
+    = action_cable_meta_tag
+    = Gon::Base.render_data
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
 
-  body 
+  body data-controller-name="#{controller_name}" data-action-name="#{action_name}" data-user-id="#{current_user&.id}"
 
     = render 'shared/navigation'
-
     .container
       = render 'shared/flash', flash: flash
 
       = yield
 
-    /*.debug-footer
-      = debug(params) if Rails.env.development?
+  /*footer
+  /*  hr
+  /*  .container.op-40
+  /*    p &copy; A.Ruban (2021)
+  /*    .debug-footer
+  /*      = debug(params) if Rails.env.development?

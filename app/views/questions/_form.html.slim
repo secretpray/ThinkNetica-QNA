@@ -20,9 +20,9 @@
     = f.input :files, label: false, input_html: { class: "form-control", multiple: true }
 
     - if @question.new_record?
-      = f.submit 'Create', class: "add-answer", id: "add-answer"
+      = f.submit 'Create', class: "add-answer", id: "add-answer", data: { turbolinks: false }
     - else
-      = f.submit 'Update', class: "add-answer", id: "add-answer"
+      = f.submit 'Update', class: "add-answer", id: "add-answer", data: { turbolinks: false }
 
   - if @question.files.attached?
     .mh-25

@@ -1,0 +1,7 @@
+h6="#{resource.class.name} comment(s):"
+.comments_list.pt-2 id=("#{resource.class.name.downcase}-comments-#{resource.id}")
+  = render resource.comments.includes(:user)
+- if policy(resource).comment?
+  = link_to 'Add comment', '#', class: 'add-comment-link btn btn-link mt-3', style: 'background: ghostwhite;'
+  .comment-form.d-none.mt-3
+    = render 'comments/form', resource: resource

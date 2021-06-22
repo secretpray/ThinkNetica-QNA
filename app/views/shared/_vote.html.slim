@@ -6,7 +6,7 @@ div class="vote_content-#{ident(resource)}_#{resource.id}"
     - if policy(resource).make_vote?
       .vote-action.d-flex.justify-content-start.mt-3.mb-2
         - if policy(resource).upvote?
-          = link_to polymorphic_path(set_path(resource), action: :upvote), 
+          = link_to polymorphic_path(resource, action: :upvote), 
                     class: "upvote upvote-#{ident(resource)}_#{resource.id}", 
                     method: :post,
                     data: { type: :json, setobject: "#{resource}" },
@@ -17,7 +17,7 @@ div class="vote_content-#{ident(resource)}_#{resource.id}"
           span.text-muted.op-40.fs-5.fa.fa-thumbs-up
 
         - if policy(resource).resetvote?
-          = link_to polymorphic_path(set_path(resource), action: :resetvote),
+          = link_to polymorphic_path(resource, action: :resetvote),
                   class: "reset reset-#{ident(resource)}_#{resource.id}",
                   method: :delete,
                   data: { type: :json },
@@ -28,7 +28,7 @@ div class="vote_content-#{ident(resource)}_#{resource.id}"
           span.text-muted.op-40.fs-5.fa.fa-times
 
         - if policy(resource).downvote?
-          = link_to polymorphic_path(set_path(resource), action: :downvote),
+          = link_to polymorphic_path(resource, action: :downvote),
                     class: "downvote downvote-#{ident(resource)}_#{resource.id}",
                     method: :post,
                     data: { type: :json },

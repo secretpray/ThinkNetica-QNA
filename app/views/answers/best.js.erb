@@ -1,1 +1,13 @@
-document.getElementById('answer_list').innerHTML = '<%= j render @answer.question.answers.order(best: :asc) %>';
+var bestAnswer = {}
+bestAnswer = document.querySelector('.answer_<%= @answer.id %>')
+var bestList = {}
+bestList = document.querySelectorAll('.sortList')
+
+if (bestList.length) {
+  bestList.forEach(function(element) { 
+    element.classList.remove('best')
+  })
+}
+
+bestAnswer.classList.add('best')
+document.querySelector('.list-answers').innerHTML = '<%= j render @answer.question.answers.order(best: :asc) %>';

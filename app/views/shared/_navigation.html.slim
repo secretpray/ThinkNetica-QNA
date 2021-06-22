@@ -8,7 +8,7 @@
         - if current_user.rewards.present?
           = link_to rewards_path, class: "nav-item nav-link rewards-icon" do
             i.fas.fa-award
-        = link_to "Logout", destroy_user_session_path, method: :delete, data: {item: 'Logout'}
+        = link_to "Logout", destroy_user_session_path, method: :delete, data: { item: 'Logout' }
       - else
-        = link_to 'Login', new_user_session_path, data: {item: 'Login'}
-        = link_to "Logon", new_user_registration_path, data: {item: 'Logon'}, class: 'logon'
+        = link_to 'Login', new_user_session_path, data: { item: 'Login' }
+        = link_to "Logon", new_user_registration_path, data: { item: 'Logon' }, class: 'logon'

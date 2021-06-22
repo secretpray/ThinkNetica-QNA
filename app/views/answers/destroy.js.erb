@@ -1,2 +1,5 @@
-let answer_<%= @answer.id %> = document.querySelector('#answer_<%= @answer.id %>');
-answer_<%= @answer.id %>.remove();
+const answer_<%= @answer.id %> = document.querySelector('.answer_<%= @answer.id %>');
+if ( answer_<%= @answer.id %> ) {
+  document.querySelector('.answers_count').innerHTML = "<strong> <%= @answer.question.answers.count %>&nbsp;Answers</strong>"
+  answer_<%= @answer.id %>.remove();
+}

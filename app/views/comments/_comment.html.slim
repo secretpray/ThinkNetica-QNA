@@ -1,0 +1,18 @@
+.comment.offset-1.p-3 id="#{dom_id(comment)}"
+  p.fz18 
+    = comment.body
+  .fz14.pb-3.d-flex.justify-content-between id="commnet-info_#{comment.id}" 
+    .comment-info-section.d-flex.justify-content-start
+      | Created: 
+      strong= time_ago_in_words(comment.created_at)
+      | &nbspago, by&nbsp
+      span class=("activity-status user-#{comment.user.id}-status") data-user-id="#{comment.user.id}" = comment.user.email
+    - if user_signed_in? && comment.persisted?
+      - if policy(comment).delete?
+        .spam-delete.delete_comment_answer_path
+          - if comment.commentable_type == 'Question'
+            = link_to 'Delete', delete_comment_question_path(comment), method: :delete, data: { confirm: 'Are you sure?', remote: true }
+          - else 
+            = link_to 'Delete', delete_comment_answer_path(comment), method: :delete, data: { confirm: 'Are you sure?', remote: true }
+  hr
+  br

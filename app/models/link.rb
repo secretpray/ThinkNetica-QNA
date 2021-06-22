@@ -11,8 +11,6 @@ class Link < ApplicationRecord
             # format: { with: URL_FORMAT }
 
   def gist?
-    # return unless url.present?
-    # url =~ GIST_LINK
     url ? url.match(GIST_LINK).present? : nil
   end
 end

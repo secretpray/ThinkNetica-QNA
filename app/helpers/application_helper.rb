@@ -30,13 +30,13 @@ module ApplicationHelper
     # return clear gist ids 
     def parse_gist_id(link_url)
       gist_id = 
-        if link_url.match? '</script>'
-          link_url.sub(/.js"><\/script>/, '')
-        elsif link_url.match? '.git'
-          link_url.sub(/.git$/, '')
-        else
-          link_url
-        end
+        if link_url.match? '</script>'        
+          link_url.sub(/.js"><\/script>/, '') 
+        elsif link_url.match? '.git'          
+          link_url.sub(/.git$/, '')           
+        else                                  
+          link_url                            
+        end                                   
         File.basename(gist_id)
     end
 
@@ -50,5 +50,9 @@ module ApplicationHelper
 
     def ident(resource)
       resource.class.to_s.downcase
+    end
+    
+    def get_id(resource)
+      resource.is_a?(Answer) ? resource.question.id : resource.id
     end
 end

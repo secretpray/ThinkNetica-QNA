@@ -21,6 +21,10 @@ gem 'mini_magick'
 gem 'image_processing', '~> 1.2'
 gem "google-cloud-storage", "~> 1.8", require: false
 gem 'htmlrender'
+gem 'gon'
+gem 'redis'
+gem 'redis-namespace'
+gem 'redis-rails'
 
 group :development, :test do
   gem 'pry', '~> 0.13.1'
@@ -28,6 +32,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 4.0.1'
   gem 'factory_bot_rails'
+  gem "fakeredis"
 end
 
 group :development do
@@ -48,4 +53,4 @@ group :test do
   gem 'apparition'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

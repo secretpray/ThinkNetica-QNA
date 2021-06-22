@@ -1,60 +1,64 @@
-div id="answer_#{answer.id}"
-  hr
-  div id="jumbotron-#{answer.id}"
-    - if answer.persisted?
-      li class="p10 fs-5 grey #{ 'best' if answer.best? }" = answer.body
+/ div.sortList id="answer_#{answer.id}" 
+- if answer.persisted?
+  div class="card sortList mt-2 #{dom_id(answer)} #{'best' if answer.best?}" id="answerBlock_#{answer.id}"
+    div.card-body id="jumbotron-#{answer.id}"
+      li class="checkedBest p10 fs-5 grey" = answer.body
       = render '/shared/vote', resource: answer
       .fz14 id="answer-info_#{answer.id}" 
         .info-section.d-flex.justify-content-start
           | Submitted 
           strong= time_ago_in_words(answer.created_at)
           | &nbspago, by&nbsp
-          strong= answer.user.email
+          span class=("activity-status user-#{answer.user.id}-status") data-user-id="#{answer.user.id}" = answer.user.email
           | ;&nbspLast updated: 
           strong= time_ago_in_words(answer.updated_at)
         - if answer.best?
           .best-section.d-flex.justify-content-end 
             - if answer.question.reward.present? && answer.question.reward.badge_image.attached?
               = image_tag url_for(answer.question.reward.badge_image), size: "32x32", alt: "Reward", class: 'reward-image'
-            /* Add default badge
-            /*- unless answer.question.reward.present?
-            /*  = image_tag url_for("https://gravatar.com/avatar/#{Digest::MD5::hexdigest(answer.user.email).downcase}.png"), size: "32x32", alt: "Reward", class: 'reward-image'
             span
               i.text-warning The best answer
               span
-
+      /* Links
       - if answer.links.any?
         h6 Links:
         ul id="answer-link_#{answer.id}"
           = render partial: 'shared/link', locals: {resource: answer}
 
+      /* Files attached
       - if answer.files.attached?
         .image-box
           = render partial: 'shared/image', locals: {resource: answer}
 
+      /* Button group
       - if user_signed_in?
           #button-inline.button-group
             - if policy(answer).update?
               button.edit-answer id="button-edit-answer-#{answer.id}"
-                = link_to 'Edit', edit_question_answer_path(answer.question, answer), class: 'edit-answer-link', data: { answer_id: answer.id, remote: true }
+                = link_to 'Edit', edit_answer_path(answer), class: 'edit-answer-link', data: { answer_id: answer.id, remote: true }
               button.delete-answer id="button-delete-answer-#{answer.id}"
-                = link_to 'Delete', question_answer_path(answer.question, answer), method: :delete, data: { confirm: 'Are you sure?', remote: true}
+                = link_to 'Delete', answer_path(answer), method: :delete, data: { confirm: 'Are you sure?', remote: true}
             - if policy(answer.question).best? && !answer.best?
               button.best-answer id="button-best-answer-#{answer.id}"
-                = link_to '✓ Best', best_question_answer_path(answer.question, answer), remote: true, method: :patch
+                = link_to '✓ Best', best_answer_path(answer), remote: true, method: :patch
 
-  - if user_signed_in?
-    - if policy(answer).update?
-      .hide id="jumbotron-form-inline-#{answer.id}"
-      
-        = simple_form_for([answer.question, answer], remote: true, html: { class: 'form-inline mt-3', id: "form-answer-#{answer.id}", multipart: true }) do |f|
-          div id="errors-inline-answer" class="answer-error-#{answer.id}"
-          = f.text_area :body, class: 'form-control mt-2'
-          legend.mt-3.fs-5 Links
-          = f.simple_fields_for :links do |link_form|
-            = render 'shared/link_fields', f: link_form
-          = link_to_add_fields "Add Links...", f, :links 
-          = f.file_field :files, multiple: true, class: "form-control", placeholder: 'Add files...'
-          = f.submit 'Update', class: "btn btn-primary my-3 mx-2"
-          button.btn.btn-warning.my-3 id="cancel-edit-#{answer.id}"
-            = link_to 'Cancel', '#', remote: true
+    /* Inline form for New Answer
+    - if user_signed_in? && answer.persisted?
+      - if policy(answer).update?
+        .hide id="jumbotron-form-inline-#{answer.id}"
+        
+          = simple_form_for(answer,  html: { remote: true, class: 'form-inline m-3', id: "form-answer-#{answer.id}", multipart: true })  do |f|
+            div id="errors-inline-answer" class="answer-error-#{answer.id}"
+            = f.text_area :body, class: 'form-control mt-2'
+            legend.mt-3.fs-5 Links
+            = f.simple_fields_for :links do |link_form|
+              = render 'shared/link_fields', f: link_form
+            = link_to_add_fields "Add Links...", f, :links 
+            = f.file_field :files, multiple: true, class: "form-control", placeholder: 'Add files...'
+            = f.submit 'Update', class: "btn btn-primary my-3 mx-2"
+            button.btn.btn-warning.my-3 id="cancel-edit-#{answer.id}"
+              = link_to 'Cancel', '#', remote: true
+    hr
+    /* Comments
+    .answer-comments.m-4
+      = render 'comments/comments', resource: answer

@@ -1,0 +1,9 @@
+.question.content.d-flex id="#{dom_id(question)}"
+  li.col-md-10.m-4.fs-5= link_to question.title, question
+  span.badge.rounded-pill.bg-secondary= question.answers.any? ? question.answers.count : 0
+  - if user_signed_in?
+    - if policy(question).edit?    
+      button.edit-question
+        = link_to 'Edit', edit_question_path(question)
+      button.delete-question
+        = link_to 'Delete', question_path(question), method: :delete, data: { confirm: 'Are you sure?', remote: true, turbolinks: false}

@@ -1,9 +1,11 @@
 module Voted
   extend ActiveSupport::Concern
+  include Klassify
 
   included do
     before_action :set_votable, only: %i[upvote downvote resetvote]
     before_action :set_value, only: %i[upvote downvote]
+    after_action :broadcast_rating, only: %i[upvote downvote resetvote]
   end
   
   def upvote
@@ -29,10 +31,6 @@ module Voted
   end
 
   private
-
-  def model_klass
-    controller_name.classify.constantize
-  end
 
   def votable_type(obj)
     obj.class.name.downcase
@@ -61,5 +59,13 @@ module Voted
       id: @votable.id, 
       type: votable_type(@votable), error: 'You have already voted!' 
     }, status: 422
+  end
+
+  def broadcast_rating
+    # binding.pry
+    question_id = @votable[:question_id] || @votable[:id]
+    resourse_type = votable_type(@votable) == 'question' ? :question : :answer
+    
+    ActionCable.server.broadcast("questions/#{question_id}/answers", id: @votable.id, type: resourse_type, author_id: current_user.id, rating: @votable.rating, action: :update_rating )
   end
 end

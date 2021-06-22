@@ -1,5 +1,6 @@
 class QuestionPolicy < ApplicationPolicy
   include VotePolicy
+  include CommentablePolicy
   
   class Scope < Scope
     def resolve
@@ -30,8 +31,4 @@ class QuestionPolicy < ApplicationPolicy
   def destroy?
     user && user.id == record.user_id || user.admin?
   end
-
-  # def voted?
-  #   user && user.id != record.user_id || user.admin?
-  # end
 end

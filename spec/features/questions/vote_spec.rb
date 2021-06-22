@@ -44,14 +44,18 @@ feature 'User can vote for question', "
 
       it 'cancel vote' do
         find('.fa-thumbs-down').click
+        sleep 1
         find('.fa-times').click
+        # find('.fa-times', wait: 500).click
 
         expect(page).to have_css('.votes-total', text: '0')
       end
 
       it "can't vote more than two times" do
         find('.fa-thumbs-up').click
+        sleep 1
         find('.fa-thumbs-up').click
+        # find('.fa-thumbs-up', wait: 500).click
 
         expect(page).to have_css('.votes-total', text: '1')
       end

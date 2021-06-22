@@ -1,5 +1,6 @@
 Vote.delete_all
 Reward.delete_all
+Comment.delete_all
 Answer.delete_all
 Question.delete_all
 User.delete_all
@@ -72,9 +73,21 @@ Vote.create!(score: -1, user_id: User.find(4).id, votable_type: 'Answer', votabl
 Vote.create!(score: -1, user_id: User.find(5).id, votable_type: 'Answer', votable_id: 2)
 Vote.create!(score: -1, user_id: User.last.id, votable_type: 'Answer', votable_id: 2)
 
+Question.first.comments.create!(body: 'First question comment', user: User.first)
+Question.first.comments.create!(body: 'Second question comment', user: User.second)
+Question.second.comments.create!(body: 'Third question comment', user: User.last)
+Question.last.comments.create!(body: 'Last question comment', user: User.second)
+
+Answer.first.comments.create!(body: 'First answer comment', user: User.first)
+Answer.first.comments.create!(body: 'Second answer comment', user: User.second)
+Answer.second.comments.create!(body: 'Third answer comment', user: User.last)
+Answer.find(3).comments.create!(body: '4-th answer comment', user: User.find(3))
+Answer.last.comments.create!(body: 'Last answer comment', user: User.second)
 
 User.first.update(role: 'admin')
+
 p "Created #{Question.count} questions."
+p "Created #{Comment.count} comments."
 p "Created #{Answer.count} answers."
 p "Created #{User.count} users."
 p "Created #{Vote.count} votes."

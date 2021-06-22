@@ -36,7 +36,9 @@ feature 'User can give an answer', %q{
     scenario "tries to create answer with attached files" do
       fill_in "answer_body", with: "New Answer"
       attach_file "answer_files", %W[#{Rails.root}/spec/rails_helper.rb #{Rails.root}/spec/spec_helper.rb]
-      click_on "Create"
+      within "#new_answer" do
+        click_on "Create"
+      end
 
       within "#answer_list" do
         expect(page).to have_link "rails_helper.rb"

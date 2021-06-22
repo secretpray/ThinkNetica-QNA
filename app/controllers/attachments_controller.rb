@@ -3,7 +3,7 @@ class AttachmentsController < ApplicationController
   before_action :find_attachment
 
   def destroy
-    authorize @attachment.record # return head :forbidden authorize @attachment.record
+    authorize @attachment.record
 
     @attachment.purge
   end

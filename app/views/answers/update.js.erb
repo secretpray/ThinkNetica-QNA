@@ -11,9 +11,9 @@ errors = document.querySelector('.answer-error-<%= @answer.id %>')
 <% else %>
   hide()
   if (errors) { document.querySelector('.answer-error-<%= @answer.id %>').innerText = '' }
-    document.getElementById('answer_<%= @answer.id %>').innerHTML = '';
-    document.getElementById('answer_<%= @answer.id %>').innerHTML += ('beforeend', '<%= j render @answer %>');
-    document.getElementById('answer_<%= @answer.id %>').classList.add('edited')
+    document.querySelector('.answer_<%= @answer.id %>').innerHTML = '';
+    document.querySelector('.answer_<%= @answer.id %>').innerHTML += ('beforeend', '<%= j render @answer %>');
+    document.querySelector('.answer_<%= @answer.id %>').classList.add('edited')
 <% end %>
 
 function hide() {
