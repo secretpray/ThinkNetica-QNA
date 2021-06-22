@@ -1,0 +1,13 @@
+.row.justify-content-center.mt-3
+  .col.col-md-4
+    .card.bg-light
+      .card-body
+        h5.card-title.text-center Email confirmation
+        = form_for(resource, url: user_confirmation_path, html: { method: :post }) do |f|
+          = hidden_field_tag(:user_id, resource.id)
+          .form-group
+          p
+          = f.label 'Your real email:'
+          = f.email_field :email, autofocus: true, class:'form-control', placeholder: 'your real email'
+          br
+          = f.submit 'Send', class: 'btn btn-primary'

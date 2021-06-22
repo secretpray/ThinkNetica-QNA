@@ -1,7 +1,11 @@
 class User < ApplicationRecord
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  devise :database_authenticatable,
+         :registerable, :confirmable,
+         :recoverable, :rememberable,
+         :validatable, :omniauthable,
+         omniauth_providers: %i[facebook github google_oauth2]
 
+  has_many :authorizations, dependent: :destroy
   has_many :questions, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :answers, dependent: :destroy
@@ -21,5 +25,9 @@ class User < ApplicationRecord
 
   def admin?
     self.role == 'admin'
+  end
+
+  def self.find_for_oauth(auth)
+    FindForOauthService.new(auth).call
   end
 end
