@@ -40,7 +40,6 @@ feature 'User can delete his question', %q{
     end
 
     scenario "delete his link", js: true do
-
       within '#answer_list' do
         click_on "Delete Link"
         expect(page).to_not have_content "Google"

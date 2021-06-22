@@ -31,6 +31,7 @@ gem 'omniauth-github'
 gem 'omniauth-google-oauth2'
 gem 'activerecord-session_store'
 gem 'omniauth-rails_csrf_protection'
+gem 'aws-sdk-s3', require: false
 
 group :development, :test do
   gem 'pry', '~> 0.13.1'

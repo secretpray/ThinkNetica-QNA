@@ -31,6 +31,4 @@ RSpec.describe QuestionPolicy, type: :policy do
       expect(subject).not_to permit(create(:user), create(:question, user_id: User.last.id))
     end
   end
-
-  # TODO check score.sum
 end

@@ -1,9 +1,10 @@
 class LinkPolicy < ApplicationPolicy
 
-  # attr_reader :user, :attachment
+  attr_reader :user, :link
 
   def destroy?
-    user && user.id == record.user_id || user.admin?
+    object = record.linkable_type.classify.constantize.find(record.linkable_id)
+    # object = record.linkable_type == "Answer" ? Answer.find(record.linkable_id) : Question.find(record.linkable_id)
+    user && user.id == object.user.id || user.admin?
   end
-
 end
