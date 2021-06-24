@@ -1,3 +1,4 @@
+Authorization.delete_all
 Vote.delete_all
 Reward.delete_all
 Comment.delete_all
@@ -23,11 +24,14 @@ USERS = [
   { email: 'antm@mail.com', password: 'secretus' },
   { email: 'sss@mail.com', password: 'secretus' }
 ]
-USERS.each do |user|
-  User.create!(user)
+USERS.each do |u|
+  # User.create!(u)
+  user = User.new(u)
+  user.skip_confirmation!
+  user.save
 end
 
-User.update_all confirmed_at: DateTime.now
+# User.update_all confirmed_at: DateTime.now
 
 DATA.first.each do |question, answers|
   random_user_id = User.find(User.pluck(:id).sample).id

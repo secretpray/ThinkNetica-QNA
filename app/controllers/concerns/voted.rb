@@ -7,11 +7,11 @@ module Voted
     before_action :set_value, only: %i[upvote downvote]
     after_action :broadcast_rating, only: %i[upvote downvote resetvote]
   end
-  
+
   def upvote
     authorize @votable
     return result_error unless @value
-    
+
     @votable.make_vote(current_user, @value)
     result_success
   end
@@ -19,7 +19,7 @@ module Voted
   def downvote
     authorize @votable
     return result_error unless @value
-    
+
     @votable.make_vote(current_user, @value)
     result_success
   end
@@ -42,22 +42,22 @@ module Voted
 
   def set_value
     current_score = current_user.score(@votable)
-    @value = @votable.get_value(action_name, current_score) 
+    @value = @votable.get_value(action_name, current_score)
   end
 
   def result_success
-    render json: { 
-      id: @votable.id, 
-      type: votable_type(@votable), 
+    render json: {
+      id: @votable.id,
+      type: votable_type(@votable),
       rating: @votable.rating,
       row_html: render_html_content(partial: "shared/vote", layout: false, locals: {resource: @votable})
     }
   end
 
   def result_error
-    render json: { 
-      id: @votable.id, 
-      type: votable_type(@votable), error: 'You have already voted!' 
+    render json: {
+      id: @votable.id,
+      type: votable_type(@votable), error: 'You have already voted!'
     }, status: 422
   end
 
@@ -65,7 +65,7 @@ module Voted
     # binding.pry
     question_id = @votable[:question_id] || @votable[:id]
     resourse_type = votable_type(@votable) == 'question' ? :question : :answer
-    
+
     ActionCable.server.broadcast("questions/#{question_id}/answers", id: @votable.id, type: resourse_type, author_id: current_user.id, rating: @votable.rating, action: :update_rating )
   end
 end

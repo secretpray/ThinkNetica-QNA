@@ -10,8 +10,8 @@ module Commented
   end
 
   def create_comment
-    # binding.pry
     @comment = @commentable.comments.build(comment_params)
+    authorize @comment
     # logger.debug "Comment attributes hash: #{@comment.attributes.inspect}"
     @comment.save
     respond_to do |format|
