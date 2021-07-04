@@ -2,6 +2,9 @@
   nav.navbar.navbar-expand-lg.navbar-light.bg-light.fw-lighter
     .navbar-nav.ml-auto.px-3
       = link_to 'Home', root_path, data: {item: 'Home'}, class: "#{'current' if current_page?(root_path)}"
+      - if user_signed_in?
+        - if policy(:dashboard).show?
+          = link_to 'API app', oauth_applications_path, data: {item: 'API app'}, class: "ms-3 #{'current' if current_page?(oauth_applications_path)}"
     .navbar-nav.mr-auto.px-3
       - if user_signed_in?
         = link_to current_user.email, edit_user_registration_path, id: 'account', class: "#{ 'admin' if current_user.admin? }", data: {item: current_user.email}

@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
   include Voted
   include Commented
-  
+
   before_action :authenticate_user!, except: :show
   before_action :find_question, only: [:new, :create]
   before_action :find_answer, only: %i[show edit update destroy best]
@@ -67,28 +67,28 @@ class AnswersController < ApplicationController
 
   def broadcast_answer_create
     return if @answer.errors.any?
-    
+
     SendAnswerJob.perform_later(@answer, current_user)
   end
 
   def broadcast_answer_delete
-    ActionCable.server.broadcast  "questions/#{@answer.question_id}/answers", 
-                                  id: @answer.id, 
+    ActionCable.server.broadcast  "questions/#{@answer.question_id}/answers",
+                                  id: @answer.id,
                                   author_id: @answer.user.id,
                                   answers_count: @answer.question.answers.count,
                                   action: :destroy
   end
 
   def broadcast_answer_set_best
-    reward_link = 
+    reward_link =
     if @answer.question.reward && @answer.question.reward&.badge_image&.attached?
       Rails.application.routes.url_helpers.rails_blob_url(@answer.question.reward.badge_image, only_path: true)  # @answer.question.reward&.badge_image.url
     else
       []
     end
-    
-    ActionCable.server.broadcast  "questions/#{@answer.question_id}/answers", 
-                                  id: @answer.id, 
+
+    ActionCable.server.broadcast  "questions/#{@answer.question_id}/answers",
+                                  id: @answer.id,
                                   author_id: current_user&.id, # <-> author_id: @answer.question.user.id,
                                   is_best: @answer.best?,
                                   reward_badge_image_link: reward_link,

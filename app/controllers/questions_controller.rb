@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   include Voted
   include Commented
-  
+
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_question, only: %i[show edit update destroy]
   after_action :publish_question, only: :create
@@ -47,7 +47,7 @@ class QuestionsController < ApplicationController
 
   def update
     authorize @question
- 
+
     if @question.update(question_params)
       redirect_to @question, notice: 'Question updated successfully'
     else
@@ -58,7 +58,7 @@ class QuestionsController < ApplicationController
   def destroy
     authorize @question
     # @question.destroy
-  
+
     respond_to do |format|
       if @question.destroy
         format.html { redirect_to root_path }
@@ -74,7 +74,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :body, :user_id, files: [], 
+    params.require(:question).permit(:title, :body, :user_id, files: [],
                               links_attributes: [:id, :name, :url, :_destroy],
                               reward_attributes: [:id, :name, :badge_image, :user_id, :_destroy])
   end
@@ -91,9 +91,9 @@ class QuestionsController < ApplicationController
                                   question: @question,
                                   id: @question.id,
                                   action: :delete
-    
+
     # if deleted question opened in show, redirect page location to root
-    ActionCable.server.broadcast  "questions/#{@question.id}/answers", 
+    ActionCable.server.broadcast  "questions/#{@question.id}/answers",
                                   id: @question.id,
                                   author_id: current_user.id,
                                   action: :delete_question
