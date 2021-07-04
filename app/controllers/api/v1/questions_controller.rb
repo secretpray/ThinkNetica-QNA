@@ -1,8 +1,6 @@
 class Api::V1::QuestionsController < Api::V1::BaseController
   before_action :find_question, only: %i(show update destroy)
 
-  alias current_user current_resource_owner
-
   def index
     @questions = Question.includes(:answers, :links, :comments, :user).with_attached_files
     authorize @questions
@@ -11,8 +9,7 @@ class Api::V1::QuestionsController < Api::V1::BaseController
   end
 
   def show
-    return head :not_found unless @question
-
+    # return head :not_found unless @question
     render json: @question
   end
 
@@ -21,14 +18,13 @@ class Api::V1::QuestionsController < Api::V1::BaseController
     authorize Question
 
     if question.save
-      head :created
+      render json: @answer
     else
       render json: { errors: question.errors }, status: :unprocessable_entity
     end
   end
 
   def update
-    return head :not_found unless @question
     authorize @question
 
     if @question.update(question_params)
@@ -39,7 +35,6 @@ class Api::V1::QuestionsController < Api::V1::BaseController
   end
 
   def destroy
-    return head :not_found unless @question
     authorize @question
 
     if @question.destroy!
@@ -52,7 +47,7 @@ class Api::V1::QuestionsController < Api::V1::BaseController
   private
 
   def find_question
-    @question = Question.with_attached_files.find_by_id(params[:id])
+    @question = Question.with_attached_files.find(params[:id])
   end
 
   def question_params
