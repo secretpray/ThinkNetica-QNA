@@ -4,11 +4,11 @@ describe 'Profiles API', type: :request do
   let(:headers) {{ "CONTENT_TYPE" => 'application/json',
                    "ACCEPT" => 'application/json' }}
 
-  describe 'me' do
-    let(:api_path) { '/api/v1/profiles/me' }
+  describe 'GET /api/v1/profiles/me' do
 
     it_behaves_like 'API Authorizable' do
       let(:method) { :get }
+      let(:api_path) { '/api/v1/profiles/me' }
     end
 
     context 'authorized' do
@@ -19,12 +19,12 @@ describe 'Profiles API', type: :request do
         get '/api/v1/profiles/me', params: { access_token: access_token.token }, headers: headers
       end
 
-      it 'returns 200 status' do
+      it 'returns 20x status' do
         expect(response).to be_successful
       end
 
       it 'return all public fields' do
-        %w[id email admin created_at updated_at].each do |field|
+        %w[id email role created_at updated_at].each do |field|
           expect(json['user'][field]).to eq me.send(field).as_json
         end
       end
@@ -45,7 +45,7 @@ describe 'Profiles API', type: :request do
     end
 
     context 'authorized' do
-      let(:users) { create_list(:user, 4) }
+      let(:users) { create_list(:user, 4, :admin) }
       let(:current_user) {users.last}
       let(:access_token) { create(:access_token, resource_owner_id: current_user.id) }
 
@@ -63,7 +63,7 @@ describe 'Profiles API', type: :request do
 
 
       it 'return all public fields' do
-        %w[id email admin created_at updated_at].each do |field|
+        %w[id email role created_at updated_at].each do |field|
           expect(json['users'].first[field]).to eq users.first.send(field).as_json
         end
       end

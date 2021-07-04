@@ -80,24 +80,24 @@ describe 'Answer API', type: :request do
         end
       end
 
-      # it_behaves_like 'API Commentable' do
-      #   let(:comment) { comments.first }
-      #   let(:comments_response) { json['answer']['comments'] }
-      #   let(:comment_response) { comments_response.first }
-      # end
-      #
-      # it_behaves_like 'API Linkable' do
-      #   let(:link) { links.first }
-      #   let(:links_response) { json['answer']['links'] }
-      #   let(:link_response) { links_response.first }
-      # end
-      #
-      # it_behaves_like 'API Attacheble' do
-      #   let(:file) { answer.files.first }
-      #   let(:files_response) { json['answer']['files'] }
-      #   let(:file_response) { files_response.first }
-      #   let(:files) { answer.files }
-      # end
+      it_behaves_like 'API Commentable' do
+        let(:comment) { comments.first }
+        let(:comments_response) { json['answer']['comments'] }
+        let(:comment_response) { comments_response.first }
+      end
+
+      it_behaves_like 'API Linkable' do
+        let(:link) { links.first }
+        let(:links_response) { json['answer']['links'] }
+        let(:link_response) { links_response.first }
+      end
+
+      it_behaves_like 'API Attacheble' do
+        let(:file) { answer.files.first }
+        let(:files_response) { json['answer']['files'] }
+        let(:file_response) { files_response.first }
+        let(:files) { answer.files }
+      end
     end
   end
 

@@ -87,24 +87,24 @@ describe 'Questions API', type: :request do
         end
       end
 
-      # it_behaves_like 'API Commentable' do
-      #   let(:comment) { comments.first }
-      #   let(:comments_response) { question_response['comments'] }
-      #   let(:comment_response) { comments_response.first }
-      # end
-      #
-      # it_behaves_like 'API Linkable' do
-      #   let(:link) { links.first }
-      #   let(:links_response) { question_response['links'] }
-      #   let(:link_response) { links_response.first }
-      # end
-      #
-      # it_behaves_like 'API Attacheble' do
-      #   let(:file) { question.files.first }
-      #   let(:files_response) { question_response['files'] }
-      #   let(:file_response) { files_response.first }
-      #   let(:files) { question.files }
-      # end
+      it_behaves_like 'API Commentable' do
+        let(:comment) { comments.first }
+        let(:comments_response) { question_response['comments'] }
+        let(:comment_response) { comments_response.first }
+      end
+
+      it_behaves_like 'API Linkable' do
+        let(:link) { links.first }
+        let(:links_response) { question_response['links'] }
+        let(:link_response) { links_response.first }
+      end
+
+      it_behaves_like 'API Attacheble' do
+        let(:file) { question.files.first }
+        let(:files_response) { question_response['files'] }
+        let(:file_response) { files_response.first }
+        let(:files) { question.files }
+      end
     end
   end
 
