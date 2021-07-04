@@ -32,6 +32,8 @@ gem 'omniauth-google-oauth2'
 gem 'activerecord-session_store'
 gem 'omniauth-rails_csrf_protection'
 gem 'aws-sdk-s3', require: false
+gem 'active_model_serializers', '~> 0.10.2'
+gem 'oj'
 
 group :development, :test do
   gem 'pry', '~> 0.13.1'
@@ -62,3 +64,5 @@ group :test do
 end
 
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem "doorkeeper", "~> 5.5"

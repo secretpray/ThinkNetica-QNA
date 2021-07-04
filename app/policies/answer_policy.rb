@@ -4,6 +4,10 @@ class AnswerPolicy < ApplicationPolicy
 
   attr_reader :user, :answer
 
+  def index?
+    user
+  end
+
   def new?
     user
   end

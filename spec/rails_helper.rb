@@ -13,6 +13,7 @@ require 'capybara/rspec'
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 Dir[Rails.root.join("spec/models/concerns/**/*.rb")].each {|f| require f}
 Dir[Rails.root.join("spec/controllers/concerns/**/*.rb")].each {|f| require f}
+# Dir[Rails.root.join("spec/support/shared_examples/**/*.rb")].each {|f| require f}
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -27,7 +28,7 @@ RSpec.configure do |config|
   config.include ControllerHelpers, type: :controller
   config.include FeatureHelpers, type: :feature
   config.include OmniauthHelper # OmniAuth
-
+  config.include ApiHelpers, type: :request
 
   Capybara.javascript_driver = :selenium_chrome_headless
 
