@@ -1,5 +1,11 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   use_doorkeeper # /oauth/applications
+
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   devise_for :users, controllers: { omniauth_callbacks: 'oauth_callbacks', confirmations: 'confirmations' }
 

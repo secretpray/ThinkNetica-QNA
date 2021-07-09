@@ -14,6 +14,7 @@ class Question < ApplicationRecord
   validates :title, :body, presence: true
 
   scope :recent, -> { order(created_at: :desc) }
+  scope :yesterday, -> { where('created_at > ?', Date.yesterday) }
   scope :by_answers_count, -> { joins(:answers).group("questions.id").order("count(questions.id) DESC") }
 
 end
