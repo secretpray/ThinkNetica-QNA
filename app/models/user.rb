@@ -31,4 +31,8 @@ class User < ApplicationRecord
   def self.find_for_oauth(auth)
     FindForOauthService.new(auth).call
   end
+
+  def subscribed?(question)
+    subscriptions.find_by(question_id: question.id).present?
+  end
 end

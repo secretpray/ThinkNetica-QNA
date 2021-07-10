@@ -42,17 +42,15 @@
   #users-count.d-flex.justify-content-end
   br
   #answer_list
-  - if @question.answers.any?
-    .answers_count
-      strong
-        |  #{@question.answers.count}&nbsp
-        = @question.answers.count > 1 ? 'Answers' : 'Answer'
-    /*.list-answers= render @question.answers
-    .list-answers= render partial: 'answers/answer', collection: @question.answers, as: :answer, locals: {question: @question}
-
-  - else
-    div No answers!
-    br
+    - if @question.answers.exists?
+      .answers_count
+        strong
+          |  #{@question.answers.count}&nbsp
+          = @question.answers.count > 1 ? 'Answers' : 'Answer'
+      .list-answers= render @question.answers
+    - else
+      div No answers!
+      br
   #errors-answer
 
   .your-answer.mt-3
