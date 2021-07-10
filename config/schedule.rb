@@ -18,7 +18,8 @@
 # end
 
 # bundle exec wheneverize .
-every 1.days, at: "6:00 PM"  do
+every 1.days  do
+# every 1.days, at: "1:00 PM"  do
   runner 'DailyDigestJob.perform_now'
 end
 

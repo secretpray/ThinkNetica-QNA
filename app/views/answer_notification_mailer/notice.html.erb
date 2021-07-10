@@ -1,0 +1,6 @@
+<div>
+  <p><strong><%= @answer.user.email %></strong> just answered the question '<%= @question.title %>':</p>
+  <p>User answer: <strong><%= @answer.body %></strong></p>
+</div>
+
+<div><%= link_to 'Visit the page with the answer', url_for(@question) %></div>

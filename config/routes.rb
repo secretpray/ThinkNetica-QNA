@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     resources :answers, shallow: true, concerns: [:votable, :commentable], except: :index do
       patch :best, on: :member
     end
+    resources :subscriptions, only: [:create, :destroy], shallow: true
   end
 
   namespace :api do

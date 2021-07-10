@@ -6,6 +6,7 @@ class User < ApplicationRecord
          omniauth_providers: %i[facebook github google_oauth2]
 
   has_many :authorizations, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
   has_many :questions, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :answers, dependent: :destroy

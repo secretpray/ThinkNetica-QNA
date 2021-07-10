@@ -67,5 +67,4 @@ group :test do
 end
 
 gem "letter_opener", group: :development
-
-# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# gem "letter_opener_web", "~> 1.3", ">= 1.3.4"
