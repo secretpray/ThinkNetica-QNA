@@ -1,0 +1,5 @@
+<%= @greeting %> daily questions list from QNA for yesterday:
+
+<% @questions.each do |question| %>
+  Link to <%= question.title %>: <%= url_for(question) %>
+<% end %>

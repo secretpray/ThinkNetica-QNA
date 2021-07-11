@@ -1,0 +1,8 @@
+<div><strong><%= @greeting %></strong> daily questions list from QNA for yesterday:</div>
+<ul>
+  <% @questions.each do |question| %>
+    <li>
+      <%= link_to question.title, url_for(question) %>
+    </li>
+  <% end %>
+</ul>

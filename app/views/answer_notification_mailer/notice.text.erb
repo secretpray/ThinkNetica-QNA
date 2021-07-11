@@ -1,0 +1,5 @@
+<%= @answer.user.email %> just answered the question '<%= @question.title %>':
+
+User answer: <%= @answer.body %>
+
+<%= link_to 'Visit the page with the answer', url_for(@question) %>

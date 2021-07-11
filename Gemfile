@@ -34,6 +34,10 @@ gem 'omniauth-rails_csrf_protection'
 gem 'aws-sdk-s3', require: false
 gem 'active_model_serializers', '~> 0.10.2'
 gem 'oj'
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'whenever', require: false
+gem "doorkeeper", "~> 5.5"
 
 group :development, :test do
   gem 'pry', '~> 0.13.1'
@@ -41,7 +45,6 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 4.0.1'
   gem 'factory_bot_rails'
-  gem 'letter_opener'
   gem 'capybara-email'
 end
 
@@ -63,6 +66,5 @@ group :test do
   gem 'apparition'
 end
 
-# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-gem "doorkeeper", "~> 5.5"
+gem "letter_opener", group: :development
+# gem "letter_opener_web", "~> 1.3", ">= 1.3.4"

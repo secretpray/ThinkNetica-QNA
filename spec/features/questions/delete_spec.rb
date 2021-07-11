@@ -30,7 +30,7 @@ feature 'User can delete his question', %q{
       accept_confirm do
         page.click_link("Delete")
       end
-      
+
       expect(page).to_not have_content question.title
     end
 
@@ -54,7 +54,7 @@ feature 'User can delete his question', %q{
     after(:all) do
       Capybara.use_default_driver
     end
-    
+
     scenario "tries to delete other user's question" do
       question.user_id += 1
       click_on('Home')

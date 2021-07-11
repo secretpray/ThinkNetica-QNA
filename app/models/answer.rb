@@ -1,7 +1,7 @@
 class Answer < ApplicationRecord
   include Votable
   include Commentable
-  
+
   belongs_to :question
   belongs_to :user
   has_many :links, dependent: :destroy, as: :linkable
@@ -10,6 +10,9 @@ class Answer < ApplicationRecord
   accepts_nested_attributes_for :links, allow_destroy: true, reject_if: :all_blank
 
   validates :body, presence: true
+
+  after_commit :new_answer_notify, on: :create
+  # after_create :new_answer_notify
 
   scope :by_add, -> { order(created_at: :desc) }
   scope :by_user, -> { order(user_id: :asc) }
@@ -23,5 +26,12 @@ class Answer < ApplicationRecord
       update!(best: true)
       question.reward&.update!(user: user)
     end
+  end
+
+  private
+
+  def new_answer_notify
+    AnswerNewNotificationJob.perform_later(self)
+    # AnswerNewNotificationJob.perform_later(Answer.last)
   end
 end

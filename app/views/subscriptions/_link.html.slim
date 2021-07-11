@@ -1,0 +1,4 @@
+- if Subscription.exists?(question_id: resource, user_id: current_user)
+  = link_to 'Unsubscribe', subscription_path(Subscription.find_by(user: current_user, question: resource)), method: :delete, remote: true, class: 'badge bg-success text-white'
+- else
+  = link_to 'Subscribe', question_subscriptions_path(resource), method: :post, remote: true, class: 'badge bg-secondary text-white'

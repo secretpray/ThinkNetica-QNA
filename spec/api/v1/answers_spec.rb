@@ -122,12 +122,12 @@ describe 'Answer API', type: :request do
 
         it 'return status 201' do
           post api_path, params: { answer: attributes_for(:answer, :with_link, question: question), access_token: access_token.token }
-          expect(response).to have_http_status(:created)
+          expect(response).to have_http_status(200)
         end
 
         it 'not return errors' do
           post api_path, params: { answer: attributes_for(:answer, :with_link, question: question), access_token: access_token.token }
-          expect(response.body).to be_empty
+          expect(response.body).to eq 'null'
         end
       end
 

@@ -35,7 +35,8 @@ end
 
 DATA.first.each do |question, answers|
   random_user_id = User.find(User.pluck(:id).sample).id
-  db_question = Question.create!(title: question, body: question, user_id: random_user_id)
+  db_question = Question.find_or_create_by(title: question, body: question, user_id: random_user_id)
+  # db_question = Question.create!(title: question, body: question, user_id: random_user_id)
   answers.each do |answer|
     random_id = User.offset(rand(User.count)).first.id
     Answer.create!(body: answer, question_id: db_question.id, user_id: random_id)

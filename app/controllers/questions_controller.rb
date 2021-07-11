@@ -7,7 +7,6 @@ class QuestionsController < ApplicationController
   after_action :publish_question, only: :create
   after_action :broadcast_destroy_question, only: :destroy
 
-
   def index
     @questions = Question.recent
   end

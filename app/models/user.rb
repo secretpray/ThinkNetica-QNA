@@ -6,6 +6,7 @@ class User < ApplicationRecord
          omniauth_providers: %i[facebook github google_oauth2]
 
   has_many :authorizations, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
   has_many :questions, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :answers, dependent: :destroy
@@ -29,5 +30,9 @@ class User < ApplicationRecord
 
   def self.find_for_oauth(auth)
     FindForOauthService.new(auth).call
+  end
+
+  def subscribed?(question)
+    subscriptions.find_by(question_id: question.id).present?
   end
 end

@@ -1,5 +1,9 @@
 #question_content.mt-4.mb-2 data-channel-room="#{ params[:id] }"
   h1.page-header= @question.title
+  - if user_signed_in?
+    - if policy(@question).create?
+      .subscription.d-flex.justify-content-end
+        = render 'subscriptions/link', resource: @question
   = render '/shared/vote', resource: @question
   .d-flex.justify-content-between
     h7.question-info

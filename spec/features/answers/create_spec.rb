@@ -10,7 +10,7 @@ feature 'User can give an answer', %q{
   given!(:question) { create(:question) }
 
   describe 'Authenticated user' do
-    
+
     before do
       sign_in user
       visit question_path(question)
