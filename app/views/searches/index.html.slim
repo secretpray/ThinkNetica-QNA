@@ -1,0 +1,6 @@
+h4 class="text-center"
+  ' Result:
+br
+- @result.each do |result|
+  = render result.class.to_s.downcase, resource: result
+  hr

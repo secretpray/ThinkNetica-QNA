@@ -39,3 +39,5 @@ yarn-debug.log*
 gcs.keyfile
 .DS_Store
 .idea
+config/*.sphinx.conf
+db/sphinx 

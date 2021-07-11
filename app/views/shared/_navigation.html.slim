@@ -6,6 +6,7 @@
         - if policy(:dashboard).show?
           = link_to 'API app', oauth_applications_path, data: {item: 'API app'}, class: "ms-3 #{'current' if current_page?(oauth_applications_path)}"
           = link_to 'Sidekiq', sidekiq_web_path, data: {item: 'Sidekiq'}, class: "ms-3 #{'current' if current_page?(sidekiq_web_path)}"
+      = render 'searches/form'
     .navbar-nav.mr-auto.px-3
       - if user_signed_in?
         = link_to current_user.email, edit_user_registration_path, id: 'account', class: "#{ 'admin' if current_user.admin? }", data: {item: current_user.email}
