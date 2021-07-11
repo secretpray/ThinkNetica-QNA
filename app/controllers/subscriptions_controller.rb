@@ -6,7 +6,7 @@ class SubscriptionsController < ApplicationController
   def create
     authorize Subscription
 
-    Subscription.create!(user: current_user, question: @question)
+    @question.subscriptions.create(user: current_user)
   end
 
   def destroy
