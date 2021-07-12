@@ -1,8 +1,9 @@
 class SearchService
-  TYPES = %i[all question answer comment user].freeze
+  TYPES = %w[Question Answer Comment User].freeze
 
-  def self.call(request:, type:)
-    klass = type == 'all' ? ThinkingSphinx : type.capitalize.constantize
-    klass.search ThinkingSphinx::Query.escape(request)
+  def self.call(query:, type: nil)
+    klass = TYPES.include?(type) ? type.constantize : ThinkingSphinx
+    escaped_query = ThinkingSphinx::Query.escape(query)
+    klass.search escaped_query
   end
 end

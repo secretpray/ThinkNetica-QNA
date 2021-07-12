@@ -1,14 +1,15 @@
 class SearchesController < ApplicationController
 
   def index
-    return redirect_to :root, alert: 'Request is empty' unless params['request'].present?
-    return redirect_to :root, alert: 'Unknown type' unless params['type'].present? || SearchService::TYPES.include?(params['type'])
+    params = searched_params
+    return redirect_to :root, notice: 'Search request is empty' unless params[:query].present?
 
-    @result = SearchService.call(request: params['request'], type: params['type'])
-    render :index
+    @result = SearchService.call(query: params[:query], type: params[:type])
   end
 
-  def query_params
-    params.permit(:request, :type)
+  private
+
+  def searched_params
+    params.permit(:query, :type)
   end
 end

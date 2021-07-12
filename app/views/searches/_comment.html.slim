@@ -1,1 +1,8 @@
-p= resource.body
+/*p= resource.body
+a.list-group-item.list-group-item-action href="#{question_path(resource.commentable)}"
+  .d-flex.w-100.justify-content-between
+    h5.mb-1 = resource.commentable.body
+  p.mb-1 = resource.body.truncate(200)
+  .d-flex.justify-content-between
+    small = resource.user.email
+    small.text-muted = "#{time_ago_in_words(resource.created_at)} ago"

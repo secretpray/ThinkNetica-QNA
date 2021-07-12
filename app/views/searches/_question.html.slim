@@ -1,1 +1,8 @@
-p= resource.title
+/*p= resource.title
+a.list-group-item.list-group-item-action href="#{question_path(resource)}"
+  .d-flex.w-100.justify-content-between
+    h5.mb-1 = resource.title
+  p.mb-1 = resource.body.truncate(100)
+  .d-flex.justify-content-between
+    small = resource.user.email
+    small.text-muted = "#{time_ago_in_words(resource.created_at)} ago"

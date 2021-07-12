@@ -30,11 +30,28 @@ RSpec.configure do |config|
   config.include OmniauthHelper # OmniAuth
   config.include ApiHelpers, type: :request
 
+  # Capybara.javascript_driver = :selenium_chrome
   Capybara.javascript_driver = :selenium_chrome_headless
 
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
-  config.use_transactional_fixtures = true
+  # config.use_transactional_fixtures = true
+  # Search
+  config.use_transactional_fixtures = false
+
+  config.before(:each) do
+    # Default to transaction strategy for all specs
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.append_after(:each) do
+    DatabaseCleaner.clean
+  end
+
   # OmniAuth
   OmniAuth.config.test_mode = true
   config.infer_spec_type_from_file_location!
