@@ -13,3 +13,5 @@ set :deploy_user, 'deployer'
 
 # Default value for linked_dirs is []
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system", 'storage'
+
+set :passenger_restart_with_touch, true

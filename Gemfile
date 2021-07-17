@@ -75,4 +75,4 @@ group :test do
 end
 
 gem "letter_opener", group: :development
-# gem "letter_opener_web", "~> 1.3", ">= 1.3.4"
+# -> gem "letter_opener_web", "~> 1.3", ">= 1.3.4"
