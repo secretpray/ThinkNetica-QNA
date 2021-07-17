@@ -1,0 +1,4 @@
+= form_tag searches_path, method: :get, class: "d-flex shadow-lg form-inline ms-3 search-form" do |f|
+  = text_field_tag :query, params[:query], placeholder: 'Search', class: 'px-2 me-1'
+  = select_tag :type, options_for_select(SearchService::TYPES, params[:type]), include_blank: 'Entire site', class: 'form-control me-1'
+  = submit_tag 'Search',  class: "btn btn-outline-success my-2 my-sm-0"

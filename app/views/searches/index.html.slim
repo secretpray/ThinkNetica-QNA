@@ -1,0 +1,9 @@
+h4.mt-2.text-muted.text-center Search results for "#{params[:query]}":
+
+.search-results.mt-4
+  - unless @result.any?
+    p Nothing found
+  - else
+    - @result.each do |result|
+      = render  partial: result.class.to_s.downcase, locals: { resource: result }
+      hr

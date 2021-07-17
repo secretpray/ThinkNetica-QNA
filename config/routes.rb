@@ -42,6 +42,8 @@ Rails.application.routes.draw do
     end
   end
 
+  # get 'searches/index'
+  resources :searches, only: :index
   resources :attachments, only: :destroy
   resources :links, only: :destroy
   resources :rewards, only: :index

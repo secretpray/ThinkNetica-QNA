@@ -38,6 +38,8 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'whenever', require: false
 gem "doorkeeper", "~> 5.5"
+gem 'mysql2', '~> 0.4',    :platform => :ruby
+gem 'thinking-sphinx', '~> 5.2'
 
 group :development, :test do
   gem 'pry', '~> 0.13.1'
@@ -46,6 +48,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 4.0.1'
   gem 'factory_bot_rails'
   gem 'capybara-email'
+  gem 'database_cleaner'
 end
 
 group :development do
