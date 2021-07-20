@@ -41,6 +41,7 @@ gem "doorkeeper", "~> 5.5"
 gem 'mysql2', '~> 0.4',    :platform => :ruby
 gem 'thinking-sphinx', '~> 5.2'
 gem 'mini_racer'
+gem 'spring'
 
 group :development, :test do
   gem 'pry', '~> 0.13.1'
@@ -56,7 +57,7 @@ group :development do
   gem 'web-console', '>= 4.1.0'
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen', '~> 3.3'
-  gem 'spring'
+  # gem 'spring'
   gem 'capistrano', require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rails', require: false
