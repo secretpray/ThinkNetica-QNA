@@ -57,13 +57,13 @@ group :development do
   gem 'web-console', '>= 4.1.0'
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen', '~> 3.3'
-  # gem 'spring'
   gem 'capistrano', require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-rvm', require: false
   gem 'capistrano-passenger', require: false
-  gem 'capistrano-sidekiq', require: false
+  # gem 'capistrano-sidekiq', require: false
+  gem "capistrano-sidekiq", git: "https://github.com/rwojnarowski/capistrano-sidekiq.git"
 end
 
 group :test do
