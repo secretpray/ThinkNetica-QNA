@@ -11,8 +11,8 @@ require "capistrano/sidekiq"
 require "thinking_sphinx/capistrano"
 require "whenever/capistrano"
 
-# install_plugin Capistrano::Sidekiq  # Default sidekiq tasks
-# install_plugin Capistrano::Sidekiq::Systemd 
+install_plugin Capistrano::Sidekiq  # Default sidekiq tasks
+install_plugin Capistrano::Sidekiq::Systemd
 # Load the SCM plugin appropriate to your project:
 #
 # require "capistrano/scm/hg"

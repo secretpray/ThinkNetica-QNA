@@ -20,3 +20,4 @@ SSHKit.config.command_map[:sidekiq] = "bundle exec sidekiq"
 SSHKit.config.command_map[:sidekiqctl] = "bundle exec sidekiqctl"
 set :pty,  false
 set :init_system, :systemd
+set :service_unit_name, "sidekiq.service"
