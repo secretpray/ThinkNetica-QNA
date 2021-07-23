@@ -41,10 +41,11 @@ gem "doorkeeper", "~> 5.5"
 gem 'mysql2', '~> 0.4',    :platform => :ruby
 gem 'thinking-sphinx', '~> 5.2'
 gem 'mini_racer'
-gem 'spring'
+# gem 'spring'
 
 group :development, :test do
   gem 'pry', '~> 0.13.1'
+  gem 'spring'
   gem 'pry-byebug'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 4.0.1'
