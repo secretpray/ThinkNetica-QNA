@@ -8,7 +8,8 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "@rails/actioncable"
 import "channels"
-import "@fortawesome/fontawesome-free/js/all"
+import "@fortawesome/fontawesome-free/css/all"
+// import "@fortawesome/fontawesome-free/js/all"
 
 Rails.start()
 Turbolinks.start()
@@ -23,4 +24,3 @@ require('utilities/votes')
 require('utilities/show_hide_comment')
 
 // window.Rails = Rails
-
