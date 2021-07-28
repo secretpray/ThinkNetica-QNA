@@ -97,6 +97,7 @@ GEM
     aws-sigv4 (1.2.4)
       aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.16)
+    bcrypt_pbkdf (1.1.0)
     bindex (0.8.1)
     bootsnap (1.7.5)
       msgpack (~> 1.0)
@@ -166,6 +167,7 @@ GEM
       rake (>= 12.0.0, < 14.0.0)
     doorkeeper (5.5.2)
       railties (>= 5)
+    ed25519 (1.2.4)
     erubi (1.10.0)
     execjs (2.8.1)
     factory_bot (6.2.0)
@@ -531,6 +533,7 @@ DEPENDENCIES
   activerecord-session_store
   apparition
   aws-sdk-s3
+  bcrypt_pbkdf (>= 1.0, < 2.0)
   bootsnap (>= 1.4.4)
   bootstrap (~> 5.0.0.beta1)
   byebug
@@ -547,6 +550,7 @@ DEPENDENCIES
   decent_exposure (= 3.0.0)
   devise
   doorkeeper (~> 5.5)
+  ed25519 (>= 1.2, < 2.0)
   factory_bot_rails
   gon
   google-cloud-storage (~> 1.8)

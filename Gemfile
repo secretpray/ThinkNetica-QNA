@@ -43,6 +43,8 @@ gem 'thinking-sphinx', '~> 5.2'
 gem 'mini_racer'
 gem 'spring'
 gem 'unicorn'
+gem 'ed25519', '>= 1.2', '< 2.0'
+gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
 
 group :development, :test do
   gem 'pry', '~> 0.13.1'
