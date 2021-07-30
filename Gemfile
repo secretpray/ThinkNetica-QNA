@@ -42,7 +42,7 @@ gem 'mysql2', '~> 0.4',    :platform => :ruby
 gem 'thinking-sphinx', '~> 5.2'
 gem 'mini_racer'
 # gem 'spring'
-# gem 'unicorn'
+gem 'unicorn'
 
 group :development, :test do
   gem 'pry', '~> 0.13.1'
