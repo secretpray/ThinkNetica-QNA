@@ -41,7 +41,7 @@ gem "doorkeeper", "~> 5.5"
 gem 'mysql2', '~> 0.4',    :platform => :ruby
 gem 'thinking-sphinx', '~> 5.2'
 gem 'mini_racer'
-# gem 'spring'
+gem 'spring'
 # gem 'unicorn'
 
 group :development, :test do
