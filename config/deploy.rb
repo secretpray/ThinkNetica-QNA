@@ -22,4 +22,4 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/syst
 set :pty,  false
 # set :init_system, :systemd
 # set :service_unit_name, "sidekiq.service"
-after 'deploy:publishing', 'unicorn:restart'
+# after 'deploy:publishing', 'unicorn:restart'
