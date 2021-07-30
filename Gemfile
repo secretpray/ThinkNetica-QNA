@@ -41,14 +41,12 @@ gem "doorkeeper", "~> 5.5"
 gem 'mysql2', '~> 0.4',    :platform => :ruby
 gem 'thinking-sphinx', '~> 5.2'
 gem 'mini_racer'
-gem 'spring'
-gem 'unicorn'
-# gem 'ed25519', '>= 1.2', '< 2.0'
-# gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
+# gem 'spring'
+# gem 'unicorn'
 
 group :development, :test do
   gem 'pry', '~> 0.13.1'
-  # gem 'spring'
+  gem 'spring'
   gem 'pry-byebug'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 4.0.1'
@@ -68,7 +66,6 @@ group :development do
   gem 'capistrano-passenger', require: false
   gem 'capistrano-sidekiq', require: false
   gem 'capistrano3-unicorn', require: false
-  # gem "capistrano-sidekiq", git: "https://github.com/rwojnarowski/capistrano-sidekiq.git"
 end
 
 group :test do
