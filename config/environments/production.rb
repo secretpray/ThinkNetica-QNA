@@ -67,7 +67,8 @@ Rails.application.configure do
   #   ENV['POW_DOMAINS'].present? ? 'my-app.dev' : 'localhost'
   # }
   # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  config.action_mailer.default_url_options = { host: 'http://167.99.37.58' }
+  # config.action_mailer.default_url_options = { host: 'http://167.99.37.58' }
+  config.action_mailer.default_url_options = { host: 'http://178.62.216.118' }
   config.action_mailer.perform_caching = false
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
