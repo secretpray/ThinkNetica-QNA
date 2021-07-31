@@ -43,6 +43,7 @@ gem 'thinking-sphinx', '~> 5.2'
 gem 'mini_racer'
 # gem 'spring'
 gem 'unicorn'
+gem "font-awesome-rails"
 
 group :development, :test do
   gem 'pry', '~> 0.13.1'
