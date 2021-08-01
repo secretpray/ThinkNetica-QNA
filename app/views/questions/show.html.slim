@@ -1,41 +1,42 @@
 #question_content.mt-4.mb-2 data-channel-room="#{ params[:id] }"
-  h1.page-header= @question.title
-  - if user_signed_in?
-    - if policy(@question).create?
-      .subscription.d-flex.justify-content-end
-        = render 'subscriptions/link', resource: @question
-  = render '/shared/vote', resource: @question
-  .d-flex.justify-content-between
-    h7.question-info
-      | Asked&nbsp
-      strong= time_ago_in_words(@question.created_at)
-      |  ago&nbsp
-      |  Active:&nbsp
-      strong= time_ago_in_words(@question.updated_at)
-      |  ago by&nbsp
-      span class=("activity-status user-#{@question.user.id}-status") data-user-id="#{@question.user.id}" = @question.user.email
-    .question-prize
-      - if @question.reward.present? && @question.reward.badge_image.attached?
-        | [ Reward: #{image_tag url_for(@question.reward.badge_image), size: "32x32", alt: "Reward", class: 'reward-image'} ]
-      - else
-        | [ No reward ]
-  br
-  hr
-  br
-  .grey.p10.fs-5
-    = @question.body
-  br
-  - if @question.links.any?
-    h3 Links:
-    ul
-      = render @question.links
-  br
+  - cache @question do
+    h1.page-header= @question.title
+    - if user_signed_in?
+      - if policy(@question).create?
+        .subscription.d-flex.justify-content-end
+          = render 'subscriptions/link', resource: @question
+    = render '/shared/vote', resource: @question
+    .d-flex.justify-content-between
+      h7.question-info
+        | Asked&nbsp
+        strong= time_ago_in_words(@question.created_at)
+        |  ago&nbsp
+        |  Active:&nbsp
+        strong= time_ago_in_words(@question.updated_at)
+        |  ago by&nbsp
+        span class=("activity-status user-#{@question.user.id}-status") data-user-id="#{@question.user.id}" = @question.user.email
+      .question-prize
+        - if @question.reward.present? && @question.reward.badge_image.attached?
+          | [ Reward: #{image_tag url_for(@question.reward.badge_image), size: "32x32", alt: "Reward", class: 'reward-image'} ]
+        - else
+          | [ No reward ]
+    br
+    hr
+    br
+    .grey.p10.fs-5
+      = @question.body
+    br
+    - if @question.links.any?
+      h3 Links:
+      ul
+        = render @question.links
+    br
 
-  - if @question.persisted? && @question.files.attached?
-    .mh-25
-      = render partial: 'shared/image', locals: {resource: @question}
-  hr
-  br
+    - if @question.persisted? && @question.files.attached?
+      .mh-25
+        = render partial: 'shared/image', locals: {resource: @question}
+    hr
+    br
   .question-comments.mt-2.mb-4
     = render 'comments/comments', resource: @question
 
