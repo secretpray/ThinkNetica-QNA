@@ -14,27 +14,28 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
 
-  # Enable/disable caching. By default caching is disabled.
-  config.action_controller.perform_caching = true
-  config.action_controller.enable_fragment_cache_logging = true
 
-  config.cache_store = :memory_store
-  config.public_file_server.headers = {
-    'Cache-Control' => "public, max-age=#{2.days.to_i}"
-  }
   # Run rails dev:cache to toggle caching.
-  # if Rails.root.join('tmp', 'caching-dev.txt').exist?
-  #   config.action_controller.perform_caching = true
-  #   config.action_controller.enable_fragment_cache_logging = true
-  #
-  #   config.cache_store = :memory_store
-  #   config.public_file_server.headers = {
-  #     'Cache-Control' => "public, max-age=#{2.days.to_i}"
-  #   }
-  # else
-  #   config.action_controller.perform_caching = false
-  #   config.cache_store = :null_store
-  # end
+  if Rails.root.join('tmp', 'caching-dev.txt').exist?
+    cache_servers = %w(redis://localhost:6379/0/cache)
+    config.action_controller.perform_caching = true
+    config.action_controller.enable_fragment_cache_logging = true
+    config.cache_store = :redis_cache_store, { url: cache_servers,
+      expires_in: 90.minutes,
+      # connect_timeout:    30,  # Defaults to 20 seconds
+      # read_timeout:       0.2, # Defaults to 1 second
+      # write_timeout:      0.2, # Defaults to 1 second
+      # reconnect_attempts: 1,   # Defaults to 0
+    }
+
+    # config.cache_store = :memory_store
+    # config.public_file_server.headers = {
+    #   'Cache-Control' => "public, max-age=#{2.days.to_i}"
+    # }
+  else
+    config.action_controller.perform_caching = false
+    config.cache_store = :null_store
+  end
   config.action_cable.url = "ws://localhost:3000/cable"
 
   config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/]
